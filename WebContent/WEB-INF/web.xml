@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE web-app PUBLIC "-//Sun Microsystems, Inc.//DTD Web Application 2.3//EN" "http://java.sun.com/dtd/web-app_2_3.dtd">
+<web-app>
+	<display-name>TestTomcat</display-name>
+	<servlet>
+		<servlet-name>HelloWorld</servlet-name>
+		<servlet-class>com.upmc.twister.servlets.HelloWorld</servlet-class>
+	</servlet>
+	<servlet>
+		<servlet-name>Add</servlet-name>
+		<servlet-class>com.upmc.twister.servlets.Addition</servlet-class>
+	</servlet>
+	<servlet>
+		<servlet-name>Simple</servlet-name>
+		<servlet-class>com.upmc.twister.servlets.SimpleServlet</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>HelloWorld</servlet-name>
+		<url-pattern>/hello</url-pattern>
+	</servlet-mapping>
+	<servlet-mapping>
+		<servlet-name>Add</servlet-name>
+		<url-pattern>/add</url-pattern>
+	</servlet-mapping>
+	<servlet-mapping>
+		<servlet-name>Simple</servlet-name>
+		<url-pattern>/simple</url-pattern>
+	</servlet-mapping>
+</web-app>
