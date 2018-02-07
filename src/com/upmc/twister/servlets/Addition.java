@@ -1,6 +1,7 @@
 package com.upmc.twister.servlets;
 
 import java.io.IOException;
+import java.io.PrintWriter;
 import java.util.Map;
 
 import javax.servlet.ServletException;
@@ -17,7 +18,7 @@ public class Addition extends HttpServlet {
 
 		Map<String, String[]> params = request.getParameterMap();
 		response.setContentType(" text / plain ");
-
+			
 		if (params.containsKey("a") && params.containsKey("b")
 				&& params.containsKey("op")) {
 			String op = params.get("op")[0];
@@ -28,7 +29,6 @@ public class Addition extends HttpServlet {
 				response.getWriter()
 				.println(a + " " + op + " " + b + " = " + Operation.calcul(a, b, op));
 			} catch (Exception e) {
-				
 				response.getWriter().println("An error has been occured!");
 			}
 		} else

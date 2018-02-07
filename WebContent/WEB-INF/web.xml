@@ -3,27 +3,27 @@
 <web-app>
 	<display-name>TestTomcat</display-name>
 	<servlet>
-		<servlet-name>HelloWorld</servlet-name>
-		<servlet-class>com.upmc.twister.servlets.HelloWorld</servlet-class>
+		<servlet-name>Login</servlet-name>
+		<servlet-class>com.upmc.twister.servlets.LoginServlet</servlet-class>
 	</servlet>
 	<servlet>
-		<servlet-name>Add</servlet-name>
-		<servlet-class>com.upmc.twister.servlets.Addition</servlet-class>
+		<servlet-name>Logout</servlet-name>
+		<servlet-class>com.upmc.twister.servlets.LogoutServlet</servlet-class>
 	</servlet>
 	<servlet>
-		<servlet-name>Simple</servlet-name>
-		<servlet-class>com.upmc.twister.servlets.SimpleServlet</servlet-class>
+		<servlet-name>Create</servlet-name>
+		<servlet-class>com.upmc.twister.servlets.CreateServlet</servlet-class>
 	</servlet>
 	<servlet-mapping>
-		<servlet-name>HelloWorld</servlet-name>
-		<url-pattern>/hello</url-pattern>
+		<servlet-name>Login</servlet-name>
+		<url-pattern>/user/login</url-pattern>
 	</servlet-mapping>
 	<servlet-mapping>
-		<servlet-name>Add</servlet-name>
-		<url-pattern>/add</url-pattern>
+		<servlet-name>Logout</servlet-name>
+		<url-pattern>/user/logout</url-pattern>
 	</servlet-mapping>
 	<servlet-mapping>
-		<servlet-name>Simple</servlet-name>
-		<url-pattern>/simple</url-pattern>
+		<servlet-name>Create</servlet-name>
+		<url-pattern>/user/create</url-pattern>
 	</servlet-mapping>
 </web-app>
