@@ -4,6 +4,25 @@
 -- ------------------------------------------------------
 -- Server version	5.5.58-0+deb8u1
 
+DROP DATABASE IF EXISTS `twister`;
+CREATE DATABASE twister;
+USE twister;
+--
+-- Table structure for table `User`
+--
+
+DROP TABLE IF EXISTS `User`;
+
+CREATE TABLE `User` (
+  `id_user` int(10) unsigned NOT NULL AUTO_INCREMENT,
+  `last_name` varchar(30) NOT NULL,
+  `first_name` varchar(30) NOT NULL,
+  `username` varchar(50) NOT NULL,
+  `password` varchar(64) NOT NULL,
+  PRIMARY KEY (`id_user`),
+  UNIQUE KEY `username` (`username`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
 --
 -- Table structure for table `Connection`
 --
@@ -20,7 +39,7 @@ CREATE TABLE `Connection` (
   KEY `idx_connection` (`key`,`id`,`timestamp`),
   CONSTRAINT `fk_cnx_id` FOREIGN KEY (`id`) REFERENCES `User` (`id_user`) ON DELETE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
-;
+
 
 --
 -- Table structure for table `Friends`
@@ -38,19 +57,4 @@ CREATE TABLE `Friends` (
   CONSTRAINT `fk_from_id` FOREIGN KEY (`from_id`) REFERENCES `User` (`id_user`) ON DELETE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
---
--- Table structure for table `User`
---
-
-DROP TABLE IF EXISTS `User`;
-
-CREATE TABLE `User` (
-  `id_user` int(10) unsigned NOT NULL AUTO_INCREMENT,
-  `last_name` varchar(30) NOT NULL,
-  `first_name` varchar(30) NOT NULL,
-  `username` varchar(50) NOT NULL,
-  `password` varchar(64) NOT NULL,
-  PRIMARY KEY (`id_user`),
-  UNIQUE KEY `username` (`username`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 

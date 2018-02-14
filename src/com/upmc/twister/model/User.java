@@ -1,6 +1,8 @@
 package com.upmc.twister.model;
 
-import java.util.HashSet;
+import java.util.Map;
+import java.util.Map.Entry;
+import com.upmc.twister.dao.*;
 
 public class User {
 	private int id;
@@ -12,6 +14,21 @@ public class User {
 	public User(int id) {
 		super();
 		this.id = id;
+	}
+
+	/**
+	 * @param lastName
+	 * @param firstName
+	 * @param username
+	 * @param password
+	 */
+	public User(String lastName, String firstName, String username,
+			String password) {
+		super();
+		this.lastName = lastName;
+		this.firstName = firstName;
+		this.username = username;
+		this.password = password;
 	}
 
 	public int getId() {
@@ -102,6 +119,30 @@ public class User {
 		} else if (!username.equals(other.username))
 			return false;
 		return true;
+	}
+
+	public static void fill(User user, Map<String, Object> data) {
+		if (data == null || user == null)
+			return;
+		for (Entry<String, Object> entry : data.entrySet()) {
+			switch (entry.getKey()) {
+			case TwisterContract.UserEntry._ID:
+				user.setId((int) entry.getValue());
+				break;
+			case TwisterContract.UserEntry.COLUMN_FIRST_NAME:
+				user.setFirstName((String) entry.getValue());
+				break;
+			case TwisterContract.UserEntry.COLUMN_LAST_NAME:
+				user.setLastName((String) entry.getValue());
+				break;
+			case TwisterContract.UserEntry.COLUMN_USERNAME:
+				user.setUsername((String) entry.getValue());
+				break;
+			case TwisterContract.UserEntry.COLUMN_PASSWORD:
+				user.setPassword((String) entry.getValue());
+				break;
+			}
+		}
 	}
 
 }

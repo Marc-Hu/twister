@@ -3,6 +3,7 @@ package test.upmc.twister.services;
 import static org.junit.Assert.assertNotNull;
 
 import java.sql.SQLException;
+import java.util.UUID;
 
 import org.junit.After;
 import org.junit.Before;

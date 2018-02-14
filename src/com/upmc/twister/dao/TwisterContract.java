@@ -3,7 +3,7 @@ package com.upmc.twister.dao;
 public final class TwisterContract {
 	public static boolean mysql_pooling = false;
 	public static String mysql_host = "localhost";
-	public static String mysql_password = "root";
+	public static String mysql_password = "";
 	public static String mysql_username = "root";
 	public static String mysql_db = "twister";
 

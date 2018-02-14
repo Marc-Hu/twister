@@ -7,56 +7,47 @@ import java.util.Random;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import com.upmc.twister.dao.DAOFactory;
+import com.upmc.twister.dao.UserConnectionDAO;
+import com.upmc.twister.dao.UserDAO;
 import com.upmc.twister.model.User;
+import com.upmc.twister.model.UserConnection;
 
 public class ServiceTools {
-	public static boolean isExist(String username) throws SQLException {
+	public static boolean isExist(String username) throws Exception {
+		UserDAO userDAO = (UserDAO) DAOFactory.USER_DAO.get();
 
-		return false;
-	} 	
-
-	public static boolean checkPassword(String username, String password)
-			throws SQLException {
-		return false;
+		return userDAO.isExist(username);
 	}
 
-	public static String insertConnection(int id, boolean root)
+	public static boolean checkPassword(String username, String password)
 			throws Exception {
-		byte[] array = new byte[7]; // length is bounded by 7
-		new Random().nextBytes(array);
-		String generatedString = new String(array, Charset.forName("UTF-8"));
-		ConnectionTools.addKey(generatedString, id);
-		return generatedString;
+		UserDAO userDAO = (UserDAO) DAOFactory.USER_DAO.get();
+
+		return userDAO.checkPassword(username, password);
+	}
+
+	public static String insertConnection(int id, boolean root)throws Exception {
+		UserConnectionDAO ucDAO = (UserConnectionDAO) DAOFactory.USER_CONNECTION_DAO.get();
+		UserConnection uc = new UserConnection(id, root);
+		ucDAO.create(uc);
+		return uc.getKey();
 	}
 
 	public static int getUserId(String username) throws Exception {
-		return 0;
+		UserDAO userDAO = (UserDAO) DAOFactory.USER_DAO.get();
+
+		return userDAO.find(username).getId();
 	}
 
-	public static JSONObject serviceRefused(String desc, int code) {
-		JSONObject error = null;
-		try {
-
-			error = new JSONObject();
-			error.put("description", desc);
-			error.put("code", code);
-		} catch (JSONException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		return error;
+	public static boolean isConnected(String key) {
+		// TODO Auto-generated method stub
+		return false;
 	}
 
-	public static JSONObject serviceAccepted() {
-		JSONObject response = null;
-		try {
-			response = new JSONObject();
-			response.put("SUCCESS", true);
-			return response;
-		} catch (JSONException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		return response;
+	public static void removeKey(String key) {
+		// TODO Auto-generated method stub
+		
 	}
+
 }

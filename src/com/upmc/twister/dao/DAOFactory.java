@@ -17,4 +17,7 @@ public enum DAOFactory {
 		return value.toString();
 		
 	}
+	public DAO get(){
+		return value;
+	}
 }

@@ -12,16 +12,17 @@ import org.json.JSONObject;
 
 import com.upmc.twister.services.UserServices;
 
-public class CreateServlet extends HttpServlet{
+public class CreateServlet extends HttpServlet {
 	@Override
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp)
 			throws ServletException, IOException {
 		// TODO Auto-generated method stub
 		resp.setContentType("text/plain");
-		JSONObject json =  UserServices.create(req.getParameter("username"), req.getParameter("password"),
-				req.getParameter("f_name"),req.getParameter("l_name"));
+		JSONObject json = UserServices.create(req.getParameter("l_name"),
+				req.getParameter("f_name"), req.getParameter("username"),
+				req.getParameter("password"));
 		PrintWriter out = resp.getWriter();
 		out.println(json);
-		
+
 	}
 }

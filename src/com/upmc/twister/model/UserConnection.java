@@ -1,6 +1,7 @@
 package com.upmc.twister.model;
 
 import java.util.Date;
+import java.util.UUID;
 
 public class UserConnection {
 	private String key;
@@ -14,6 +15,18 @@ public class UserConnection {
 		this.user = user;
 		time = new Date();
 		root = false;
+	}
+	
+	/**
+	 * @param user
+	 * @param root
+	 */
+	public UserConnection(int id, boolean root) {
+		super();
+		key = UUID.randomUUID().toString().replace("-", "");
+		this.user = new User(id);
+		this.root = root;
+		time = new Date();
 	}
 
 	public String getKey() {
