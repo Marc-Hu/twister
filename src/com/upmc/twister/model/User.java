@@ -3,47 +3,15 @@ package com.upmc.twister.model;
 import java.util.HashSet;
 
 public class User {
-	private static HashSet<User> users = new HashSet<User>();
 	private int id;
-	private String name;
-	private String userName;
+	private String lastName;
+	private String firstName;
+	private String username;
 	private String password;
 
-	/**
-	 * @param name
-	 * @param userName
-	 * @param password
-	 */
-	public User(String name, String userName, String password) {
+	public User(int id) {
 		super();
-		id = users.size()+1;
-		this.name = name;
-		this.userName = userName;
-		this.password = password;
-	}
-
-	public String getName() {
-		return name;
-	}
-
-	public void setName(String name) {
-		this.name = name;
-	}
-
-	public String getUserName() {
-		return userName;
-	}
-
-	public void setUserName(String userName) {
-		this.userName = userName;
-	}
-
-	public String getPassword() {
-		return password;
-	}
-
-	public void setPassword(String password) {
-		this.password = password;
+		this.id = id;
 	}
 
 	public int getId() {
@@ -54,16 +22,51 @@ public class User {
 		this.id = id;
 	}
 
+	public String getLastName() {
+		return lastName;
+	}
+
+	public void setLastName(String lastName) {
+		this.lastName = lastName;
+	}
+
+	public String getFirstName() {
+		return firstName;
+	}
+
+	public void setFirstName(String firstName) {
+		this.firstName = firstName;
+	}
+
+	public String getUsername() {
+		return username;
+	}
+
+	public void setUsername(String username) {
+		this.username = username;
+	}
+
+	public String getPassword() {
+		return password;
+	}
+
+	public void setPassword(String password) {
+		this.password = password;
+	}
+
 	@Override
 	public int hashCode() {
 		final int prime = 31;
 		int result = 1;
+		result = prime * result
+				+ ((firstName == null) ? 0 : firstName.hashCode());
 		result = prime * result + id;
-		result = prime * result + ((name == null) ? 0 : name.hashCode());
+		result = prime * result
+				+ ((lastName == null) ? 0 : lastName.hashCode());
 		result = prime * result
 				+ ((password == null) ? 0 : password.hashCode());
 		result = prime * result
-				+ ((userName == null) ? 0 : userName.hashCode());
+				+ ((username == null) ? 0 : username.hashCode());
 		return result;
 	}
 
@@ -76,57 +79,29 @@ public class User {
 		if (getClass() != obj.getClass())
 			return false;
 		User other = (User) obj;
+		if (firstName == null) {
+			if (other.firstName != null)
+				return false;
+		} else if (!firstName.equals(other.firstName))
+			return false;
 		if (id != other.id)
 			return false;
-		if (name == null) {
-			if (other.name != null)
+		if (lastName == null) {
+			if (other.lastName != null)
 				return false;
-		} else if (!name.equals(other.name))
+		} else if (!lastName.equals(other.lastName))
 			return false;
 		if (password == null) {
 			if (other.password != null)
 				return false;
 		} else if (!password.equals(other.password))
 			return false;
-		if (userName == null) {
-			if (other.userName != null)
+		if (username == null) {
+			if (other.username != null)
 				return false;
-		} else if (!userName.equals(other.userName))
+		} else if (!username.equals(other.username))
 			return false;
 		return true;
-	}
-
-	public static boolean add(User user) {
-		return users.add(user);
-	}
-
-	public static boolean remove(User user) {
-		return users.remove(user);
-	}
-
-	public static boolean isExist(String username) {
-		for (User user : users) {
-			if(user.userName.equals(username))
-				return true;
-		}
-		return false;
-	}
-
-	public static boolean checkPassword(String username, String password) {
-		for (User user : users) {
-			if(user.userName.equals(username)&&user.password.equals(password))
-				return true;
-		}
-		return false;
-	
-	}
-
-	public static int getUserId(String username) throws Exception {
-		for (User user : users) {
-			if(user.userName.equals(username))
-				return user.id;
-		}
-		throw new Exception("User don't EXIST");
 	}
 
 }

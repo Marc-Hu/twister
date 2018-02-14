@@ -40,16 +40,15 @@ public class UserServices {
 		}
 	}
 	
-	public static JSONObject create(String username, String password, String name){
-		if (username == null || password == null || name==null)
+	public static JSONObject create(String username, String password, String f_name,String l_name){
+		if (username == null || password == null || f_name==null||l_name==null)
 			return ServiceTools.serviceRefused(WRONG_PARAMETERS,
 					WRONG_PARAMETERS_CODE);
 		try {
 			if (ServiceTools.isExist(username))
 				return ServiceTools.serviceRefused(USER_EXISTS,
 						UNKWOWN_USER_CODE);
-			User user = new User(name, username, password);
-			User.add(user);
+			// TODO create user
 			return ServiceTools.serviceAccepted();
 		} catch (Exception e) {
 			e.printStackTrace();

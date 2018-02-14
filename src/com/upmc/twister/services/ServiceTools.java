@@ -12,12 +12,12 @@ import com.upmc.twister.model.User;
 public class ServiceTools {
 	public static boolean isExist(String username) throws SQLException {
 
-		return User.isExist(username);
+		return false;
 	} 	
 
 	public static boolean checkPassword(String username, String password)
 			throws SQLException {
-		return User.checkPassword(username, password);
+		return false;
 	}
 
 	public static String insertConnection(int id, boolean root)
@@ -30,7 +30,7 @@ public class ServiceTools {
 	}
 
 	public static int getUserId(String username) throws Exception {
-		return User.getUserId(username);
+		return 0;
 	}
 
 	public static JSONObject serviceRefused(String desc, int code) {

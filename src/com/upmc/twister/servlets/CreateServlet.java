@@ -18,7 +18,8 @@ public class CreateServlet extends HttpServlet{
 			throws ServletException, IOException {
 		// TODO Auto-generated method stub
 		resp.setContentType("text/plain");
-		JSONObject json =  UserServices.create(req.getParameter("username"), req.getParameter("password"), req.getParameter("name"));
+		JSONObject json =  UserServices.create(req.getParameter("username"), req.getParameter("password"),
+				req.getParameter("f_name"),req.getParameter("l_name"));
 		PrintWriter out = resp.getWriter();
 		out.println(json);
 		
