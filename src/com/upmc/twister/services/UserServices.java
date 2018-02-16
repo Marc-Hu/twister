@@ -5,8 +5,6 @@ import org.json.JSONObject;
 import com.upmc.twister.model.User;
 import com.upmc.twister.dao.*;
 
-import com.upmc.twister.servlets.Response;
-
 public class UserServices {
 
 	public static JSONObject login(String username, String password) {
@@ -19,7 +17,7 @@ public class UserServices {
 			if (!ServiceTools.checkPassword(username, password))
 				return Response.WRONG_PASSWORD.parse();
 
-			int id = ServiceTools.getUserId(username);
+			long id = ServiceTools.getUserId(username);
 			String key = ServiceTools.insertConnection(id, false);
 			JSONObject response = new JSONObject();
 			response.put("key", key);

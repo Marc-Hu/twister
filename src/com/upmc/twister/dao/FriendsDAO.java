@@ -2,13 +2,17 @@ package com.upmc.twister.dao;
 
 import com.upmc.twister.model.Friends;
 import com.upmc.twister.model.User;
-
+/**
+ * 
+ * 
+ * 
+ * */
 public class FriendsDAO  extends DAO{
 
 	@Override
 	public void create(Object o) throws DBException {
 		// TODO Auto-generated method stub
-		if(!checkParamter(o, Friends.class))
+		if(!checkParameter(o, Friends.class))
 			return;
 		Friends f = (Friends)o;
 		
@@ -17,7 +21,7 @@ public class FriendsDAO  extends DAO{
 	@Override
 	public void update(Object o) throws DBException {
 		// TODO Auto-generated method stub
-		if(!checkParamter(o, Friends.class))
+		if(!checkParameter(o, Friends.class))
 			return;
 		Friends f = (Friends)o;
 		
@@ -26,7 +30,7 @@ public class FriendsDAO  extends DAO{
 	@Override
 	public void delete(Object o) throws DBException {
 		// TODO Auto-generated method stub
-		if(!checkParamter(o, Friends.class))
+		if(!checkParameter(o, Friends.class))
 			return;
 		Friends f = (Friends)o;
 		

@@ -22,7 +22,7 @@ public class MyTests {
 	}
 
 	@Test
-	public void test() throws SQLException {
+	public void test() throws SQLException, ClassNotFoundException {
 		assertNotNull(Database.getMySQLConnection());
 	}
 

@@ -27,17 +27,18 @@ public class ServiceTools {
 		return userDAO.checkPassword(username, password);
 	}
 
-	public static String insertConnection(int id, boolean root)throws Exception {
+	public static String insertConnection(long id, boolean root)throws Exception {
 		UserConnectionDAO ucDAO = (UserConnectionDAO) DAOFactory.USER_CONNECTION_DAO.get();
 		UserConnection uc = new UserConnection(id, root);
 		ucDAO.create(uc);
 		return uc.getKey();
 	}
 
-	public static int getUserId(String username) throws Exception {
+	public static long getUserId(String username) throws Exception {
 		UserDAO userDAO = (UserDAO) DAOFactory.USER_DAO.get();
 
 		return userDAO.find(username).getId();
+		
 	}
 
 	public static boolean isConnected(String key) {

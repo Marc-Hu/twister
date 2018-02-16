@@ -1,8 +1,12 @@
-package com.upmc.twister.servlets;
+package com.upmc.twister.services;
 
 import org.json.JSONException;
 import org.json.JSONObject;
-
+/**
+ * The Response enum contains constants of the messages and codes returned 
+ * by as JSON format by the API
+ * 
+ * */
 public enum Response  {
 	OK("OK",200),
 	CREATED("CREATED",201),
@@ -27,6 +31,10 @@ public enum Response  {
 	private Response(String message) {
 		this.message = message;
 	}
+	
+	/**
+	 * parse the value to a json object
+	 * */
 	public JSONObject parse(){
 		JSONObject response = null;
 		try {

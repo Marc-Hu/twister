@@ -21,8 +21,9 @@ public class UserConnection {
 	 * @param user
 	 * @param root
 	 */
-	public UserConnection(int id, boolean root) {
+	public UserConnection(long id, boolean root) {
 		super();
+		// generate a random string of 32 length 
 		key = UUID.randomUUID().toString().replace("-", "");
 		this.user = new User(id);
 		this.root = root;

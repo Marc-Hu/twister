@@ -27,8 +27,9 @@ public class Database {
 		return dataSource.getConnection();
 	}
 
-	public static Connection getMySQLConnection() throws SQLException {
+	public static Connection getMySQLConnection() throws SQLException, ClassNotFoundException {
 		if (TwisterContract.mysql_pooling == false) {
+			Class.forName("com.mysql.jdbc.Driver"); 
 			return DriverManager.getConnection("jdbc:mysql://"
 					+ TwisterContract.mysql_host + "/" + TwisterContract.mysql_db,
 					TwisterContract.mysql_username, TwisterContract.mysql_password);
