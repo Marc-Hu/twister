@@ -31,7 +31,7 @@ public class Database {
 		if (TwisterContract.mysql_pooling == false) {
 			Class.forName("com.mysql.jdbc.Driver"); 
 			return DriverManager.getConnection("jdbc:mysql://"
-					+ TwisterContract.mysql_host + "/" + TwisterContract.mysql_db,
+					+ TwisterContract.mysql_host + "/" + TwisterContract.db_name,
 					TwisterContract.mysql_username, TwisterContract.mysql_password);
 		} else {
 			if (database == null) {

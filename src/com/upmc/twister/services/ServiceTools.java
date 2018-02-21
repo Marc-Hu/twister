@@ -1,16 +1,8 @@
 package com.upmc.twister.services;
 
-import java.nio.charset.Charset;
-import java.sql.SQLException;
-import java.util.Random;
-
-import org.json.JSONException;
-import org.json.JSONObject;
-
 import com.upmc.twister.dao.DAOFactory;
 import com.upmc.twister.dao.UserConnectionDAO;
 import com.upmc.twister.dao.UserDAO;
-import com.upmc.twister.model.User;
 import com.upmc.twister.model.UserConnection;
 
 public class ServiceTools {
@@ -41,14 +33,16 @@ public class ServiceTools {
 		
 	}
 
-	public static boolean isConnected(String key) {
+	public static boolean isConnected(String key) throws Exception {
 		// TODO Auto-generated method stub
-		return false;
+		UserConnectionDAO  ucDAO = (UserConnectionDAO)DAOFactory.USER_CONNECTION_DAO.get();
+		
+		return ucDAO.isConnected(key);
 	}
 
-	public static void removeKey(String key) {
-		// TODO Auto-generated method stub
-		
+	public static void removeKey(String key) throws Exception {
+		UserConnectionDAO  ucDAO = (UserConnectionDAO)DAOFactory.USER_CONNECTION_DAO.get();
+		ucDAO.delete(new UserConnection(key));		
 	}
 
 }
