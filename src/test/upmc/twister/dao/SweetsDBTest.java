@@ -38,7 +38,7 @@ public class SweetsDBTest {
 		List<Comment> comments = new ArrayList<>();
 		comments.add(new Comment(2, "Hi, Welcome"));
 		comments.add(new Comment(1, "thanks"));
-		comments.add(new Comment(3, "Noobs"));
+		comments.add(new Comment(3, "Noobs!"));
 		comments.add(new Comment(2, "Go Away!!"));
 		comments.get(0).setLikes(Arrays.asList(new Like(1)));
 		comments.get(1).setLikes(Arrays.asList(new Like(2), new Like(3)));

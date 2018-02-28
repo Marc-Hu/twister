@@ -82,11 +82,36 @@ public class UserDAO extends AbstractDAO {
 	}
 
 	@Override
-	public void delete(Object o) {
+	public void delete(Object o) throws Exception {
 		if (!checkParameter(o, User.class))
 			return;
 		User user = (User) o;
-		// TODO Auto-generated method stub
+		try {
+			// get the connection
+			cnx = Database.getMySQLConnection();
+			
+			String query = "DELETE FROM "
+					+ TwisterContract.UserEntry.TABLE_NAME + " WHERE "
+					+ TwisterContract.UserEntry._ID +" = ? ";
+					
+					
+					
+			// prepare the query
+			st = (PreparedStatement) cnx.prepareStatement(query);
+			// fill the query with data
+			st.setLong(1, user.getId());
+			// execute 
+			st.executeUpdate();
+
+
+
+		} catch (Exception e) {
+			e.printStackTrace();
+
+			throw new DBException(e.getMessage());
+		} finally {
+			close();
+		}
 
 	}
 	/**
