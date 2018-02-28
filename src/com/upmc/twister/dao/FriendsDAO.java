@@ -9,7 +9,7 @@ import com.upmc.twister.model.Friends;
  * 
  * 
  * */
-public class FriendsDAO  extends DAO{
+public class FriendsDAO  extends AbstractDAO{
 
 	@Override
 	public void create(Object o) throws Exception {

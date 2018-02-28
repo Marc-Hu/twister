@@ -21,7 +21,7 @@ import com.upmc.twister.model.User;
  * @author Marc Hu
  * @version 1.0
  */
-public class UserDAO extends DAO {
+public class UserDAO extends AbstractDAO {
 	/**
 	 * <p>The create method persist a User object to the UserEntry
 	 * table.</p><p>The class must check first if the parameter is an instance of the

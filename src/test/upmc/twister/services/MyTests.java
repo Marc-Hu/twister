@@ -10,6 +10,7 @@ import org.junit.Before;
 import org.junit.Test;
 
 import com.upmc.twister.dao.Database;
+import com.upmc.twister.dao.MongoConnection;
 
 public class MyTests {
 
@@ -22,8 +23,13 @@ public class MyTests {
 	}
 
 	@Test
-	public void test() throws SQLException, ClassNotFoundException {
+	public void testMySQLConnection() throws SQLException, ClassNotFoundException {
 		assertNotNull(Database.getMySQLConnection());
 	}
+	@Test
+	public void testMongoDBConnectio() {
+		assertNotNull(MongoConnection.getInstance());
+	}
+	
 
 }

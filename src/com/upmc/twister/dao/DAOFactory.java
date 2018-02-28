@@ -19,9 +19,9 @@ public enum DAOFactory {
 	/** a Singleton to USER_CONNECTION_DAO */
 	USER_CONNECTION_DAO(new UserConnectionDAO());
 
-	private DAO value;
+	private AbstractDAO value;
 
-	private DAOFactory(DAO dao) {
+	private DAOFactory(AbstractDAO dao) {
 		this.value = dao;
 
 	}
@@ -38,7 +38,7 @@ public enum DAOFactory {
 	 * each implementation
 	 * @return dao
 	 */
-	public DAO get() {
+	public AbstractDAO get() {
 		return value;
 	}
 }

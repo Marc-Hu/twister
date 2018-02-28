@@ -21,7 +21,7 @@ import com.upmc.twister.model.UserConnection;
  * @author Marc Hu
  * @version 1.0
  */
-public class UserConnectionDAO extends DAO {
+public class UserConnectionDAO extends AbstractDAO {
 
 	/**
 	 * <p>The create method persist a UserConnection object to the UserConnectionEntry
@@ -115,7 +115,7 @@ public class UserConnectionDAO extends DAO {
 	}
 
 	@Override
-	public UserConnection find(int id) throws DBException {
+	public UserConnection find(int userId) throws DBException {
 		// TODO Auto-generated method stub
 		return null;
 	}

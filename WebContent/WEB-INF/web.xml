@@ -28,6 +28,7 @@
 		<url-pattern>/user/create</url-pattern>
 	</servlet-mapping>
 	
+	
 	<recource-ref>
 		<description>DB Connection</description>
 		<res-ref-name>jdbc/Database</res-ref-name>
