@@ -81,17 +81,68 @@ public class UserConnectionDAO extends DAO {
 	}
 
 	@Override
-	public void delete(Object o) throws DBException {
+	public void delete(Object o) throws Exception {
 		// TODO Auto-generated method stub
 		if (!checkParameter(o, UserConnection.class))
 			return;
 		UserConnection uc = (UserConnection) o;
+		try {
+			// get the connection
+			cnx = Database.getMySQLConnection();
+			// the insert into query using the UserConnectionEntry constants
+			String query = "DELETE FROM "
+					+ TwisterContract.UserConnectionEntry.TABLE_NAME + " WHERE "
+					+ TwisterContract.UserConnectionEntry._ID +" = ? ";
+					
+					
+					
+			// prepare the query
+			st = (PreparedStatement) cnx.prepareStatement(query);
+			// fill the query with data
+			st.setString(1, uc.getKey());
+			// execute 
+			st.executeUpdate();
+
+
+
+		} catch (Exception e) {
+			e.printStackTrace();
+
+			throw new DBException(e.getMessage());
+		} finally {
+			close();
+		}
 	}
 
 	@Override
 	public UserConnection find(int id) throws DBException {
 		// TODO Auto-generated method stub
 		return null;
+	}
+	public boolean isConnected(String key) throws Exception{
+		boolean test = false;
+		try {
+			cnx = Database.getMySQLConnection();
+			// query select id from user where username = ? 
+			String query = "SELECT " + TwisterContract.UserConnectionEntry._ID + " FROM " 
+					+ TwisterContract.UserConnectionEntry.TABLE_NAME+ " WHERE " + 
+					TwisterContract.UserConnectionEntry._ID + " = ?;";
+
+			st = (PreparedStatement) cnx.prepareStatement(query);
+			st.setString(1, key);
+			// execute the query
+			rs = st.executeQuery();
+			// if the user exists then rs.next() will return true
+			test = rs.next();
+
+		} catch (Exception e) {
+			e.printStackTrace();
+			throw new DBException(e.getMessage());
+		} finally {
+			close();
+		}
+		return test;
+		
 	}
 
 }

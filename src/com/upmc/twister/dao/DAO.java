@@ -8,7 +8,6 @@ import java.util.HashMap;
 import java.util.Map;
 
 import com.mysql.jdbc.PreparedStatement;
-import com.upmc.twister.model.User;
 
 /**
  * <p>

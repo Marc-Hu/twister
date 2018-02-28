@@ -9,12 +9,10 @@ public class UserConnection {
 	private Date time;
 	private boolean root;
 
-	public UserConnection(String key, User user) {
+	public UserConnection(String key) {
 		super();
 		this.key = key;
-		this.user = user;
-		time = new Date();
-		root = false;
+
 	}
 	
 	/**
