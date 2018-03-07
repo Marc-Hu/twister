@@ -123,7 +123,7 @@ public class UserDAO extends AbstractDAO {
 	 * @throws Exception 
 	 */
 	@Override
-	public User find(int id) throws Exception {
+	public User find(long id) throws Exception {
 		User user = new User();
 		try {
 			// get connection
@@ -138,7 +138,7 @@ public class UserDAO extends AbstractDAO {
 			// prepare the statement
 			st = (PreparedStatement) cnx.prepareStatement(query);
 			// set the id 
-			st.setInt(1, id);
+			st.setLong(1, id);
 			// execute the query 
 			rs = st.executeQuery();
 			
@@ -200,6 +200,35 @@ public class UserDAO extends AbstractDAO {
 			close();
 		}
 		return user;
+	}
+	/**
+	 * This method check if a user exists in the UserEntry table
+	 * @param username
+	 * @return true if the user exists
+	 * */
+	public boolean isExist(long userId) throws Exception {
+		boolean test = false;
+		try {
+			cnx = Database.getMySQLConnection();
+			// query select id from user where id = ? 
+			String query = "SELECT " + TwisterContract.UserEntry._ID + " FROM " 
+					+ TwisterContract.UserEntry.TABLE_NAME+ " WHERE " + 
+					TwisterContract.UserEntry._ID + " = ?;";
+
+			st = (PreparedStatement) cnx.prepareStatement(query);
+			st.setLong(1, userId);
+			// execute the query
+			rs = st.executeQuery();
+			// if the user exists then rs.next() will return true
+			test = rs.next();
+
+		} catch (Exception e) {
+			e.printStackTrace();
+			throw new DBException(e.getMessage());
+		} finally {
+			close();
+		}
+		return test;
 	}
 	
 	/**

@@ -15,8 +15,8 @@ public final class TwisterContract {
 	 * 
 	 * */
 	public static boolean mysql_pooling = false;
-	public static String mysql_host = "localhost";
-	public static String mysql_password = "root";
+	public static String mysql_host = "localhost:3307";
+	public static String mysql_password = "nazareth";
 	public static String mysql_username = "root";
 	public static String db_name = "twister";
 	
@@ -57,7 +57,7 @@ public final class TwisterContract {
 	 * */
 	public static class UserConnectionEntry {
 		public static final String TABLE_NAME = "Connection";
-		public static final String _ID = "`key`";
+		public static final String _ID = "keycnx";
 		public static final String COLUMN_USER = "id";
 		public static final String COLUMN_TIMESTAMP = "timestamp";
 		public static final String COLUMN_ROOT = "root";

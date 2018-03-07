@@ -1,7 +1,11 @@
 package com.upmc.twister.model;
 
 import java.util.Date;
+import java.util.Map;
 import java.util.UUID;
+import java.util.Map.Entry;
+
+import com.upmc.twister.dao.TwisterContract;
 
 public class UserConnection {
 	private String key;
@@ -42,6 +46,9 @@ public class UserConnection {
 
 	public void setUser(User user) {
 		this.user = user;
+	}
+	public void setUser(long userId) {
+		this.user = new User(userId);
 	}
 
 	public Date getTime() {
@@ -100,5 +107,36 @@ public class UserConnection {
 		return true;
 	}
 	
+	/**
+	 * This method takes a user connection and its data as a map
+	 * it's iterate through each Entry in the map then check the key of the map
+	 * and set the data according to that column  
+	 * each key in this map is a column of the UserConnectionEntry class,
+	 * 
+	 * */
+	public static void fill(UserConnection uc, Map<String, Object> data) {
+		if (data == null || uc == null)
+			return;
+		// iterate through the map using the the Map.Entry class
+		for (Entry<String, Object> entry : data.entrySet()) {
+			// get they entry key
+			switch (entry.getKey()) {
+				// the current data is an id
+				case TwisterContract.UserConnectionEntry._ID:
+					// set the user id
+					uc.setKey((String)entry.getValue());
+					break;
+				case TwisterContract.UserConnectionEntry.COLUMN_ROOT:
+					uc.setRoot((Boolean) entry.getValue());
+					break;
+				case TwisterContract.UserConnectionEntry.COLUMN_USER:
+					uc.setUser((long) entry.getValue());
+					break;
+				case TwisterContract.UserConnectionEntry.COLUMN_TIMESTAMP:
+					//uc.setTime((String) entry.getValue());
+					break;
 
+			}
+		}
+	}
 }

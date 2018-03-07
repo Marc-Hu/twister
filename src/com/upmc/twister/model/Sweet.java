@@ -1,12 +1,15 @@
 package com.upmc.twister.model;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 import org.bson.types.ObjectId;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.mongodb.BasicDBObject;
+import com.mongodb.DBObject;
 
 /** 
  * This class represent a tweet */
@@ -15,6 +18,8 @@ public class Sweet {
 	private String sweet;
 	private long userId;
 	private List<Comment> comments = new ArrayList<Comment>();
+	private List<Like> likes = new ArrayList<Like>();
+
 	
 	/**
 	 * @param sweet
@@ -63,17 +68,26 @@ public class Sweet {
 		this.comments = comments;
 	}
 
+	
+	
+	public List<Like> getLikes() {
+		return likes;
+	}
+	public void setLikes(List<Like> likes) {
+		this.likes = likes;
+	}
+	
 	@Override
 	public int hashCode() {
 		final int prime = 31;
 		int result = 1;
 		result = prime * result + ((comments == null) ? 0 : comments.hashCode());
 		result = prime * result + ((id == null) ? 0 : id.hashCode());
+		result = prime * result + ((likes == null) ? 0 : likes.hashCode());
 		result = prime * result + ((sweet == null) ? 0 : sweet.hashCode());
 		result = prime * result + (int) (userId ^ (userId >>> 32));
 		return result;
 	}
-
 	@Override
 	public boolean equals(Object obj) {
 		if (this == obj)
@@ -93,6 +107,11 @@ public class Sweet {
 				return false;
 		} else if (!id.equals(other.id))
 			return false;
+		if (likes == null) {
+			if (other.likes != null)
+				return false;
+		} else if (!likes.equals(other.likes))
+			return false;
 		if (sweet == null) {
 			if (other.sweet != null)
 				return false;
@@ -102,8 +121,6 @@ public class Sweet {
 			return false;
 		return true;
 	}
-
-	
 	public String toString() {
 		ObjectMapper mapper = new ObjectMapper();
 	
@@ -117,5 +134,11 @@ public class Sweet {
 		}
 		return "Error";
 	}
-	
+	public DBObject toDBObject() {
+	    return new BasicDBObject()
+	                     .append("sweet",sweet)
+	                     .append("userId", userId)
+	                     .append("comments", Comment.asDBObjects(comments))
+	                     .append("likes", Like.asDBObjects(likes));
+	}
 }

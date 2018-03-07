@@ -8,6 +8,8 @@ import org.bson.types.ObjectId;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.mongodb.BasicDBObject;
+import com.mongodb.DBObject;
 
 public class Comment {
 
@@ -132,4 +134,19 @@ public class Comment {
 		return "Error";
 	}
 	
+	public DBObject toDBObject() {
+		return new BasicDBObject()
+				.append("comment",comment)
+				.append("userId",userId)
+				.append("date", date)
+				.append("likes", Like.asDBObjects(likes));
+	}
+	public static Object asDBObjects(List<Comment> comments) {
+		// TODO Auto-generated method stub
+		List<DBObject> commentsDBObjects = new ArrayList<DBObject>();
+		for (Comment cmt : comments) {
+			commentsDBObjects.add(cmt.toDBObject());
+		}
+		return commentsDBObjects;
+	}
 }

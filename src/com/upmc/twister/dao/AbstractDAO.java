@@ -44,13 +44,18 @@ public abstract class AbstractDAO implements DAO, AutoCloseable  {
 	 * 
 	 * @throws Exception
 	 */
-	public void close() throws Exception {
-		if (cnx != null)
-			cnx.close();
-		if (st != null)
-			st.close();
-		if (rs != null)
-			rs.close();
+	public void close() throws DBException {
+		try {
+			if (cnx != null)
+				cnx.close();
+			if (st != null)
+				st.close();
+			if (rs != null)
+				rs.close();
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			throw new DBException(e.getMessage());
+		}
 	}
 
 	/**

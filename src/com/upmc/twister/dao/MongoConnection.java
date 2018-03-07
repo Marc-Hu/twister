@@ -1,15 +1,11 @@
 package com.upmc.twister.dao;
 
-import static org.bson.codecs.configuration.CodecRegistries.fromProviders;
-import static org.bson.codecs.configuration.CodecRegistries.fromRegistries;
+import java.net.UnknownHostException;
 
 import org.apache.log4j.Logger;
-import org.bson.codecs.configuration.CodecRegistry;
-import org.bson.codecs.pojo.PojoCodecProvider;
 
+import com.mongodb.DB;
 import com.mongodb.MongoClient;
-import com.mongodb.MongoClientOptions;
-import com.mongodb.client.MongoDatabase;
 
 public class MongoConnection {
 
@@ -24,10 +20,13 @@ public class MongoConnection {
 		logger.debug("Bootstraping");
 		if (mongoClient == null) {
 			logger.debug("Starting Mongo");
-			CodecRegistry pojoCodecRegistry = fromRegistries(MongoClient.getDefaultCodecRegistry(),
-					fromProviders(PojoCodecProvider.builder().automatic(true).build()));
-			mongoClient = new MongoClient("localhost",
-					MongoClientOptions.builder().codecRegistry(pojoCodecRegistry).build());
+
+			try {
+				mongoClient = new MongoClient("localhost",27017);
+			} catch (UnknownHostException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
 
 			logger.info("About to connect to MongoDB @ loalhost");
 
@@ -53,8 +52,8 @@ public class MongoConnection {
 		}
 	}
 
-	public static MongoDatabase getDatabase(String name) {
-		return mongoClient.getDatabase(name);
+	public static DB getDatabase(String name) {
+		return mongoClient.getDB(name);
 	}
 	public static MongoClient getInstance() {
 		if (mongoClient == null)

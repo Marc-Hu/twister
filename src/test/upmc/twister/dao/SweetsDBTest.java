@@ -11,6 +11,8 @@ import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
+import com.mongodb.DBCursor;
+import com.mongodb.DBObject;
 import com.upmc.twister.dao.MongoConnection;
 import com.upmc.twister.dao.SweetsDB;
 import com.upmc.twister.dao.TwisterContract;
@@ -46,10 +48,11 @@ public class SweetsDBTest {
 
 		sweetsdb.create(sweet);
 
-		Sweet s = sweetsdb.getSweetsCollection().find().first();
-		assertNotNull(s);
-		System.out.println(s);
-
+		DBCursor cursor =  sweetsdb.getSweetsCollection().find();
+		
+		for(DBObject o:cursor) {
+			System.out.println(o);
+		}
 	}
 	/*
 	 * @Test public void testUpdate() { }

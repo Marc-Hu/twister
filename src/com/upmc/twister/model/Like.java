@@ -1,9 +1,13 @@
 package com.upmc.twister.model;
 
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.mongodb.BasicDBObject;
+import com.mongodb.DBObject;
 
 public class Like {
 	private long userId;
@@ -65,6 +69,20 @@ public class Like {
 			e.printStackTrace();
 		}
 		return "Error";
+	}
+	public DBObject toDBObject() {
+		return new BasicDBObject()
+				.append("userId", userId)
+				.append("time",date);
+	}
+	public static List<DBObject> asDBObjects(List<Like> likes) {
+		// TODO Auto-generated method stub
+		List<DBObject> likesDBObjects = new ArrayList<DBObject>();
+		for (Like like : likes) {
+			
+			likesDBObjects.add(like.toDBObject());
+		}
+		return likesDBObjects;
 	}
 	
 	

@@ -34,5 +34,5 @@ public interface DAO {
 	 * 
 	 * @param id
 	 */
-	public abstract Object find(int id) throws Exception;
+	public abstract Object find(long id) throws Exception;
 }
