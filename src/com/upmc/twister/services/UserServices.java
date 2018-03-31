@@ -21,7 +21,6 @@ public class UserServices {
 
 			long id = ServiceTools.getUserId(username);
 			String key = ServiceTools.insertConnection(id, false);
-//			String key="e";
 			JSONObject response = new JSONObject();
 			response.put("key", key);
 			return response;
@@ -48,7 +47,22 @@ public class UserServices {
 			e.printStackTrace();
 			return Response.INTERNAL_SERVER_ERROR.parse();
 		}
-
+	}
+	
+	public static JSONObject getProfile(String username) {
+		if(username==null)
+			return Response.BAD_REQUEST.parse();
+		try {
+			User user = ServiceTools.getUserProfile(username);
+			JSONObject response = new JSONObject();
+			response.put("firstname", user.getFirstName());
+			response.put("lastname", user.getLastName());
+			response.put("username", user.getUsername());
+			return response;
+		}catch(Exception e) {
+			e.printStackTrace();
+			return Response.INTERNAL_SERVER_ERROR.parse();
+		}
 	}
 
 	public static JSONObject logout(String key) {

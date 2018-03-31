@@ -27,6 +27,10 @@
 		<servlet-name>Sweet</servlet-name>
 		<servlet-class>com.upmc.twister.servlets.SweetServlet</servlet-class>
 	</servlet>
+	<servlet>
+		<servlet-name>GetProfile</servlet-name>
+		<servlet-class>com.upmc.twister.servlets.GetProfileByUsernameServlet</servlet-class>
+	</servlet>
 	<servlet-mapping>
 		<servlet-name>Login</servlet-name>
 		<url-pattern>/user/login</url-pattern>
@@ -50,6 +54,10 @@
 	<servlet-mapping>
 		<servlet-name>Sweet</servlet-name>
 		<url-pattern>/sweet</url-pattern>
+	</servlet-mapping>
+	<servlet-mapping>
+		<servlet-name>GetProfile</servlet-name>
+		<url-pattern>/user/profile</url-pattern>
 	</servlet-mapping>
 	
 	

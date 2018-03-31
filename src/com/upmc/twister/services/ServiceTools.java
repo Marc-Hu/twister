@@ -50,6 +50,11 @@ public class ServiceTools {
 		return userDAO.find(username).getId();
 
 	}
+	
+	public static User getUserProfile(String username) throws Exception{
+		UserDAO userDAO = (UserDAO) DAOFactory.USER_DAO.get();
+		return userDAO.find(username);
+	}
 
 	public static boolean isConnected(String key) throws Exception {
 		// TODO Auto-generated method stub
