@@ -30,7 +30,7 @@ CREATE TABLE `User` (
 DROP TABLE IF EXISTS `Connection`;
 
 CREATE TABLE `Connection` (
-  `key` varchar(32) NOT NULL,
+  `keycnx` varchar(32) NOT NULL,
   `id` int(11) unsigned NOT NULL,
   `timestamp` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `root` tinyint(1) NOT NULL,

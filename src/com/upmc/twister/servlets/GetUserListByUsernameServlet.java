@@ -12,7 +12,7 @@ import org.json.JSONObject;
 
 import com.upmc.twister.services.UserServices;
 
-public class GetUserListByUsername extends HttpServlet{
+public class GetUserListByUsernameServlet extends HttpServlet{
 	@Override
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp)
 			throws ServletException, IOException {

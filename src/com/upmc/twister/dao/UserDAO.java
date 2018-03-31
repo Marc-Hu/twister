@@ -204,12 +204,20 @@ public class UserDAO extends AbstractDAO {
 		return user;
 	}
 	
+	/**
+	 * Fonction qui créer une requête SQL. Renvoie la liste des personne dont le username contient une partie
+	 * du paramètre en entré
+	 * @param username
+	 * @return
+	 * @throws Exception
+	 */
 	public List<User> getUsersByUsername(String username) throws Exception {
 		List<User> userlist = new ArrayList<>();
 		try {
 			cnx = Database.getMySQLConnection();
 			// query: select columns from User where username =? 
-			String query = "SELECT " + TwisterContract.UserEntry.COLUMN_LAST_NAME+", "
+			String query = "SELECT " + TwisterContract.UserEntry._ID+", "
+					+ TwisterContract.UserEntry.COLUMN_LAST_NAME+", "
 					+ TwisterContract.UserEntry.COLUMN_FIRST_NAME+", "
 					+ TwisterContract.UserEntry.COLUMN_USERNAME+ " FROM "
 					+ TwisterContract.UserEntry.TABLE_NAME+ " WHERE "

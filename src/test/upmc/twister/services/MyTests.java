@@ -66,9 +66,8 @@ public class MyTests {
 //	}
 	@Test
 	public void list() throws JSONException {
-		System.out.println(UserServices.getUserListByUsername("g").toString());
-
-
+//		System.out.println(UserServices.getUserListByUsername("g").toString());
+		System.out.println(UserServices.login("geron", "a"));
 
 	}
 	

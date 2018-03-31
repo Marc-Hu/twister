@@ -11,19 +11,15 @@ import javax.servlet.http.HttpServletResponse;
 import org.json.JSONObject;
 
 import com.upmc.twister.services.UserServices;
-/**
- * Servlet qui permet de renvoyer un user par rapport à son username
- * @author march
- *
- */
-public class GetProfileByUsernameServlet extends HttpServlet{
+
+public class ListFollowedServlet extends HttpServlet {
 	@Override
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp)
 			throws ServletException, IOException {
 		// TODO Auto-generated method stub
 		resp.setContentType("text/plain");
 		
-		JSONObject json = UserServices.getProfile(req.getParameter("username"));
+		JSONObject json = UserServices.getListFollowed(new Long(req.getParameter("id")));
 		PrintWriter out = resp.getWriter();
 		out.println(json);
 

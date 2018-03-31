@@ -6,6 +6,7 @@ import org.json.JSONArray;
 import org.json.JSONObject;
 
 import com.upmc.twister.model.Comment;
+import com.upmc.twister.model.Friends;
 import com.upmc.twister.model.Sweet;
 import com.upmc.twister.model.User;
 import com.upmc.twister.dao.*;
@@ -61,6 +62,7 @@ public class UserServices {
 			response.put("firstname", user.getFirstName());
 			response.put("lastname", user.getLastName());
 			response.put("username", user.getUsername());
+			response.put("id", user.getId());
 			return response;
 		}catch(Exception e) {
 			e.printStackTrace();
@@ -193,6 +195,33 @@ public class UserServices {
 				user.put("firstname", u.getFirstName());
 				user.put("lastname", u.getLastName());
 				user.put("username", u.getUsername());
+				
+				ja.put(user);
+			}
+			response.put("list", ja);
+			return response;
+
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			return Response.INTERNAL_SERVER_ERROR.parse();
+		}
+	}
+	
+	public static JSONObject getListFollowed(long id) {
+		Long id_user = id;
+		if(id_user==null)
+			return Response.BAD_REQUEST.parse();
+		try {
+			List<Friends> userlist = ServiceTools.listFollowed(id);
+			JSONObject response = new JSONObject();
+			JSONArray ja = new JSONArray();
+			for (Friends u : userlist) {
+				JSONObject user = new JSONObject();
+				user.put("followed_id", u.getFollower().getId());
+				user.put("followed_lastname", u.getFollower().getLastName());
+				user.put("followed_firstname", u.getFollower().getFirstName());
+				user.put("followed_username", u.getFollower().getUsername());
+				user.put("time", u.getTime());
 				
 				ja.put(user);
 			}

@@ -1,9 +1,14 @@
 package com.upmc.twister.dao;
 
 import java.sql.Statement;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Map;
 
 import com.mysql.jdbc.PreparedStatement;
 import com.upmc.twister.model.Friends;
+import com.upmc.twister.model.User;
+import com.upmc.twister.services.ServiceTools;
 
 /**
  * 
@@ -52,8 +57,43 @@ public class FriendsDAO extends AbstractDAO {
 		Friends f = (Friends) o;
 
 	}
-
-	@Override
+	public List<Friends> getUsersByUsername(long id) throws Exception {
+		List<Friends> friendlist = new ArrayList<>();
+		try {
+			cnx = Database.getMySQLConnection();
+			// query: select columns from User where username =? 
+			String query = "SELECT " + TwisterContract.FriendsEntry.COLUMN_FOLLOWED+", "
+					+ TwisterContract.FriendsEntry.COLUMN_TIMESTAMP+" FROM "
+					+ TwisterContract.FriendsEntry.TABLE_NAME+ " WHERE "
+					+ TwisterContract.FriendsEntry.COLUMN_FOLLOWER + " = "+ id+";";
+			// prepare query
+			st = (PreparedStatement) cnx.prepareStatement(query);
+			// execute it
+			rs = st.executeQuery();
+			// get the result, the username is unique,
+			//so there might be just one result to read
+			User from = new User();
+			User to = new User();
+			while (rs.next()) {
+				// get the data 
+				Map<String,Object> data = readResultSet(TwisterContract.FriendsEntry.COLUMN_FOLLOWED,
+						TwisterContract.FriendsEntry.COLUMN_TIMESTAMP);
+				
+				// fill the user
+				System.out.println(data.get("to_id").toString());
+				from = ServiceTools.getUserInUserTable(new Long(data.get("to_id").toString()));
+				to=ServiceTools.getUserInUserTable(id);
+				friendlist.add(new Friends(from, to));
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+			throw new DBException(e.getMessage());
+		} finally {
+			close();
+		}
+		return friendlist;
+	}
+	
 	public void delete(Object o) throws DBException {
 		// TODO Auto-generated method stub
 		if (!checkParameter(o, Friends.class))

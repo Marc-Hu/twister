@@ -33,7 +33,11 @@
 	</servlet>
 	<servlet>
 		<servlet-name>GetListUser</servlet-name>
-		<servlet-class>com.upmc.twister.servlets.GetUserListByUsername</servlet-class>
+		<servlet-class>com.upmc.twister.servlets.GetUserListByUsernameServlet</servlet-class>
+	</servlet>
+	<servlet>
+		<servlet-name>GetListFollowed</servlet-name>
+		<servlet-class>com.upmc.twister.servlets.ListFollowedServlet</servlet-class>
 	</servlet>
 	<servlet-mapping>
 		<servlet-name>Login</servlet-name>
@@ -66,6 +70,10 @@
 	<servlet-mapping>
 		<servlet-name>GetListUser</servlet-name>
 		<url-pattern>/user/list</url-pattern>
+	</servlet-mapping>
+	<servlet-mapping>
+		<servlet-name>GetListFollowed</servlet-name>
+		<url-pattern>/user/listFollowed</url-pattern>
 	</servlet-mapping>
 	
 	
