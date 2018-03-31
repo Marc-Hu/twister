@@ -1,5 +1,7 @@
 package com.upmc.twister.services;
 
+import java.util.List;
+
 import com.upmc.twister.dao.DAOFactory;
 import com.upmc.twister.dao.DBException;
 import com.upmc.twister.dao.FriendsDAO;
@@ -25,6 +27,11 @@ public class ServiceTools {
 	public static User getUser(String key) throws DBException {
 		UserConnectionDAO ucDAO = (UserConnectionDAO) DAOFactory.USER_CONNECTION_DAO.get();
 		return ucDAO.find(key).getUser();
+	}
+	
+	public static List<User> getUserList(String username) throws Exception {
+		UserDAO userDAO = (UserDAO) DAOFactory.USER_DAO.get();
+		return userDAO.getUsersByUsername(username);
 	}
 
 	public static boolean checkPassword(String username, String password) throws Exception {
@@ -80,5 +87,7 @@ public class ServiceTools {
 		FriendsDAO fDAO = (FriendsDAO) DAOFactory.FRIENDS_DAO.get();
 		fDAO.delete(f);
 	}
+	
+	
 
 }

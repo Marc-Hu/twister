@@ -31,6 +31,10 @@
 		<servlet-name>GetProfile</servlet-name>
 		<servlet-class>com.upmc.twister.servlets.GetProfileByUsernameServlet</servlet-class>
 	</servlet>
+	<servlet>
+		<servlet-name>GetListUser</servlet-name>
+		<servlet-class>com.upmc.twister.servlets.GetUserListByUsername</servlet-class>
+	</servlet>
 	<servlet-mapping>
 		<servlet-name>Login</servlet-name>
 		<url-pattern>/user/login</url-pattern>
@@ -58,6 +62,10 @@
 	<servlet-mapping>
 		<servlet-name>GetProfile</servlet-name>
 		<url-pattern>/user/profile</url-pattern>
+	</servlet-mapping>
+	<servlet-mapping>
+		<servlet-name>GetListUser</servlet-name>
+		<url-pattern>/user/list</url-pattern>
 	</servlet-mapping>
 	
 	

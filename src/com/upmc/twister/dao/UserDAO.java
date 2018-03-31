@@ -1,6 +1,8 @@
 package com.upmc.twister.dao;
 
 import java.sql.Statement;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Map;
 
 import com.mysql.jdbc.PreparedStatement;
@@ -201,6 +203,42 @@ public class UserDAO extends AbstractDAO {
 		}
 		return user;
 	}
+	
+	public List<User> getUsersByUsername(String username) throws Exception {
+		List<User> userlist = new ArrayList<>();
+		try {
+			cnx = Database.getMySQLConnection();
+			// query: select columns from User where username =? 
+			String query = "SELECT " + TwisterContract.UserEntry.COLUMN_LAST_NAME+", "
+					+ TwisterContract.UserEntry.COLUMN_FIRST_NAME+", "
+					+ TwisterContract.UserEntry.COLUMN_USERNAME+ " FROM "
+					+ TwisterContract.UserEntry.TABLE_NAME+ " WHERE "
+					+ TwisterContract.UserEntry.COLUMN_USERNAME + " LIKE '%"+username+"%';";
+			// prepare query
+			st = (PreparedStatement) cnx.prepareStatement(query);
+			// execute it
+			rs = st.executeQuery();
+			// get the result, the username is unique,
+			//so there might be just one result to read
+			while (rs.next()) {
+				// get the data 
+				Map<String,Object> data = readResultSet(TwisterContract.UserEntry.COLUMN_LAST_NAME,
+						TwisterContract.UserEntry.COLUMN_FIRST_NAME, 
+						TwisterContract.UserEntry.COLUMN_USERNAME);
+				
+				// fill the user
+				userlist.add(new User());
+				User.fill(userlist.get(userlist.size()-1),data );
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+			throw new DBException(e.getMessage());
+		} finally {
+			close();
+		}
+		return userlist;
+	}
+	
 	/**
 	 * This method check if a user exists in the UserEntry table
 	 * @param username

@@ -1,5 +1,8 @@
 package com.upmc.twister.services;
 
+import java.util.List;
+
+import org.json.JSONArray;
 import org.json.JSONObject;
 
 import com.upmc.twister.model.Comment;
@@ -171,6 +174,30 @@ public class UserServices {
 			SweetsDB sweetsDB = new SweetsDB();
 			sweetsDB.addComment(sweetId, new Comment(user.getId(),commentMessage));
 			return Response.OK.parse();
+
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			return Response.INTERNAL_SERVER_ERROR.parse();
+		}
+	}
+	
+	public static JSONObject getUserListByUsername(String username) {
+		if(username==null)
+			return Response.BAD_REQUEST.parse();
+		try {
+			List<User> userlist = ServiceTools.getUserList(username);
+			JSONObject response = new JSONObject();
+			JSONArray ja = new JSONArray();
+			for (User u : userlist) {
+				JSONObject user = new JSONObject();
+				user.put("firstname", u.getFirstName());
+				user.put("lastname", u.getLastName());
+				user.put("username", u.getUsername());
+				
+				ja.put(user);
+			}
+			response.put("list", ja);
+			return response;
 
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
