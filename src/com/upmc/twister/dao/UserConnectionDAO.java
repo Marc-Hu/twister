@@ -1,6 +1,7 @@
 package com.upmc.twister.dao;
 
 import java.sql.Statement;
+import java.sql.Timestamp;
 import java.util.Map;
 
 import com.mysql.jdbc.PreparedStatement;
@@ -59,14 +60,16 @@ public class UserConnectionDAO extends AbstractDAO {
 			cnx = Database.getMySQLConnection();
 			// the insert into query using the UserConnectionEntry constants
 			String query = "INSERT INTO " + TwisterContract.UserConnectionEntry.TABLE_NAME + " ("
+					+ TwisterContract.UserConnectionEntry.COLUMN_TIMESTAMP + "," 
 					+ TwisterContract.UserConnectionEntry._ID + "," + TwisterContract.UserConnectionEntry.COLUMN_USER
-					+ "," + TwisterContract.UserConnectionEntry.COLUMN_ROOT + ") " + "VALUES (?, ?, ?);";
+					+ "," + TwisterContract.UserConnectionEntry.COLUMN_ROOT + ") " + "VALUES (?, ?, ?, ?);";
 			// prepare the query
 			st = (PreparedStatement) cnx.prepareStatement(query, Statement.RETURN_GENERATED_KEYS);
 			// fill the query with data
-			st.setString(1, uc.getKey());
-			st.setLong(2, uc.getUser().getId());
-			st.setBoolean(3, uc.isRoot());
+			st.setString(1, new Timestamp(System.currentTimeMillis()).toString());
+			st.setString(2, uc.getKey());
+			st.setLong(3, uc.getUser().getId());
+			st.setBoolean(4, uc.isRoot());
 			// execute the query
 			st.executeUpdate();
 

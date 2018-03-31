@@ -21,6 +21,7 @@ public class UserServices {
 
 			long id = ServiceTools.getUserId(username);
 			String key = ServiceTools.insertConnection(id, false);
+//			String key="e";
 			JSONObject response = new JSONObject();
 			response.put("key", key);
 			return response;
