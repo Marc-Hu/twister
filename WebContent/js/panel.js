@@ -66,7 +66,3 @@ function setSweetDefaultPanel(){
     $('.contenu-message').text("");
     $('.user-message').text("");
 }
-
-function addComment(comment_parent){
-    
-}

@@ -46,19 +46,6 @@ $(document).ready(function() {
         $('#password_lost').show();
     });
 
-    /**
-     * Clique sur le bouton pour voir ou réduire les commentaires d'un post
-     */
-    $('.show-com').click(function(e) {
-        console.log("Appuie sur le bouton commentaire");
-        if($(this).parent().find('.commentaire-item').first().is(":visible")){
-            $(this).parent().find('.commentaire-item').first().hide();
-            $(this).text('+ Commentaires');
-        } else {
-            $(this).parent().find('.commentaire-item').first().show();
-            $(this).text('- Commentaires');
-        }
-    });
     // Fonction qui sera appelé lorsqu'on clique sur la barre de recherche
     $('#bar-recherche').click(function(e){
        console.log("Appuie dans la barre de recherche");
@@ -163,8 +150,6 @@ var current_user=null;
  * Fonction qui va initialiser
  */
 function init(){
-    $('.add_comment').val("");//Bug des textarea, par défaut il y a plein d'espace et on ne voit pas le placeholder
-    $('#new-message').val("");//Pareil que celui au dessus
     hideAll();
     if(!isLogged()){
         // $('#login').hide()
@@ -290,11 +275,41 @@ function setListenerTofollow(){
             var followed_id = $(this).attr('id').split("_")[1]; //Récupère l'id du followed grâce à son id qui est userId_X
             // console.log(followed_id);
             unfollow(key, followed_id); //Appel du service
+            getListFollowed();
         }
     });
     $(".followed_username").click(function(e){
         // console.log($(this).text());
         var username = $(this).text();
         getProfileByUsername(username);
+    });
+
+}
+
+function setListenerToSweet(){
+    $('.add_comment').val("");//Bug des textarea, par défaut il y a plein d'espace et on ne voit pas le placeholder
+    $('#new-message').val("");//Pareil que celui au dessus
+    /**
+     * Clique sur le bouton pour voir ou réduire les commentaires d'un post
+     */
+    $('.show-com').click(function(e) {
+        console.log("Appuie sur le bouton commentaire");
+        if($(this).parent().find('.commentaire-item').first().is(":visible")){
+            $(this).parent().find('.commentaire-item').first().hide();
+            $(this).text('+ Commentaires');
+        } else {
+            $(this).parent().find('.commentaire-item').first().show();
+            $(this).text('- Commentaires');
+        }
     })
+
+    $('.add_comment_button').mousedown(function(e){
+        var sweet_id = $(this).parent().parent().parent().attr('id');
+        var message = $(this).parent().find('.add_comment').val();
+        console.log(sweet_id, message);
+        if(message.length!=0){
+            // console.log("not empty")
+            addComment(sweet_id, message)
+        }
+    });
 }

@@ -106,7 +106,7 @@ function getProfile(){
     $.getJSON(url, function(data, status){
         // console.log(1);
     }).done(function(data){
-        console.log(2, data);
+        // console.log(2, data);
         if (data.hasOwnProperty("username")){
             console.log("success get profile")
             $('#profile_username_board').text(data.username);
@@ -114,7 +114,7 @@ function getProfile(){
             $('#myprofile_lastname').text(data.lastname);
             $('#myprofile_firstname').text(data.firstname);
             localStorage.setItem("user_id", data.id);
-            showMainPage();
+            // showMainPage();
         }else{
             console.log("error");
         }
@@ -131,7 +131,7 @@ function getProfileByUsername(username){
     $.getJSON(url, function(data, status){
         console.log(1, "getProfileByUsername");
     }).done(function(data){
-        console.log(2, data);
+        // console.log(2, data);
         if(data.hasOwnProperty("firstname")){ //Si l'utilisateur existe
             console.log("Get profile by username success")
             current_user=data; //On met dans une var globale l'utilisateur
@@ -155,7 +155,7 @@ function getProfileByUsernameForSearch(username){
     $.getJSON(url, function(data, status){
         console.log(1, "getProfileByUsername");
     }).done(function(data){
-        console.log(2, data);
+        // console.log(2, data);
         if(data.hasOwnProperty("firstname")){ //Si l'utilisateur existe
             current_user=data; //On met dans une var globale l'utilisateur
             setUserProfile(data);//On va mettre à jour la page des profils
@@ -229,7 +229,7 @@ function unfollow(from_key, to_id){
     $.getJSON(url, function(data, status){
         console.log(1, "unfollow");
     }).done(function(data){
-        console.log(2, data);
+        // console.log(2, data);
         if(data.code==200){
             alert("Vous ne suivez plus cette personne");
             showFollow();
@@ -249,7 +249,7 @@ function getListFollowed(){
     $.getJSON(url, function(data, status){
         console.log(1, "getListFollowed");
     }).done(function(data){
-        console.log(2, data);
+        // console.log(2, data);
         if(data.list.length!=0){
             list_follow=data.list;
             setListFollowed();
@@ -288,9 +288,9 @@ function getSweetById(id){
     $.getJSON(url, function(data, status){
         console.log(1, "getSweetById");
     }).done(function(data){
-        console.log(2, data);
+        // console.log(2, data);
         if(data.code==200){
-            console.log(3, data.list);
+            // console.log(3, data.list);
             // $('#new-message').val("");
             fillSweet(data.list);
         }
@@ -315,7 +315,7 @@ function getProfileById(id){
         // console.log("Status de la réponse: %d (%s)", req.status, req.statusText, req.responseText);
         response=JSON.parse(req.statusText);
     }
-    console.log(response)
+    // console.log(response)
     return response;
 }
 
@@ -326,22 +326,37 @@ function getProfileById(id){
 function getSweet(list){
     var url = "http://localhost:8080/Twister/sweet/getSweet?";
     var i = 0;
-    console.log(1, list)
+    // console.log(1, list)
     list.forEach(function(e){
         // console.log(e);
         url=url+"user_"+i+"="+e.followed_id+"&";
         i++;
     })
     url=url+"user_"+i+"="+localStorage.getItem("user_id");
-    console.log(url);
+    // console.log(url);
     $.getJSON(url, function(data, status){
-        console.log(1, "getSweetById");
+        console.log(1, "getSweet");
     }).done(function(data){
-        console.log(2, data);
+        // console.log(2, data);
         if(data.code==200){
-            console.log(3, data.list);
+            // console.log(3, data.list);
             fillSweet(data.list); //On appelle la fonction qui va afficher les sweets sur la page main
             // $('#new-message').val("");
+        }
+    });
+}
+
+function addComment(sweet_id, comment){
+    var url = "http://localhost:8080/Twister/sweet/addComment?key="+localStorage.getItem("user-key")+"&sweetId="+sweet_id+"&commentMessage="+comment;
+    $.getJSON(url, function(data, status){
+        // console.log(1, "getSweetById");
+    }).done(function(data){
+        // console.log(2, data);
+        if(data.code==200){
+            // console.log(3, data.list);
+            // $('#new-message').val("");
+            // console.log("success")
+            getSweet(list_follow) //On récupère les nouveaux messages
         }
     });
 }

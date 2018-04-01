@@ -51,6 +51,10 @@
 		<servlet-name>GetSweet</servlet-name>
 		<servlet-class>com.upmc.twister.servlets.GetSweetServlet</servlet-class>
 	</servlet>
+	<servlet>
+		<servlet-name>AddComment</servlet-name>
+		<servlet-class>com.upmc.twister.servlets.AddCommentServlet</servlet-class>
+	</servlet>
 	<servlet-mapping>
 		<servlet-name>Login</servlet-name>
 		<url-pattern>/user/login</url-pattern>
@@ -98,6 +102,10 @@
 	<servlet-mapping>
 		<servlet-name>GetSweet</servlet-name>
 		<url-pattern>/sweet/getSweet</url-pattern>
+	</servlet-mapping>
+	<servlet-mapping>
+		<servlet-name>AddComment</servlet-name>
+		<url-pattern>/sweet/addComment</url-pattern>
 	</servlet-mapping>
 	
 	

@@ -9,6 +9,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import org.bson.types.ObjectId;
 import org.json.JSONArray;
 import org.json.JSONObject;
 
@@ -115,7 +116,10 @@ public class SweetsDB implements DAO {
 	}
 	
 	public void addComment(String id,Comment comment) {
-		
+		BasicDBObject newComment = new BasicDBObject().append("$push",
+				new BasicDBObject().append("comments", comment.toDBObject()));
+		System.out.println(id);
+		sweets.update(new BasicDBObject("_id", new ObjectId(id)), newComment);
 	}
 	public void removeComment(String id,Comment comment) {
 		

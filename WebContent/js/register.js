@@ -31,7 +31,7 @@ $(document).ready(function() {
         }else if (password!=repeat){ //Si les deux mots de passe sont différent
             $('#msg-err-register').text("Les deux mots de passe doivent être identitque")
         }else if (field_valid){ //Si le formaulaire est valide
-            console.log("form good")
+            // console.log("form good")
             $('#msg-err-register').text("")
             $('#register_button_register').prop("disabled", false)
         }else if (!verifEmail(email) && $('#register_email').hasClass("touched")){ //Si l'email ne correspond pas à un email valide
@@ -75,10 +75,4 @@ function verifEmail(email){
  */
 function getMyProfile(){
     getProfile();
-    // console.log(profile);
-    // $('#profile_username_board').text(profile.username);
-    // $('#myprofile_username').text(profile.username);
-    // $('#myprofile_lastname').text(profile.lastname);
-    // $('#myprofile_firstname').text(profile.firstname);
-    // localStorage.setItem("user_id", profile.id); //On sauvegarde l'id car on en aura besoin
 }
