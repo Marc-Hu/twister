@@ -5,6 +5,8 @@ import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertTrue;
 
 import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.UUID;
 
 import org.json.JSONException;
@@ -67,8 +69,12 @@ public class MyTests {
 	@Test
 	public void list() throws JSONException {
 //		System.out.println(UserServices.getUserListByUsername("g").toString());
-		System.out.println(UserServices.login("geron", "a"));
-
+//		System.out.println(UserServices.sweet("7ad575c94a1e4be092462232d4eff77f", "message test2"));
+//		System.out.println(UserServices.getSweetById(new Long(1)) );
+		List<String> ids = new ArrayList<>();
+		ids.add("1");
+		ids.add("6");
+		System.out.println(UserServices.getSweet(ids) );
 	}
 	
 	

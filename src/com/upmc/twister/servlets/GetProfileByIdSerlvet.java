@@ -12,22 +12,20 @@ import org.json.JSONObject;
 
 import com.upmc.twister.services.UserServices;
 /**
- * Servlet qui permet de follow un utilisateur
+ * Servlet qui permet de récupérer un profil par rapport à un id
  * @author march
  *
  */
-public class FollowServlet extends HttpServlet {
+public class GetProfileByIdSerlvet extends HttpServlet{
 	@Override
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp)
 			throws ServletException, IOException {
 		// TODO Auto-generated method stub
 		resp.setContentType("text/plain");
 		
-		JSONObject json = UserServices.follow(req.getParameter("key"),
-				req.getParameter("followedId"));
+		JSONObject json = UserServices.getProfileById(new Long(req.getParameter("id")));
 		PrintWriter out = resp.getWriter();
 		out.println(json);
 
 	}
-	
 }

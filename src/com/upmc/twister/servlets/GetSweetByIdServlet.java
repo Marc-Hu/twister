@@ -12,22 +12,20 @@ import org.json.JSONObject;
 
 import com.upmc.twister.services.UserServices;
 /**
- * Servlet qui permet de follow un utilisateur
+ * Servlet qui permet de récupérer un sweet par rapport à son Id
  * @author march
  *
  */
-public class FollowServlet extends HttpServlet {
+public class GetSweetByIdServlet extends HttpServlet{
 	@Override
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp)
 			throws ServletException, IOException {
 		// TODO Auto-generated method stub
 		resp.setContentType("text/plain");
 		
-		JSONObject json = UserServices.follow(req.getParameter("key"),
-				req.getParameter("followedId"));
+		JSONObject json = UserServices.getSweetById(new Long(req.getParameter("id")));
 		PrintWriter out = resp.getWriter();
 		out.println(json);
 
 	}
-	
 }

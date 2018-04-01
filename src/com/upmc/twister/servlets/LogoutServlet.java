@@ -11,7 +11,11 @@ import javax.servlet.http.HttpServletResponse;
 import org.json.JSONObject;
 
 import com.upmc.twister.services.UserServices;
-
+/**
+ * Servlet qui permet à un utilisateur de se déconnecter par rapport à sa clé de connection
+ * @author march
+ *
+ */
 public class LogoutServlet extends HttpServlet {
 	
 	@Override

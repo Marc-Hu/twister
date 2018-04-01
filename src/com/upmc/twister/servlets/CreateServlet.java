@@ -11,7 +11,11 @@ import javax.servlet.http.HttpServletResponse;
 import org.json.JSONObject;
 
 import com.upmc.twister.services.UserServices;
-
+/**
+ * Servlet qui permet de créer un utilisateur
+ * @author march
+ *
+ */
 public class CreateServlet extends HttpServlet {
 	@Override
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp)

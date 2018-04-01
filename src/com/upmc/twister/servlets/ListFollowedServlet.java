@@ -11,7 +11,11 @@ import javax.servlet.http.HttpServletResponse;
 import org.json.JSONObject;
 
 import com.upmc.twister.services.UserServices;
-
+/**
+ * Servlet qui permet de récuréper la liste de toutes les personne qu'un id follow
+ * @author march
+ *
+ */
 public class ListFollowedServlet extends HttpServlet {
 	@Override
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp)

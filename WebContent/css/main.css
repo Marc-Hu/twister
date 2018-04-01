@@ -1,0 +1,285 @@
+#header{
+    text-align: center;
+}
+
+header{
+    background: rgba(55, 61, 73, 0.975);
+    color: #fff;
+    padding-bottom: 20px;
+}
+
+body{
+    background-image:linear-gradient(45deg, #9dc66b 5%, #4fa49a 30%, #4361c2);
+    margin:0;
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+}
+
+.maindiv{
+    color: #fff;
+    height:100%;
+}
+
+.head,
+.maindiv{
+    width: 80%;
+    margin-left:10%;
+    display: flex;
+}
+
+.sidediv{
+    width:25%;
+}
+
+#middlediv{
+    width:50%;
+    vertical-align: bottom;
+}
+
+.content-div{
+    width:95%;
+    margin-left:2.5%;
+}
+
+#stats{
+    width:25%;
+    border-right: 5px solid rgba(55, 61, 73, 0.975);
+}
+
+#list-messages{
+    width:75%;
+    display: inline-block;
+}
+
+.messages{
+    width:90%;
+    margin:5%;
+}
+
+#message-content-div{
+    display: flex;
+}
+
+#bar-recherche{
+    margin-left: 60%;
+    width:35%;
+    border-radius: 15px;
+}
+
+#search-button{
+    width:20%;
+}
+
+#logout{
+    cursor: pointer;
+    color: inherit;
+    text-decoration: none;
+}
+
+#user-bar{
+    text-align: center;
+}
+
+#search-bar-div{
+    margin-top:30px;
+    display: flex;
+}
+
+#new-message-title{
+    text-align: center;
+}
+
+.contenu-message,
+.list-item,
+#new-message{
+    margin-left:5%;
+    width:90%;
+}
+
+#new-message-button{
+    height:36.75px;
+    width:100%;
+    border-radius: 15px;
+    background: linear-gradient(45deg, #599ba5 5%, #4fa49a 30%, #4361c2);
+    border-color: #4361c2;
+    color :white;
+    font-size: 20px;
+    cursor: pointer;
+}
+
+textarea{
+    resize: none;
+}
+
+#div-field-new-message{
+    width:70%;
+}
+
+#div-button-new-message{
+    width:25%;
+}
+
+.content-div-logo{
+    display: flex; margin-top: 10px; cursor: pointer;
+}
+
+#search-logo{
+    cursor:pointer;
+}
+
+#logo-name{
+    width:100px;
+    height: 70px;
+    margin:0;
+    vertical-align: middle;
+    display: table-cell;
+    font-size: 40px;
+}
+
+.user-message{
+    float: left;
+    display: block;
+}
+
+.date-message{
+    float: right;
+    display: block;
+}
+
+.list-item-top{
+    display:flex; width: 100%; margin-top: 10px; margin-bottom: 10px;
+}
+
+.list-item-top-span{
+    width: 50%;
+}
+
+.list-item-mid{
+    margin-top: 10px; margin-bottom: 10px;
+}
+
+.contenu-message{
+    margin: 0; width: 100%;
+}
+
+.show-com{
+    cursor: pointer;
+}
+
+.commentaire-item-top{
+    display:flex; width: 90%; margin-top: 10px; margin-bottom: 10px; margin-left: 10%;
+}
+
+.commentaire-item-bottom{
+    margin-top: 10px; margin-bottom: 10px; width: 90%; margin-left: 10%;
+}
+
+body{
+    background-image: linear-gradient(45deg, #9dc66b 5%, #4fa49a 30%, #4361c2);
+    height: 100%;
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+}
+
+
+.access {
+    width: 300px;
+    margin: auto;
+    border-radius: 5px;
+    background-color: #f2f2f2;
+    padding: 20px;
+    margin-top:50px;
+}
+
+.access input[type=text], input[type=password],select {
+    width: 100%;
+    padding: 12px 20px;
+    margin: 8px 0;
+    display: inline-block;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    box-sizing: border-box;
+}
+
+.access input[type=submit] {
+    width: 100%;
+    background-color: #4CAF50;
+    color: white;
+    padding: 14px 20px;
+    margin: 8px 0;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+.access input[type=submit]:hover {
+    background-color: #45a049;
+}
+
+.access input[type=button] {
+    width: 100%;
+    background-color: #d9534f;
+    color: white;
+    padding: 14px 20px;
+    margin: 8px 0;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+#login input[type=button]:hover,
+#register input[type=button]:hover {
+    background-color: #b23a37;
+}
+
+#notregister,
+#lost_password{
+    cursor: pointer;
+}
+
+#msg_err_password_lost,
+#msg-err-register,
+#msg-err-login{
+    color: red;
+ }
+
+.add_comment_button{
+    border-radius: 5px;
+    background-color: cadetblue;
+    border-color: #4361c2;
+    color :white;
+    font-size: 20px;
+    width:20%;
+    cursor: pointer;
+    margin-left:3%;
+}
+
+.div_new_comment{
+    display: flex;
+}
+
+.add_comment{
+    width:70%;
+}
+
+#new-message-button{
+    border-radius: 15px;
+    background: linear-gradient(45deg, #599ba5 5%, #4fa49a 30%, #4361c2);
+    border-color: #4361c2;
+    color :white;
+    font-size: 20px
+}
+
+.followed_username,
+#user{
+    cursor: pointer;
+}
+
+.unfollow_main{
+    float: right;
+    cursor: pointer;
+}
+
+.followed_list_main{
+    display:inline;
+}

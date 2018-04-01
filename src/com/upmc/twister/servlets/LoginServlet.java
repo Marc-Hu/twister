@@ -11,7 +11,11 @@ import javax.servlet.http.HttpServletResponse;
 import org.json.JSONObject;
 
 import com.upmc.twister.services.UserServices;
-
+/**
+ * Servlet qui permet à un utilisateur de se connecter
+ * @author march
+ *
+ */
 public class LoginServlet extends HttpServlet {
 
 	@Override

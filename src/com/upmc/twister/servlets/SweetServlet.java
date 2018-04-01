@@ -11,7 +11,11 @@ import javax.servlet.http.HttpServletResponse;
 import org.json.JSONObject;
 
 import com.upmc.twister.services.UserServices;
-
+/**
+ * Servlet qui permet de créer un sweet par rapport à sa clé de connection
+ * @author march
+ *
+ */
 public class SweetServlet extends HttpServlet {
 	@Override
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp)

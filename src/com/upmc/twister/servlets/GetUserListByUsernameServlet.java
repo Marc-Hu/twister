@@ -11,7 +11,11 @@ import javax.servlet.http.HttpServletResponse;
 import org.json.JSONObject;
 
 import com.upmc.twister.services.UserServices;
-
+/**
+ * Servlet qui permet de récupérer une liste d'utilisateur par rapport à un nom ou un bout de nom
+ * @author march
+ *
+ */
 public class GetUserListByUsernameServlet extends HttpServlet{
 	@Override
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp)

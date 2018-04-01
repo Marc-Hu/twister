@@ -1,25 +1,176 @@
 <!DOCTYPE html>
 <html>
-	<head>
-		<title>Twister</title>
-		<link rel="stylesheet" href="css/styles.css">
+    <head>
+        <meta charset="utf-8" />
+        <title>Twister</title>
+        <link rel="stylesheet" href="css/main.css" />
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
+        <script type="text/javascript" src="js/script.js"></script>
+        <script type="text/javascript" src="js/service.js"></script>
+        <script type="text/javascript" src="js/panel.js"></script>
+        <script type="text/javascript" src="js/login.js"></script>
+        <script type="text/javascript" src="js/register.js"></script>
+        <script type="text/javascript" src="js/main.js"></script>
+    </head>
+    <body>
+        <header>
+            <div class="head">
+                <div class="sidediv" id="home_page">
+                    <div class="content-div content-div-logo">
+                        <img src="photos/logo.png" alt="Logo" height="70" width="70">
+                        <div>
+                            <p id="logo-name">Twister</p>
+                        </div>
+                    </div>
+                </div>
+                <div id="middlediv">
+                    <div id="search-bar-div" class="content-div">
+                        <input list="browsers" id="bar-recherche" type="text" placeholder="Recherche">
+                        <datalist id="browsers">
+                        </datalist>
+                        <img id="search-logo" src="photos/search.png" alt="Logo" height="30" width="30">
+                    </div>
+                </div>
+                <div id="log" class="sidediv">
+                    <div class="content-div" id="user-bar">
+                        <p id="user">Connecté : <span id="profile_username_board"></span></p>
+                        <a class="login_page" id="logout">Deconnexion</a>
+                    </div>
 
-	</head>
-<body>
-	<div id="container">
-		<h1>Ouvrir une session</h1>
-		<form method="POST" action="javascript:connexion()">
-				<label>Login</label>
-				<input type="text" name="login"/>
-				<label>Mot de Passe</label>
-				<input type="password" name="password"/>
-				<input type="submit" value="Connexion"/>
-			<div>
-				<a href="">Mot de passe Perdu</a>
-				<a href="">Pas Encore inscrit?</a>
-			</div>
-		</form>
-	</div>
-<script src="https://gist.github.com/nadirbelarouci/fe224ffc564e60790bbef671ba90dd72.js"></script>
-</body>
+                </div>
+            </div>
+        </header>
+        <main>
+
+            <div class="maindiv" style="">
+                <div id="stats">
+                    <p>Nombre de personne connecté : <span></span></p>
+                    <br>
+                    <p>Mes follows :</p>
+                    <div id="list_followed">
+
+                    </div>
+                </div>
+                <div id="list-messages">
+                    <div id="nouveau-message" class="messages">
+                        <h2 id="new-message-title">Nouveau Twiste</h2>
+                        <div id="message-content-div">
+                            <div id="div-field-new-message">
+                                <textarea rows="2" placeholder="Nouveau twiste" id="new-message">
+                                </textarea>
+                            </div>
+                            <div id="div-button-new-message">
+                                <input type="submit" value="Je Twiste!" id="new-message-button">
+                            </div>
+                        </div>
+                    </div>
+
+                    <div id="messages" class="messages">
+                        <div class="list-item">
+                            <div class="list-item-top">
+                                <div class="list-item-top-span">
+                                    <span class="user-message">user</span>
+                                </div>
+                                <div class="list-item-top-span">
+                                    <span class="date-message">Date</span>
+                                </div>
+                            </div>
+                            <div class="list-item-mid">
+                                <p class="contenu-message">Contenu</p>
+                            </div>
+                            <div>
+                                <span class="show-com" >+ Commentaires</span>
+                                <div class="commentaire-item">
+                                    <div class="commentaire-item-top">
+                                        <div class="list-item-top-span">
+                                            <span class="user-message">user</span>
+                                        </div>
+                                        <div class="list-item-top-span">
+                                            <span class="date-message">Date</span>
+                                        </div>
+                                    </div>
+                                    <div class="commentaire-item-bottom">
+                                        <p class="contenu-message">Contenu</p>
+                                    </div>
+                                </div>
+                            </div>
+                            &nbsp;
+                            <div>
+                                <span>Ajouter un commentaire</span>
+                                <div class="div_new_comment">
+                                    <textarea rows="1" placeholder="Nouveau commentaire" class="add_comment" value="">
+                                    </textarea>
+                                    <input type="submit" value="Ajouter" class="add_comment_button" disabled>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div id="register" class="access">
+                <h1>S'enregistrer</h1>
+                <form method="POST" action="javascript:signup()">
+                    <p id="msg-err-register"></p>
+                    <label>Prénom</label>
+                    <input type="text" name="f_name" class="register_input" id="register_name"/>
+                    <label>Nom</label>
+                    <input type="text" name="l_name" class="register_input" id="register_surname"/>
+                    <label>Login</label>
+                    <input type="text" name="login" class="register_input" id="register_login"/>
+                    <label>Email</label>
+                    <input type="text" name="email" class="register_input" id="register_email"/>
+                    <label>Mot de Passe</label>
+                    <input type="password" name="password" class="register_input" id="register_password"/>
+                    <label>Retaper le mot de passe</label>
+                    <input type="password" name="confirmPassword" class="register_input" id="register_repeat"/>
+
+                    <input id="register_button_register" type="submit" value="S'enregistrer" disabled/>
+                    <input class="button_cancel" type="button" value="Annuler">
+                    <div style="text-align: center;">
+                        <span class="login_page" style="cursor: pointer;">Déjà inscrit? Se connecter</span>
+                    </div>
+
+                </form>
+            </div>
+            <div id="login" class="access">
+                <h1>Ouvrir une session</h1>
+                <form method="POST" action="javascript:connexion()">
+                    <p id="msg-err-login"></p>
+                    <label>Login</label>
+                    <input type="text" name="login" class="login_input" id="login_name"/>
+                    <label>Mot de Passe</label>
+                    <input type="password" name="password" class="login_input" id="login_password"/>
+                    <input id="login_connexion" type="submit" value="Connexion"
+                        disabled/>
+                    <div>
+                        <span id="lost_password" href="">Mot de passe Perdu</span>
+                        <span id="notregister">Pas Encore inscrit?</span>
+                    </div>
+                </form>
+            </div>
+            <div id="password_lost" class="access">
+                <h1>Mot de passe perdu</h1>
+                <form method="POST" action="javascript:connexion()">
+                    <p id="msg_err_password_lost"></p>
+                    <label>Email</label>
+                    <input type="text" name="email" id="lost_password_input"/>
+                    <input id="password_lost_validate" type="submit" value="Envoyer" disabled/>
+                    <input class="button_cancel" type="button" value="Annuler">
+                </form>
+            </div>
+            <div id="profile" class="access">
+                <h1>Profile de <span class="profile_username"></span></h1>
+                <p>Nom : <span id="profile_lastname"></span></p>
+                <p>Prénom : <span id="profile_firstname"></span></p>
+                <input id="follow" type="submit" value="Suivre"/>
+                <input id="unfollow" type="button" value="Ne plus suivre">
+            </div>
+            <div id="myprofile" class="access">
+                <h1>Mon profil</h1>
+                <p>Pseudo : <span id="myprofile_username"></span></p>
+                <p>Nom : <span id="myprofile_lastname"></span></p>
+                <p>Prénom : <span id="myprofile_firstname"></span></p>
+            </div>
+        </main>
+    </body>
 </html>
