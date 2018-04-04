@@ -2,6 +2,7 @@ package com.upmc.twister.model;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Date;
 import java.util.List;
 
 import org.bson.types.ObjectId;
@@ -17,6 +18,7 @@ public class Sweet {
 	private ObjectId id;
 	private String sweet;
 	private long userId;
+	private Date date = new Date();
 	private List<Comment> comments = new ArrayList<Comment>();
 	private List<Like> likes = new ArrayList<Like>();
 
@@ -26,7 +28,6 @@ public class Sweet {
 	 * @param user
 	 */
 	public Sweet() {
-		
 	}
 	public Sweet(String sweet, long user) {
 		super();
@@ -76,12 +77,13 @@ public class Sweet {
 	public void setLikes(List<Like> likes) {
 		this.likes = likes;
 	}
-	
+
 	@Override
 	public int hashCode() {
 		final int prime = 31;
 		int result = 1;
 		result = prime * result + ((comments == null) ? 0 : comments.hashCode());
+		result = prime * result + ((date == null) ? 0 : date.hashCode());
 		result = prime * result + ((id == null) ? 0 : id.hashCode());
 		result = prime * result + ((likes == null) ? 0 : likes.hashCode());
 		result = prime * result + ((sweet == null) ? 0 : sweet.hashCode());
@@ -101,6 +103,11 @@ public class Sweet {
 			if (other.comments != null)
 				return false;
 		} else if (!comments.equals(other.comments))
+			return false;
+		if (date == null) {
+			if (other.date != null)
+				return false;
+		} else if (!date.equals(other.date))
 			return false;
 		if (id == null) {
 			if (other.id != null)
@@ -139,6 +146,7 @@ public class Sweet {
 	                     .append("sweet",sweet)
 	                     .append("userId", userId)
 	                     .append("comments", Comment.asDBObjects(comments))
-	                     .append("likes", Like.asDBObjects(likes));
+	                     .append("likes", Like.asDBObjects(likes))
+	                     .append("date", date);
 	}
 }

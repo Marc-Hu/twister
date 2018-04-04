@@ -230,7 +230,7 @@ public class UserServices {
 	 * @return
 	 */
 	public static JSONObject addComment(String key, String sweetId,String commentMessage) {
-		if(key== null || sweetId == null)
+		if(key== null || sweetId == null || commentMessage==null)
 			return Response.BAD_REQUEST.parse();
 		
 		
