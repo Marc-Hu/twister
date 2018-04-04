@@ -230,6 +230,10 @@ public class UserServices {
 	 * @return
 	 */
 	public static JSONObject addComment(String key, String sweetId,String commentMessage) {
+		System.out.println(key);
+		System.out.println(sweetId);
+		System.out.println(commentMessage);
+
 		if(key== null || sweetId == null || commentMessage==null)
 			return Response.BAD_REQUEST.parse();
 		

@@ -1,14 +1,14 @@
-$(document).ready(function() {
+$(document).ready(function () {
 
     /**
      * Lorsque l'utilisateur écrit dans le champ d'ajout d'un nouveau commentaire
      */
-    $('.add_comment').keyup(function(){
+    $('.add_comment').keyup(function () {
         // console.log($(this).val());
-        var new_comment=$(this).val();
-        if(new_comment.length!=0){
+        var new_comment = $(this).val();
+        if (new_comment.length != 0) {
             $(this).parent().find("input").prop("disabled", false);
-        }else{
+        } else {
             $(this).parent().find("input").prop("disabled", true);
         }
     });
@@ -19,16 +19,16 @@ var list_comment = new Array(0); //Variable qui contiendra les commentaires réc
  * Fonction qui va ajouter les sweets dans la page main selon les sweets dans la liste
  * @param list liste des sweet reçu de la BDD
  */
-function fillSweet(list){
-    list_comment=list;
+function fillSweet(list) {
+    list_comment = list;
     var user = "";
     var id = "";
     $('.list-item').empty();
     // console.log("test1", list.length);
-    list.forEach(function(e){
+    list.forEach(function (e) {
         // console.log(e._id.$oid);
-        id= e._id.$oid;
-        var text = $('<div class="sweets" id="'+id+'"><div class="list-item-top">\n' +
+        id = e._id.$oid;
+        var text = $('<div class="sweets" id="' + id + '"><div class="list-item-top">\n' +
             '    <div class="list-item-top-span">\n' +
             '        <span class="user-message"></span>\n' +
             '    </div>\n' +
@@ -54,8 +54,8 @@ function fillSweet(list){
             '</div></div>' +
             '<br>');
         //Condition pour éviter d'appeler l'API pour rien
-        if(user.id!=""){
-            if(user.id!=e.userId){
+        if (user.id != "") {
+            if (user.id != e.userId) {
                 // console.log("test");
                 user = getProfileById(e.userId) //Récupération du profil par rapport à l'id
             }
@@ -71,27 +71,27 @@ function fillSweet(list){
 /**
  * Fonction pour ajouter les commentaires dans chaque sweet
  */
-function setComment(){
+function setComment() {
     setListenerToSweet(); //Ajout des listener sur les sweets
     // console.log($('.sweets'));
     var i = 0;
-    var user ="test";
-    list_comment.forEach(function(e){
-        e['comments'].forEach(function(r){
+    var user = "test";
+    list_comment.forEach(function (e) {
+        e['comments'].forEach(function (r) {
             var text =
                 $('<div class="commentaire-item-top">\n' +
-                '   <div class="list-item-top-span">\n' +
-                '       <span class="user-message"></span>\n' +
-                '   </div>\n' +
-                '   <div class="list-item-top-span">\n' +
-                '       <span class="date-message"></span>\n' +
-                '   </div>\n' +
-                '</div>\n' +
-                '<div class="commentaire-item-bottom">\n' +
-                '    <p class="contenu-message"></p>\n' +
-                '</div>\n');
-            if(user.id!=""){
-                if(user.id!=e.userId){
+                    '   <div class="list-item-top-span">\n' +
+                    '       <span class="user-message"></span>\n' +
+                    '   </div>\n' +
+                    '   <div class="list-item-top-span">\n' +
+                    '       <span class="date-message"></span>\n' +
+                    '   </div>\n' +
+                    '</div>\n' +
+                    '<div class="commentaire-item-bottom">\n' +
+                    '    <p class="contenu-message"></p>\n' +
+                    '</div>\n');
+            if (user.id != "") {
+                if (user.id != e.userId) {
                     console.log(e);
                     user = getProfileById(e.userId) //Récupération du profil par rapport à l'id
                 }
@@ -100,7 +100,7 @@ function setComment(){
             text.find('.date-message').text(r.date.$date);
             text.find('.contenu-message').text(r.comment);
             // console.log(text)
-            $('#'+e._id.$oid).find('.commentaire-item').append(text);
+            $('#' + e._id.$oid).find('.commentaire-item').append(text);
         })
         i++;
     });

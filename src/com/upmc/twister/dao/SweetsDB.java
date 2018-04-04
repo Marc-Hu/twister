@@ -118,7 +118,6 @@ public class SweetsDB implements DAO {
 	public void addComment(String id,Comment comment) {
 		BasicDBObject newComment = new BasicDBObject().append("$push",
 				new BasicDBObject().append("comments", comment.toDBObject()));
-		System.out.println(id);
 		sweets.update(new BasicDBObject("_id", new ObjectId(id)), newComment);
 	}
 	public void removeComment(String id,Comment comment) {
