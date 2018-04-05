@@ -23,7 +23,7 @@ public class ListFollowedServlet extends HttpServlet {
 		// TODO Auto-generated method stub
 		resp.setContentType("text/plain");
 		
-		JSONObject json = UserServices.getListFollowed(new Long(req.getParameter("id")));
+		JSONObject json = UserServices.getListFollowed(req.getParameter("key"), req.getParameter("id"));
 		PrintWriter out = resp.getWriter();
 		out.println(json);
 

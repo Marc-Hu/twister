@@ -72,10 +72,13 @@ public class UserServices {
 	 * @param username
 	 * @return
 	 */
-	public static JSONObject getProfile(String username) {
+	public static JSONObject getProfile(String key, String username) {
 		if(username==null)
 			return Response.BAD_REQUEST.parse();
 		try {
+			if(!ServiceTools.isConnected(key)) {
+				return Response.UNKNOWN_CONNECTION.parse();
+			}
 			User user = ServiceTools.getUserProfile(username);
 			JSONObject response = new JSONObject();
 			response.put("firstname", user.getFirstName());
@@ -209,12 +212,16 @@ public class UserServices {
 	 * @param id
 	 * @return
 	 */
-	public static JSONObject getSweetById(long id) {
-		if(id==0)
+	public static JSONObject getSweetById(String key, String id) {
+		if(id==null)
 			return Response.BAD_REQUEST.parse();
 		try {
+			if(!ServiceTools.isConnected(key)) {
+				return Response.UNKNOWN_CONNECTION.parse();
+			}
+			Long user_id = new Long(id);
 			SweetsDB sweetsDB = new SweetsDB();
-			return sweetsDB.find(id);
+			return sweetsDB.find(user_id);
 
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
@@ -259,10 +266,13 @@ public class UserServices {
 	 * @param username
 	 * @return
 	 */
-	public static JSONObject getUserListByUsername(String username) {
+	public static JSONObject getUserListByUsername(String key, String username) {
 		if(username==null)
 			return Response.BAD_REQUEST.parse();
 		try {
+			if(!ServiceTools.isConnected(key)) {
+				return Response.UNKNOWN_CONNECTION.parse();
+			}
 			List<User> userlist = ServiceTools.getUserList(username);
 			JSONObject response = new JSONObject();
 			JSONArray ja = new JSONArray();
@@ -288,12 +298,15 @@ public class UserServices {
 	 * @param id
 	 * @return
 	 */
-	public static JSONObject getListFollowed(long id) {
-		Long id_user = id;
-		if(id_user==null)
+	public static JSONObject getListFollowed(String key, String id) {
+		if(id==null)
 			return Response.BAD_REQUEST.parse();
 		try {
-			List<Friends> userlist = ServiceTools.listFollowed(id);
+			if(!ServiceTools.isConnected(key)) {
+				return Response.UNKNOWN_CONNECTION.parse();
+			}
+			Long user_id = new Long(id);
+			List<Friends> userlist = ServiceTools.listFollowed(user_id);
 			JSONObject response = new JSONObject();
 			JSONArray ja = new JSONArray();
 			for (Friends u : userlist) {
@@ -320,11 +333,14 @@ public class UserServices {
 	 * @param id Id de la personne dont on veut son profil
 	 * @return
 	 */
-	public static JSONObject getProfileById(long id) {
-		Long id_user = id;
-		if(id_user==null)
+	public static JSONObject getProfileById(String key, String id) {
+		if(id==null)
 			return Response.BAD_REQUEST.parse();
 		try {
+			if(!ServiceTools.isConnected(key)) {
+				return Response.UNKNOWN_CONNECTION.parse();
+			}
+			Long id_user = new Long(id);
 			User user = ServiceTools.getUserInUserTable(id_user);
 			JSONObject response = new JSONObject();
 			response.put("firstname", user.getFirstName());
@@ -343,10 +359,13 @@ public class UserServices {
 	 * @param ids Tous les ids ou on veut leur sweets
 	 * @return 
 	 */
-	public static JSONObject getSweet(List<String> ids) {
+	public static JSONObject getSweet(String key, List<String> ids) {
 		if(ids.size()==0)
 			return Response.BAD_REQUEST.parse();
 		try {
+			if(!ServiceTools.isConnected(key)) {
+				return Response.UNKNOWN_CONNECTION.parse();
+			}
 			SweetsDB sweetsDB = new SweetsDB();
 			return sweetsDB.find(ids);
 		}catch(Exception e) {

@@ -1,7 +1,7 @@
 /**
  * Fonction qui va remettre par defaut le panneau de login en enlevant les textes
  */
-function setLoginDefaultPanel() {
+function setLoginDefaultPanel(){
     $('#login_name').val("");
     $('#login_name').removeClass("touched");
     $('#login_password').val("");
@@ -13,7 +13,7 @@ function setLoginDefaultPanel() {
 /**
  * Fonction qui va remettre par défaut la page de l'inscription
  */
-function setRegisterDefaultPanel() {
+function setRegisterDefaultPanel(){
     //Il va d'abord mettre toutes les valeurs à vide
     $('#register_name').val("");
     $('#register_surname').val("");
@@ -37,7 +37,7 @@ function setRegisterDefaultPanel() {
 /**
  * Fonction qui va remttre par défaut la page du mot de passe perdu
  */
-function setPasswordLostDefaultPanel() {
+function setPasswordLostDefaultPanel(){
     $('#lost_password_input').val("");
     $('#lost_password_input').removeClass("touched");
     $('#msg_err_password_lost').text("")
@@ -47,7 +47,7 @@ function setPasswordLostDefaultPanel() {
 /**
  * Fonction qui va remettre par défaut le panel des profils
  */
-function setProfileDefaultPanel() {
+function setProfileDefaultPanel(){
     $('.profile_username').text("");
     $('#profile_lastname').text("");
     $('#profile_firstname').text("");
@@ -56,13 +56,18 @@ function setProfileDefaultPanel() {
 /**
  * Fonction qui va remettre par défaut le panel de notre profil (appeler lors de la déconnexion)
  */
-function setMyProfileDefaultPanel() {
+function setMyProfileDefaultPanel(){
     $('#myprofile_username').text("");
     $('#myprofile_lastname').text("");
     $('#myprofile_firstname').text("");
 }
 
-function setSweetDefaultPanel() {
+function setSweetDefaultPanel(){
     $('.contenu-message').text("");
     $('.user-message').text("");
+}
+
+function setDefaultMain(){
+    $('.list-item').empty();
+    $('#list_followed').empty();
 }

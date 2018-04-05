@@ -29,23 +29,25 @@ public class GetSweetServlet extends HttpServlet{
 		resp.setContentType("text/plain");
 		Enumeration<String> e =  req.getParameterNames();
 		List<String> list = new ArrayList<>();
-		while(e.hasMoreElements())
-			list.add(req.getParameter(e.nextElement()));
-		JSONObject json = UserServices.getSweet(list);
+		while(e.hasMoreElements()) {
+			if(!e.nextElement().equals("key"))
+				list.add(req.getParameter(e.nextElement()));
+		}
+		JSONObject json = UserServices.getSweet(req.getParameter("key"), list);
 		PrintWriter out = resp.getWriter();
 		out.println(json);
 		
 	}
 	
-	@Override
-	protected void doPost(HttpServletRequest req, HttpServletResponse resp)
-			throws ServletException, IOException {
-		// TODO Auto-generated method stub
-		resp.setContentType("text/plain");
-		List<String> list = new ArrayList<String>(Arrays.asList(req.getParameterValues("ids"))); 
-		JSONObject json = UserServices.getSweet(list);
-		PrintWriter out = resp.getWriter();
-		out.println(json);
-
-	}
+//	@Override
+//	protected void doPost(HttpServletRequest req, HttpServletResponse resp)
+//			throws ServletException, IOException {
+//		// TODO Auto-generated method stub
+//		resp.setContentType("text/plain");
+//		List<String> list = new ArrayList<String>(Arrays.asList(req.getParameterValues("ids"))); 
+//		JSONObject json = UserServices.getSweet(req.getParameter("key"), list);
+//		PrintWriter out = resp.getWriter();
+//		out.println(json);
+//
+//	}
 }

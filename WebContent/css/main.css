@@ -283,3 +283,7 @@ body{
 .followed_list_main{
     display:inline;
 }
+
+#show_more p{
+    text-align: center; cursor:pointer
+}

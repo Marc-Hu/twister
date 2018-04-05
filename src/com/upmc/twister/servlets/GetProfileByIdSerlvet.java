@@ -23,7 +23,7 @@ public class GetProfileByIdSerlvet extends HttpServlet{
 		// TODO Auto-generated method stub
 		resp.setContentType("text/plain");
 		
-		JSONObject json = UserServices.getProfileById(new Long(req.getParameter("id")));
+		JSONObject json = UserServices.getProfileById(req.getParameter("key") ,req.getParameter("id"));
 		PrintWriter out = resp.getWriter();
 		out.println(json);
 
