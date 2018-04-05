@@ -34,7 +34,6 @@ public class SweetsDB implements DAO {
 		// TODO Auto-generated method stub
 		if (!checkParameter(o, Sweet.class))
 			return;
-
 		Sweet sweet = (Sweet) o;
 		
 		sweets.insert(sweet.toDBObject());

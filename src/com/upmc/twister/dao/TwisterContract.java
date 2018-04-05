@@ -14,8 +14,8 @@ public final class TwisterContract {
 	 * These are the cridentals to connect the databse 
 	 * */
 	public static boolean mysql_pooling = false;
-	public static String mysql_host = "localhost:3307";
-	public static String mysql_password = "nazareth";
+	public static String mysql_host = "localhost:3306";
+	public static String mysql_password = "";
 	public static String mysql_username = "root";
 	public static String db_name = "twister";
 	

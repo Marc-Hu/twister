@@ -30,12 +30,12 @@ public class AddCommentServlet extends HttpServlet {
 	protected void doPost(HttpServletRequest req, HttpServletResponse resp)
 			throws ServletException, IOException {
 		// TODO Auto-generated method stub
-		resp.setContentType("text/plain");
+		resp.setContentType("application/json");
 		
 		JSONObject json = UserServices.addComment(req.getParameter("key"),
 				req.getParameter("sweetId"), req.getParameter("commentMessage"));
 		PrintWriter out = resp.getWriter();
-		out.println("result"+json);
+		out.println(json);
 
 	}
 	
