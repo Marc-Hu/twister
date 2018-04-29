@@ -374,4 +374,21 @@ public class UserServices {
 		}
 	}
 	
+	public static JSONObject getMessageByQuery(String key, String query) {
+		if(query==null && key==null) {
+			return Response.BAD_REQUEST.parse();
+		}
+		try {
+			if(!ServiceTools.isConnected(key)) {
+				return Response.UNKNOWN_CONNECTION.parse();
+			}
+			SweetsDB sweetsDB = new SweetsDB();
+			sweetsDB.getMessagesByQuery(query);
+			return null;
+		}catch(Exception e) {
+			e.printStackTrace();
+			return Response.INTERNAL_SERVER_ERROR.parse();
+		}
+	}
+	
 }

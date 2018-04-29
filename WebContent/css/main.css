@@ -285,5 +285,17 @@ body{
 }
 
 #show_more p{
-    text-align: center; cursor:pointer
+    text-align: center; cursor:pointer;
+}
+
+#reset_search{
+    float: right;
+}
+
+#radio_btn_search{
+    display: flex; float: right;
+}
+
+#reset_search_btn{
+    cursor: pointer;
 }

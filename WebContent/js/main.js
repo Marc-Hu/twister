@@ -14,7 +14,8 @@ $(document).ready(function() {
     });
 });
 
-var list_comment = new Array(0); //Variable qui contiendra les commentaires récupérer lors de l'appel du servlet
+var default_list_comment = new  Array(0);//Variable qui contiendra les commentaires récupérer lors de l'appel du servlet
+var list_comment = new Array(0); //Variable qui stocke les Twiste qu'on voudra afficher
 var max_val_display_sweet = 10;
 
 /**
@@ -33,9 +34,8 @@ function custom_sort(a, b) {
  * @param forinit boolean pour indiquer si c'est pour l'initialisation
  */
 function fillSweet(list, forinit){
+    list.sort(custom_sort);
     list_comment=list;
-    list_comment.sort(custom_sort);
-    list.sort(custom_sort)
     var user = "";
     var id = "";
     var i = 0;
@@ -104,9 +104,8 @@ function fillSweet(list, forinit){
  * @param sweet
  */
 function addSweetToBoard(sweet){
-    list_comment=sweet;
-    list_comment.sort(custom_sort);
     sweet.sort(custom_sort);
+    list_comment=sweet;
     var i=0;
     sweet.forEach(function(e){
         if(i<max_val_display_sweet){
@@ -227,4 +226,4 @@ function setCommentBySweet(sweet){
 //     $('.commentaire-item').hide();
 // }
 
-//TODO : fonctionnalité pour ajouter une photo de profil; Limiter les sweet sur le board; changer les methodes get en post pour connexion et create
+//TODO : fonctionnalité pour ajouter une photo de profil;

@@ -348,6 +348,7 @@ function getSweet(list, forinit){
     }).done(function(data){
         // console.log(2, data);
         if(data.code==200){
+            default_list_comment=data.list;
             // console.log(3, data.list);
             max_val_display_sweet=10; // On remet la variable à 10
             if (forinit){

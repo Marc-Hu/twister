@@ -52,7 +52,7 @@ $(document).ready(function() {
         var val = $('#bar-recherche')[0].value; //Récup la valeur dans la barre
         // console.log(val);
         $('#browsers').empty();
-        if(val.length!=0){ //Si la valeur n'est pas vide
+        if($('#search_by_user').is(':checked') && val.length!=0) { //Si la valeur n'est pas vide
             getUserList(val)
         }
     });
@@ -61,8 +61,15 @@ $(document).ready(function() {
      * Clique sur le bouton de recherche
      */
     $('#search-logo').click(function(){
-        var username = $('#bar-recherche')[0].value; //Récup la valeur dans la barre de recherche
-        getProfileByUsernameForSearch(username);
+        // console.log($('#search_by_user').is(':checked'));
+        if($('#search_by_user').is(':checked')){
+            var username = $('#bar-recherche')[0].value; //Récup la valeur dans la barre de recherche
+            getProfileByUsernameForSearch(username);
+        }else{
+            var message = $('#bar-recherche')[0].value;
+            console.log(message)
+            displaySearchedTwiste(message);
+        }
     });
 
     //Si on clique quelque part dans la page
@@ -114,9 +121,12 @@ $(document).ready(function() {
     $('#follow').click(function(){
         var key = localStorage.getItem("user-key"); //récupère la clé
         var follow_id = current_user.id; //Récupère l'id du profil courant
-        // console.log(key, follow_id);
-        // console.log(follow(key, follow_id));
-        follow(key, follow_id); //Appel du service
+        // console.log(localStorage.getItem("user_id"), follow_id);
+        if(localStorage.getItem("user_id") != follow_id){
+            follow(key, follow_id); //Appel du service
+        }else{
+            alert("Vous ne pouvez pas vous suivre vous même.")
+        }
     });
 
     /**
@@ -128,10 +138,22 @@ $(document).ready(function() {
         unfollow(key, follow_id);
     });
 
+    /**
+     * Clique sur l'ajout d'un nouveau message (Parent)
+     */
     $('#new-message-button').click(function(){
         // console.log($('#new-message').val());
         var sweet = $('#new-message').val();
         addSweet(sweet)
+    });
+
+    /**
+     * Click sur la reinitialisation des messages
+     */
+    $('#reset_search_btn').click(function(){
+        $('#reset_search_btn').hide();
+        fillSweet(default_list_comment, true);
+        list_comment=default_list_comment;
     });
 
 });
@@ -184,6 +206,7 @@ function hideAll(){
     $('#myprofile').hide();
     $('#login').hide();
     $('.commentaire-item').hide();
+    $('#reset_search_btn').hide(); //Boutton pour réinitialiser la recherche est caché à l'initialisation!
 }
 
 /**
@@ -317,4 +340,26 @@ function setListenerShowMore(){
         //Argument false pour dire qu'on est pas à l'initialisation et donc on de supprime pas les anciens message
         //Mais on les ajoute!
     })
+}
+
+/**
+ * Fonction qui va afficher les Twists selon une recherche
+ * @param text
+ */
+function displaySearchedTwiste(text){
+    if(text.length==0){ //Si le texte est vide
+        fillSweet(default_list_comment, true); //On remet tous les messages qu'il y avait
+        $('#reset_search_btn').hide(); // On cache le boutton de reinitialisation de la recherche
+        list_comment=default_list_comment;
+        return;
+    }
+    var searched_list=new Array();
+    list_comment.forEach(function(value){
+        // console.log(value.sweet.match(text))
+        if(value.sweet.match(text)!=null){ //On regarde qui le sweet contient au moins une fois la valeur du text
+            searched_list.push(value); // Si c'est le cas alors on ajoute le sweet dans la list
+        }
+    });
+    fillSweet(searched_list, true); //Et on met tous les messages dans le board
+    $('#reset_search_btn').show(); //On affiche le boutton de reinitialisation de la recherche
 }
