@@ -6,10 +6,11 @@
  * @returns Object JSON
  */
 function connection(username, password){
+    console.log("what's upppp");
     var post_url = "http://localhost:8080/Twister/user/login" //get form action url
     var form_data = "username=" + username + "&password=" + password;
     $.post( post_url, form_data, function( response ) {
-        // console.log(response)
+         console.log(response)
         response = JSON.parse(response);
         if (response.hasOwnProperty('key')){
             console.log("success connected");
@@ -102,7 +103,7 @@ function logout(){
  */
 function getProfile(){
     var username = localStorage.getItem("user-username");
-    var url = "http://localhost:8080/Twister/user/profile?username="+username+"&key="+localStorage.getItem('user-key');
+    var url = "http://localhost:8080/Twister/user/profile?id="+username+"&key="+localStorage.getItem('user-key');
     $.getJSON(url, function(data, status){
         // console.log(1);
     }).done(function(data){
@@ -128,7 +129,7 @@ function getProfile(){
  * @returns {any}
  */
 function getProfileByUsername(username){
-    var url = "http://localhost:8080/Twister/user/profile?username="+username+"&key="+localStorage.getItem('user-key');
+    var url = "http://localhost:8080/Twister/user/profile?id="+username+"&key="+localStorage.getItem('user-key');
     $.getJSON(url, function(data, status){
         // console.log(1, "getProfileByUsername");
     }).done(function(data){
@@ -152,7 +153,7 @@ function getProfileByUsername(username){
  * @param username
  */
 function getProfileByUsernameForSearch(username){
-    var url = "http://localhost:8080/Twister/user/profile?username="+username+"&key="+localStorage.getItem("user-key");
+    var url = "http://localhost:8080/Twister/user/profile?id="+username+"&key="+localStorage.getItem("user-key");
     $.getJSON(url, function(data, status){
         // console.log(1, "getProfileByUsername");
     }).done(function(data){
@@ -205,7 +206,7 @@ function getUserList(username){
  * @returns {any}
  */
 function follow(from_key, to_id){
-    var url = "http://localhost:8080/Twister/user/follow?key="+from_key+"&followedId="+to_id;
+    var url = "http://localhost:8080/Twister/user/follow?follow=true&key="+from_key+"&followedId="+to_id;
     $.getJSON(url, function(data, status){
         // console.log(1, "getUserList");
     }).done(function(data){
@@ -227,7 +228,7 @@ function follow(from_key, to_id){
  * @returns {any}
  */
 function unfollow(from_key, to_id){
-    var url = "http://localhost:8080/Twister/user/unfollow?key="+from_key+"&followedId="+to_id;
+    var url = "http://localhost:8080/Twister/user/follow?follow=false&key="+from_key+"&followedId="+to_id;
     $.getJSON(url, function(data, status){
         console.log(1, "unfollow");
     }).done(function(data){
@@ -307,7 +308,7 @@ function getSweetById(id){
  * @returns {any}
  */
 function getProfileById(id){
-    var url = "http://localhost:8080/Twister/user/getProfileById?id="+id+"&key="+localStorage.getItem('user-key');
+    var url = "http://localhost:8080/Twister/user/profile?id="+id+"&key="+localStorage.getItem('user-key');
 
     var req = new XMLHttpRequest();
     var response = null;

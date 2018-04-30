@@ -26,7 +26,9 @@ public class SweetsDBTest {
 	@Before
 	public void setUp() throws Exception {
 		MongoConnection.getInstance();
+		MongoConnection.getDatabase(TwisterContract.db_name).dropDatabase();
 		sweetsdb = new SweetsDB();
+
 	}
 
 	@After
@@ -36,17 +38,8 @@ public class SweetsDBTest {
 
 	@Test
 	public void testCreate() throws Exception {
-		Sweet sweet = new Sweet("Hello,World!", 1);
-		List<Comment> comments = new ArrayList<>();
-		comments.add(new Comment(2, "Hi, Welcome"));
-		comments.add(new Comment(1, "thanks"));
-		comments.add(new Comment(3, "Noobs!"));
-		comments.add(new Comment(2, "Go Away!!"));
-		comments.get(0).setLikes(Arrays.asList(new Like(1)));
-		comments.get(1).setLikes(Arrays.asList(new Like(2), new Like(3)));
-		sweet.setComments(comments);
 
-		sweetsdb.create(sweet);
+		sweetsdb.create(createSweet());
 
 		DBCursor cursor =  sweetsdb.getSweetsCollection().find();
 		
@@ -61,4 +54,17 @@ public class SweetsDBTest {
 	 * 
 	 * @Test public void testFind() { }
 	 */
+
+	private Sweet createSweet(){
+		Sweet sweet = new Sweet("Hello,World!", 1);
+		List<Comment> comments = new ArrayList<>();
+		comments.add(new Comment(2, "Hi, Welcome"));
+		comments.add(new Comment(1, "thanks"));
+		comments.add(new Comment(3, "Noobs!"));
+		comments.add(new Comment(2, "Go Away!!"));
+		comments.get(0).setLikes(Arrays.asList(new Like(1)));
+		comments.get(1).setLikes(Arrays.asList(new Like(2), new Like(3)));
+		sweet.setComments(comments);
+		return sweet;
+	}
 }

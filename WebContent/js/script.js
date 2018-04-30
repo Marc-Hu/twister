@@ -14,10 +14,10 @@ $(document).ready(function() {
      * Appuie sur le bouton se connecter dans la page login
      */
     $('#login_connexion').click(function(e){
-        // console.log($('#login_name'))
+         console.log($('#login_name'))
         var login = $('.login_input')[0].value; //On récupère les username et mdp
         var password = $('.login_input')[1].value;
-        // console.log(login+" "+password)
+         console.log(login+" "+password)
         connection(login, password); //Et on se connecte au serveur
     });
 

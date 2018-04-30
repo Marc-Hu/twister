@@ -34,9 +34,9 @@ CREATE TABLE `Connection` (
   `id` int(11) unsigned NOT NULL,
   `timestamp` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `root` tinyint(1) NOT NULL,
-  PRIMARY KEY (`key`),
+  PRIMARY KEY (`keycnx`),
   UNIQUE KEY `idx_id` (`id`),
-  KEY `idx_connection` (`key`,`id`,`timestamp`),
+  KEY `idx_connection` (`keycnx`,`id`,`timestamp`),
   CONSTRAINT `fk_cnx_id` FOREIGN KEY (`id`) REFERENCES `User` (`id_user`) ON DELETE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
