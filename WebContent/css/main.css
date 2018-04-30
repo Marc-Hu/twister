@@ -129,3 +129,8 @@ body {
     background-color: dodgerblue;
     color: white;
 }
+
+.login_message{
+    color: firebrick;
+    font-weight: bold;
+}

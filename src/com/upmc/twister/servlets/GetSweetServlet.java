@@ -28,8 +28,9 @@ public class GetSweetServlet extends HttpServlet {
         Enumeration<String> e = req.getParameterNames();
         List<String> list = new ArrayList<>();
         while (e.hasMoreElements()) {
-            if (!e.nextElement().equals("key"))
-                list.add(req.getParameter(e.nextElement()));
+            String element = e.nextElement();
+           if (!element.equals("key"))
+                list.add(req.getParameter(element));
         }
         JSONObject json = UserServices.getSweet(req.getParameter("key"), list);
         PrintWriter out = resp.getWriter();

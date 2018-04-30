@@ -6,12 +6,11 @@
 function login(login_form) {
     var post_url = login_form.attr("action"); //get form action url
     var form_data = login_form.serialize(); //Encode form elements for submission
-    $.post(post_url, form_data, function (response) {
-        console.log(response);
-    });
+    var response;
 
-    return "my result from response";
+    return jqxhr = $.post(post_url, form_data);
 }
+
 
 function register(register_from) {
     if (!password_validation())

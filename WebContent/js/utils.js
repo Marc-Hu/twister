@@ -16,12 +16,20 @@ $('#password, #c_password').on('keyup', password_validation);
 $("#login_form").submit(function(event){
     event.preventDefault(); //prevent default action
     var result = login($(this));
+    result.success(function (data) {
+        console.log(data);
+        if (data.code == -1){
+            $(".login_message").show();
+        } else {
+            //TODO logged
+        }
+    })
 });
 
 
 $("#register_form").submit(function(event){
     event.preventDefault(); //prevent default action
-    var result = register();
+    var result = register($(this));
 });
 
 animate_forms = function () {
