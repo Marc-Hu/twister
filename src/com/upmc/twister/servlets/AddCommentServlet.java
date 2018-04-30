@@ -18,7 +18,7 @@ public class AddCommentServlet extends HttpServlet {
         resp.setContentType("text/plain");
 
         JSONObject json = UserServices.addComment(req.getParameter("key"),
-                req.getParameter("sweetId"), req.getParameter("commentMessage"));
+                req.getParameter("sweetId"), req.getParameter("comment"));
         PrintWriter out = resp.getWriter();
         out.println(json);
 

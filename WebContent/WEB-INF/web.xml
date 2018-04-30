@@ -78,7 +78,7 @@
     </servlet-mapping>
     <servlet-mapping>
         <servlet-name>GetListUser</servlet-name>
-        <url-pattern>/user/list</url-pattern>
+        <url-pattern>/user/listUser</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
         <servlet-name>GetListFollowed</servlet-name>

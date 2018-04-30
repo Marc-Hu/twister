@@ -17,10 +17,11 @@ import java.io.PrintWriter;
  */
 public class SweetServlet extends HttpServlet {
     @Override
-    protected void doGet(HttpServletRequest req, HttpServletResponse resp)
+    protected void doPost(HttpServletRequest req, HttpServletResponse resp)
             throws ServletException, IOException {
         // TODO Auto-generated method stub
-        resp.setContentType("text/plain");
+        resp.setContentType("application/json");
+
 
         JSONObject json = UserServices.sweet(req.getParameter("key"),
                 req.getParameter("sweet"));

@@ -18,10 +18,10 @@ import java.io.PrintWriter;
 public class LogoutServlet extends HttpServlet {
 
     @Override
-    protected void doGet(HttpServletRequest req, HttpServletResponse resp)
+    protected void doPost(HttpServletRequest req, HttpServletResponse resp)
             throws ServletException, IOException {
         // TODO Auto-generated method stub
-        resp.setContentType("text/plain");
+        resp.setContentType("application/json");
         JSONObject json = UserServices.logout(req.getParameter("key"));
         PrintWriter out = resp.getWriter();
         out.println(json);

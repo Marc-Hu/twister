@@ -34,7 +34,7 @@ public class CreateServlet extends HttpServlet {
     protected void doPost(HttpServletRequest req, HttpServletResponse resp)
             throws ServletException, IOException {
         // TODO Auto-generated method stub
-        resp.setContentType("text/plain");
+        resp.setContentType("application/json");
 
         JSONObject json = UserServices.create(req.getParameter("l_name"),
                 req.getParameter("f_name"), req.getParameter("username"),

@@ -18,11 +18,12 @@ import java.io.PrintWriter;
  */
 public class FollowServlet extends HttpServlet {
     @Override
-    protected void doGet(HttpServletRequest req, HttpServletResponse resp)
+    protected void doPost(HttpServletRequest req, HttpServletResponse resp)
             throws ServletException, IOException {
         PrintWriter out = resp.getWriter();
         // TODO Auto-generated method stub
-        resp.setContentType("text/plain");
+        resp.setContentType("application/json");
+
         String follow = req.getParameter("follow");
         if (follow == null) {
             out.println(Response.BAD_REQUEST.parse());

@@ -21,7 +21,7 @@ public class UserServices {
      * @return
      */
     public static JSONObject login(String username, String password) {
-        if (username == null || password == null)
+        if (username == null || password == null || username.equals("") || password.equals(""))
             return Response.BAD_REQUEST.parse();
         try {
             if (!ServiceTools.isExist(username))
@@ -307,15 +307,15 @@ public class UserServices {
      * @param id
      * @return
      */
-    public static JSONObject getFollowedList(String key, String id) {
-        if (id == null)
+    public static JSONObject getFollowedList(String key) {
+        if (key == null)
             return Response.BAD_REQUEST.parse();
         try {
             if (!ServiceTools.isConnected(key)) {
                 return Response.UNKNOWN_CONNECTION.parse();
             }
-            Long user_id = new Long(id);
-            List<Friends> userlist = ServiceTools.getFollowedList(user_id);
+            long id = ServiceTools.getUser(key).getId();
+            List<Friends> userlist = ServiceTools.getFollowedList(id);
             JSONObject response = new JSONObject();
             JSONArray ja = new JSONArray();
             for (Friends u : userlist) {
@@ -336,7 +336,6 @@ public class UserServices {
             return Response.INTERNAL_SERVER_ERROR.parse();
         }
     }
-
 
 
     /**
