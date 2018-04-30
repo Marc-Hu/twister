@@ -23,20 +23,26 @@ public class UserServicesTest {
 
     @Test
     public void login() throws Exception {
+
         assertEquals(Response.BAD_REQUEST.parse(), UserServices.login(null, "pass"));
         assertEquals(Response.UNKWOWN_USER.parse(), UserServices.login("cc", "lala"));
-        assertEquals(Response.WRONG_PASSWORD.parse(), UserServices.login("hu", "lala"));
-        JSONObject json = UserServices.login("hu", "12345");
+        assertEquals(Response.OK.parse(), UserServices.create("Marc", "u1", "u1", "password"));
+
+        assertEquals(Response.WRONG_PASSWORD.parse(), UserServices.login("u1", "lala"));
+        JSONObject json = UserServices.login("u1", "password");
         assertTrue(json.has("key"));
         assertEquals(32, json.get("key").toString().length());
         assertEquals(Response.OK.parse(), UserServices.logout(json.getString("key")));
-
+        UserDAO userDAO = (UserDAO) DAOFactory.USER_DAO.get();
+        userDAO.delete(userDAO.find("u1"));
 
     }
 
     @Test
     public void create() throws Exception{
         assertEquals(Response.BAD_REQUEST.parse(), UserServices.create("Marc", "Hu", "marc_hu", null));
+        assertEquals(Response.OK.parse(), UserServices.create("Marc", "Hu", "hu", "password"));
+
         assertEquals(Response.USER_ALREADY_EXISTS.parse(), UserServices.create("Marc", "Hu", "hu", "111"));
         assertEquals(Response.OK.parse(), UserServices.create("Marc", "Hu", "marc_hu", "password"));
         UserDAO userDAO = (UserDAO) DAOFactory.USER_DAO.get();
@@ -49,11 +55,17 @@ public class UserServicesTest {
 
     @Test
     public void logout() throws Exception{
-        JSONObject json = UserServices.login("hu", "12345");
+        assertEquals(Response.OK.parse(), UserServices.create("U1", "Hu", "u1", "password"));
+
+        JSONObject json = UserServices.login("u1", "password");
         System.out.println(json);
         assertEquals(Response.BAD_REQUEST.parse(), UserServices.logout(null));
         assertEquals(Response.UNKNOWN_CONNECTION.parse(), UserServices.logout("72473a1b86df439a999475384456c2f2"));
         assertEquals(Response.OK.parse(), UserServices.logout(json.getString("key")));
+        UserDAO userDAO = (UserDAO) DAOFactory.USER_DAO.get();
+
+        userDAO.delete(userDAO.find("u1"));
+
     }
 
     @Test
