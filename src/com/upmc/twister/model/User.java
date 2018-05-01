@@ -67,7 +67,7 @@ public class User {
                     user.setPassword((String) entry.getValue());
                     break;
                 case TwisterContract.UserEntry.COLUMN_PROFILE_PIC:
-                    user.setPassword((String) entry.getValue());
+                    user.setPic((String) entry.getValue());
                     break;
             }
         }
