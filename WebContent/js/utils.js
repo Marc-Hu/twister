@@ -21,11 +21,13 @@ $("#login_form").submit(function (event) {
         if (data.code == -1) {
             $(".login_message").show();
         } else {
+            setCookie("key", data.key, 1);
             var newBody = "<nav>" +
                 "<div class='search-bar'><input type='text' name='search'></div>" +
                 "</nav>" +
                 "<div class='home-container'><div class='following-list'></div>" +
-                "<div class='sweets'></div><div class='profile'>" +
+                "<div class='sweets'>" +
+                "</div><div class='profile'>" +
                 "<ul>" +
                 "<li><a href='#' id='disconnect' data-key='" + data.key + "'>Logout</a></li></ul>" +
                 " <h3>File Upload:</h3>" +
@@ -60,7 +62,8 @@ $("#login_form").submit(function (event) {
             news_feed.success(function (resp) {
                 if (resp.code == 200) {
                     var $sweets = $(".sweets");
-                    $sweets.html("<h3>NewsFeed</h3>")
+                    $sweets.html("<h3>NewsFeed</h3>");
+                    $sweets.append("<div class='add-sweet'><input type='text'><button>sweet</button></div> ");
                     for (var i in resp.sweets) {
                         var sweet = resp.sweets[i];
                         var sweetHtml = "<div class='sweet'>" +
@@ -68,11 +71,19 @@ $("#login_form").submit(function (event) {
                             sweet.f_name +
                             "</span> <span class='username'>@" + sweet.username + "</span> </div>" +
                             "<div class='body'>" + sweet.sweet + "</div>" +
-                            "<div class='reactions'><span class='likes'>" + sweet.likes.length + "♥</span></div>" +
-                            "</div>";
-
+                            "<div class='reactions'> " +
+                            "<span class='likes'>" + sweet.likes.length + "♥</span></div>" +
+                            "<div class='comments'> <span class='show-comments' data-idsweet='" +
+                             sweet._id.$oid + "'>show comments</span>" +
+                            "</div> " +
+                            "<div class='add-comment'><input type='text'> <button>comment</button></div>"+
+                        "</div>";
                         $sweets.append(sweetHtml);
                     }
+                    initShowComments();
+                    initAddComment();
+                    initAddSweet();
+
                 }
             })
 
@@ -116,7 +127,9 @@ function initDiconnect() {
         var post_url = $(this).attr("action"); //get form action url
         var request_method = $(this).attr("method"); //get form GET/POST method
         var form_data = new FormData(this); //Creates new FormData object
-        form_data.append("daadadada",$(this).data("key"))
+
+        form_data.append("key",$(this).data("key"));
+
         console.log(form_data);
         $.ajax({
             url : post_url,
@@ -126,7 +139,7 @@ function initDiconnect() {
             cache: false,
             processData:false
         }).done(function(response){ //
-            $("#server-results").html(response);
+           // $("#server-results").html(response);
         });
     });
 }
@@ -143,6 +156,7 @@ function initEventFollowingList() {
                 if (data.code == 200) {
                     var $sweets = $(".sweets");
                     $sweets.html("<h3>" + name + "</h3>");
+                    $sweets.append("<div class='add-sweet'><input type='text'><button>sweet</button></div> ");
                     for (var i in data.sweets) {
                         var sweet = data.sweets[i];
                         console.log(sweet);
@@ -152,13 +166,85 @@ function initEventFollowingList() {
                             "</span> <span class='username'>@" + sweet.username + "</span> </div>" +
                             "<div class='body'>" + sweet.sweet + "</div>" +
                             "<div class='reactions'><span class='likes'>" + sweet.likes.length + "♥</span></div>" +
+                            "<div class='comments'> <span class='show-comments' data-idsweet='" +
+                            sweet._id.$oid + "'>show comments</span> </div>" +
+                            "<div class='add-comment'><input type='text'><button>comment</button></div>"
                             "</div>";
                         console.log(sweetHtml);
                         $sweets.append(sweetHtml);
                     }
+                    initShowComments();
+                    initAddComment();
+                    initAddSweet();
                 }
             });
         });
     });
 
+}
+
+function initShowComments() {
+    $(document).ready(function () {
+        $(".show-comments").on('click', function (e) {
+            e.preventDefault();
+            $(this).html('');
+            var comments = $(this).parent(".comments");
+            var idSweet = $(this).data("idsweet");
+            var result = get_comments(getCookie("key"), idSweet);
+            result.success(function (response) {
+                if (response.code == 200) {
+                    for (var i in response.comments){
+                        var comment = response.comments[i];
+
+                        var commentHtml = "<div class='comment'><div class='user-info'><img src='#'>" +
+                            "<span class='name'>" + comment.l_name + " " + comment.f_name + "</span>" +
+                            "<span class='username'>@" + comment.username + "</span></div> " +
+                            "<div class='body'>" + comment.comment + "</div></div>";
+                        comments.append(commentHtml);
+                    }
+                }
+            });
+        });
+    });
+}
+
+function initAddComment() {
+    $(document).ready(function () {
+        $(".add-comment button").on('click', function () {
+            //TODO add comment
+            console.log("add comment");
+        });
+    });
+}
+
+function initAddSweet() {
+    $(document).ready(function () {
+        $(".add-sweet button").on('click', function () {
+            //TODO add sweet
+            console.log("add sweet");
+        });
+    })
+
+}
+function setCookie(cname, cvalue, exdays) {
+    var d = new Date();
+    d.setTime(d.getTime() + (exdays*24*60*60*1000));
+    var expires = "expires="+ d.toUTCString();
+    document.cookie = cname + "=" + cvalue + ";" + expires + ";path=/";
+}
+
+function getCookie(cname) {
+    var name = cname + "=";
+    var decodedCookie = decodeURIComponent(document.cookie);
+    var ca = decodedCookie.split(';');
+    for(var i = 0; i <ca.length; i++) {
+        var c = ca[i];
+        while (c.charAt(0) == ' ') {
+            c = c.substring(1);
+        }
+        if (c.indexOf(name) == 0) {
+            return c.substring(name.length, c.length);
+        }
+    }
+    return "";
 }

@@ -47,11 +47,12 @@ public class CommentServices {
             if (!ServiceTools.isConnected(key)) {
                 return Response.UNKNOWN_CONNECTION.parse();
             }
+            System.out.println(sweetId);
             SweetsDB sweetsDB = new SweetsDB();
             return sweetsDB.getComments(sweetId);
 
         } catch (Exception e) {
-            // TODO Auto-generated catch block
+            e.printStackTrace();
             return Response.INTERNAL_SERVER_ERROR.parse();
         }
     }
