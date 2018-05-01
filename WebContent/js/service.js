@@ -8,7 +8,7 @@ function login(login_form) {
     var form_data = login_form.serialize(); //Encode form elements for submission
     var response;
 
-    return jqxhr = $.post(post_url, form_data);
+    return  $.post(post_url, form_data);
 }
 
 

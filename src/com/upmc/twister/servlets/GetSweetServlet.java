@@ -35,7 +35,6 @@ public class GetSweetServlet extends HttpServlet {
         JSONObject json = UserServices.getSweet(req.getParameter("key"), list);
         PrintWriter out = resp.getWriter();
         out.println(json);
-
     }
 
 //	@Override

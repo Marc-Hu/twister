@@ -133,4 +133,5 @@ body {
 .login_message{
     color: firebrick;
     font-weight: bold;
+    display: none;
 }
