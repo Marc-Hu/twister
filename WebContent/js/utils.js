@@ -21,7 +21,17 @@ $("#login_form").submit(function(event){
         if (data.code == -1){
             $(".login_message").show();
         } else {
-            //TODO logged
+            var newBody = "<nav>" +
+                "<div class='search-bar'><input type='text' name='search'></div>" +
+                "</nav>" +
+                "<div class='home-container'><div class='followed-list'></div>" +
+                "<div class='sweets'></div><div class='profile'></div></div>";
+            $("body").html(newBody);
+
+            get_followed_users(data.key).success(function (followed_users) {
+                console.log(followed_users);
+            });
+
         }
     })
 });

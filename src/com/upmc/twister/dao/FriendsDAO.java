@@ -70,7 +70,7 @@ public class FriendsDAO extends AbstractDAO {
                     + TwisterContract.FriendsEntry.COLUMN_TIMESTAMP + " FROM "
                     + TwisterContract.FriendsEntry.TABLE_NAME + " ,"
                     + TwisterContract.UserEntry.TABLE_NAME + "  WHERE "
-                    + TwisterContract.FriendsEntry.COLUMN_FOLLOWED + " = " + TwisterContract.UserEntry._ID + " AND"
+                    + TwisterContract.FriendsEntry.COLUMN_FOLLOWED + " = " + TwisterContract.UserEntry._ID + " AND "
                     + TwisterContract.FriendsEntry.COLUMN_FOLLOWER + " = ?";
             // prepare query
             st = (PreparedStatement) cnx.prepareStatement(query);
