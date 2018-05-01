@@ -54,7 +54,15 @@ function search_user(key, username) {
     return $.post(post_url, form_data);
 }
 function get_news_feed(key) {
+    var post_url = "http://localhost:8080/Twister/sweet/newsfeed";
+    var form_data = "key=" + key;
+    return $.get(post_url, form_data);
+}
 
+function get_sweets(key, userId) {
+    var post_url = "http://localhost:8080/Twister/sweet/user";
+    var form_data = "key=" + key + "&id=" + userId;
+    return $.get(post_url, form_data);
 }
 function add_sweet(key, sweet) {
     var post_url = "http://localhost:8080/Twister/sweet/add";
@@ -62,13 +70,29 @@ function add_sweet(key, sweet) {
     return $.post(post_url, form_data);
 }
 
-function get_sweets(key, user_id) {
-    var post_url = "http://localhost:8080/Twister/sweet/user";
-    var form_data = "key=" + key + "&id=" + user_id;
-    return $.get(post_url, form_data);
-}
-function remove_sweet(key, sweetId) {
 
+function remove_sweet(key, sweetId) {
+    var post_url = "http://localhost:8080/Twister/sweet/remove";
+    var form_data = "key=" + key + "&sweetId=" + sweetId;
+    return $.post(post_url, form_data);
+}
+
+function like_sweet(key, sweetId) {
+    var post_url = "http://localhost:8080/Twister/sweet/like";
+    var form_data = "like=true&key=" + key + "&sweetId=" + sweetId;
+    return $.post(post_url, form_data);
+}
+
+function unlike_sweet(key, sweetId) {
+    var post_url = "http://localhost:8080/Twister/sweet/like";
+    var form_data = "like=false&key=" + key + "&sweetId=" + sweetId;
+    return $.post(post_url, form_data);
+}
+
+function get_comments(key,sweetId) {
+    var post_url = "http://localhost:8080/Twister/sweet/comment/get";
+    var form_data = "key=" + key + "&sweetId=" + sweetId; //Encode form elements for submission
+    return $.get(post_url, form_data);
 }
 
 function add_comment(key, sweetId, comment) {
@@ -76,22 +100,20 @@ function add_comment(key, sweetId, comment) {
     var form_data = "key=" + key + "&sweetId=" + sweetId + "&comment=" + comment; //Encode form elements for submission
     return $.post(post_url, form_data);
 }
-function get_comments(key,sweetId) {
 
-}
 function remove_comment(key, sweetId, commentId) {
-
+    var post_url = "http://localhost:8080/Twister/sweet/comment/remove";
+    var form_data = "key=" + key + "&sweetId=" + sweetId + "&commentId=" + commentId; //Encode form elements for submission
+    return $.post(post_url, form_data);
 }
-function like_sweet(key, sweetId) {
 
-}
-
-function unlike_sweet(key, sweetId) {
-
-}
 function like_comment(key, sweetId,commentId) {
-
+    var post_url = "http://localhost:8080/Twister/sweet/comment/like";
+    var form_data = "like=true&key=" + key + "&sweetId=" + sweetId + "&commentId=" + commentId; //Encode form elements for submission
+    return $.post(post_url, form_data);
 }
-function ublike_comment(key, sweetId, commentId) {
-
+function unlike_comment(key, sweetId, commentId) {
+    var post_url = "http://localhost:8080/Twister/sweet/comment/like";
+    var form_data = "like=false&key=" + key + "&sweetId=" + sweetId + "&commentId=" + commentId; //Encode form elements for submission
+    return $.post(post_url, form_data);
 }

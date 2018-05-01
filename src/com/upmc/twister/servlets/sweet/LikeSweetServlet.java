@@ -1,5 +1,7 @@
 package com.upmc.twister.servlets.sweet;
 
+import com.upmc.twister.services.Response;
+import com.upmc.twister.services.SweetServices;
 import com.upmc.twister.services.UserServices;
 import org.json.JSONObject;
 
@@ -11,7 +13,7 @@ import java.io.IOException;
 import java.io.PrintWriter;
 
 /**
- * Servlet qui permet de creer un sweet par rapport e sa cle de connection
+ * Servlet qui permet de creer un addSweet par rapport e sa cle de connection
  *
  * @author march
  */
@@ -22,11 +24,26 @@ public class LikeSweetServlet extends HttpServlet {
         // TODO Auto-generated method stub
         resp.setContentType("application/json");
 
-
-        JSONObject json = UserServices.sweet(req.getParameter("key"),
-                req.getParameter("sweet"));
         PrintWriter out = resp.getWriter();
+
+        String like = req.getParameter("like");
+        if (like == null) {
+            out.println(Response.BAD_REQUEST.parse());
+            return;
+        }
+        JSONObject json;
+        if(like.equalsIgnoreCase("true")){
+            json = SweetServices.likeSweet(req.getParameter("key"),
+                    req.getParameter("sweetId"));
+        }else if(like.equalsIgnoreCase("false")){
+            json = SweetServices.unlikeSweet(req.getParameter("key"),
+                    req.getParameter("sweetId"));
+        }else{
+            json = Response.BAD_REQUEST.parse();
+        }
+
         out.println(json);
+
 
     }
 

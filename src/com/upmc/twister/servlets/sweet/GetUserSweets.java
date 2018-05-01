@@ -1,6 +1,6 @@
 package com.upmc.twister.servlets.sweet;
 
-import com.upmc.twister.services.UserServices;
+import com.upmc.twister.services.SweetServices;
 import org.json.JSONObject;
 
 import javax.servlet.ServletException;
@@ -11,7 +11,7 @@ import java.io.IOException;
 import java.io.PrintWriter;
 
 /**
- * Servlet qui permet de recuperer un sweet par rapport e son Id
+ * Servlet qui permet de recuperer un addSweet par rapport e son Id
  *
  * @author march
  */
@@ -22,7 +22,7 @@ public class GetUserSweets extends HttpServlet {
         // TODO Auto-generated method stub
         resp.setContentType("text/plain");
 
-        JSONObject json = UserServices.getSweetById(req.getParameter("key"), req.getParameter("id"));
+        JSONObject json = SweetServices.getUserSweets(req.getParameter("key"), req.getParameter("id"));
         PrintWriter out = resp.getWriter();
         out.println(json);
 

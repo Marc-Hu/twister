@@ -193,9 +193,9 @@ public class ServiceTools {
      * @return list d'amis de la personne avec l'id id
      * @throws Exception
      */
-    public static List<Friends> getFollowedList(long id) throws Exception {
+    public static List<Friends> getFollowings(long id) throws Exception {
         FriendsDAO fDAO = (FriendsDAO) DAOFactory.FRIENDS_DAO.get();
-        return fDAO.getFollowedList(id);
+        return fDAO.getFollowingList(id);
     }
 
 }
