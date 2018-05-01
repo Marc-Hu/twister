@@ -19,8 +19,6 @@ public class SweetServices {
     public static JSONObject addSweet(String key, String sweetMessage) {
         if (key == null || sweetMessage == null)
             return Response.BAD_REQUEST.parse();
-
-
         try {
             if (!ServiceTools.isConnected(key)) {
                 return Response.UNKNOWN_CONNECTION.parse();
@@ -154,6 +152,23 @@ public class SweetServices {
     }
 
     public static JSONObject unlikeSweet(String key, String sweetId) {
-        return null;
+        if (key == null || sweetId == null)
+            return Response.BAD_REQUEST.parse();
+
+
+        try {
+            if (!ServiceTools.isConnected(key)) {
+                return Response.UNKNOWN_CONNECTION.parse();
+            }
+
+            User user = ServiceTools.getUser(key);
+            SweetsDB sweetsDB = new SweetsDB();
+            sweetsDB.unlikeSweet(user.getId(),sweetId);
+            return Response.OK.parse();
+
+        } catch (Exception e) {
+            // TODO Auto-generated catch block
+            return Response.INTERNAL_SERVER_ERROR.parse();
+        }
     }
 }

@@ -26,6 +26,43 @@ import java.util.Map;
  */
 public class UserDAO extends AbstractDAO {
     /**
+     * This method check if a user login credentials are valid.
+     * i.e his username and password
+     *
+     * @param username
+     * @param password
+     * @return true if the user exists
+     */
+    public boolean checkPassword(String username, String password) throws Exception {
+        boolean test = false;
+        try {
+            cnx = Database.getMySQLConnection();
+            // query select id from User where username = ? and password = ?
+            String query = "SELECT " + TwisterContract.UserEntry._ID + " FROM "
+                    + TwisterContract.UserEntry.TABLE_NAME + " WHERE "
+                    + TwisterContract.UserEntry.COLUMN_USERNAME + " = ? AND "
+                    + TwisterContract.UserEntry.COLUMN_PASSWORD + " = ?;";
+
+            st = (PreparedStatement) cnx.prepareStatement(query);
+            st.setString(1, username);
+            st.setString(2, password);
+
+            rs = st.executeQuery();
+            test = rs.next();
+
+        } catch (Exception e) {
+            e.printStackTrace();
+
+            throw new DBException(e.getMessage());
+        } finally {
+            close();
+        }
+
+        return test;
+
+    }
+
+    /**
      * <p>The create method persist a User object to the UserEntry
      * table.</p><p>The class must check first if the parameter is an instance of the
      * User class to proceed to the persisting phase .
@@ -77,14 +114,6 @@ public class UserDAO extends AbstractDAO {
     }
 
     @Override
-    public void update(Object o) {
-        if (!checkParameter(o, User.class))
-            return;
-        User user = (User) o;
-        throw new UnsupportedOperationException();
-    }
-
-    @Override
     public void delete(Object o) throws Exception {
         if (!checkParameter(o, User.class))
             return;
@@ -116,6 +145,45 @@ public class UserDAO extends AbstractDAO {
 
     }
 
+    public User find(String username) throws Exception {
+        User user = new User();
+        try {
+            cnx = Database.getMySQLConnection();
+            // query: select columns from User where username =?
+            String query = "SELECT " + TwisterContract.UserEntry._ID + ", "
+                    + TwisterContract.UserEntry.COLUMN_LAST_NAME + ", "
+                    + TwisterContract.UserEntry.COLUMN_FIRST_NAME + ", "
+                    + TwisterContract.UserEntry.COLUMN_PROFILE_PIC + ", "
+                    + TwisterContract.UserEntry.COLUMN_USERNAME + " FROM "
+                    + TwisterContract.UserEntry.TABLE_NAME + " WHERE "
+                    + TwisterContract.UserEntry.COLUMN_USERNAME + " = ?;";
+            // prepare query
+            st = (PreparedStatement) cnx.prepareStatement(query);
+            // fill it
+            st.setString(1, username);
+            // execute it
+            rs = st.executeQuery();
+            // get the result, the username is unique,
+            //so there might be just one result to read
+            if (rs.next()) {
+                // get the data
+                Map<String, Object> data = readResultSet(TwisterContract.UserEntry._ID,
+                        TwisterContract.UserEntry.COLUMN_LAST_NAME,
+                        TwisterContract.UserEntry.COLUMN_FIRST_NAME,
+                        UserEntry.COLUMN_PROFILE_PIC,
+                        TwisterContract.UserEntry.COLUMN_USERNAME);
+                // fill the user
+                User.fill(user, data);
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+            throw new DBException(e.getMessage());
+        } finally {
+            close();
+        }
+        return user;
+    }
+
     /**
      * This method find a User by his id
      * The method must call executeQuery and not executeUpdate to retrieve the data.
@@ -135,6 +203,7 @@ public class UserDAO extends AbstractDAO {
             String query = "SELECT " + TwisterContract.UserEntry._ID + ", "
                     + TwisterContract.UserEntry.COLUMN_LAST_NAME + ", "
                     + TwisterContract.UserEntry.COLUMN_FIRST_NAME + ", "
+                    + TwisterContract.UserEntry.COLUMN_PROFILE_PIC + ", "
                     + TwisterContract.UserEntry.COLUMN_USERNAME + " FROM "
                     + TwisterContract.UserEntry.TABLE_NAME + " WHERE "
                     + TwisterContract.UserEntry._ID + " = ?;";
@@ -154,6 +223,7 @@ public class UserDAO extends AbstractDAO {
                 Map<String, Object> data = readResultSet(TwisterContract.UserEntry._ID,
                         TwisterContract.UserEntry.COLUMN_LAST_NAME,
                         TwisterContract.UserEntry.COLUMN_FIRST_NAME,
+                        TwisterContract.UserEntry.COLUMN_PROFILE_PIC,
                         TwisterContract.UserEntry.COLUMN_USERNAME);
                 User.fill(user, data);
             }
@@ -166,43 +236,6 @@ public class UserDAO extends AbstractDAO {
         }
         return user;
 
-    }
-
-    public User find(String username) throws Exception {
-        User user = new User();
-        try {
-            cnx = Database.getMySQLConnection();
-            // query: select columns from User where username =?
-            String query = "SELECT " + TwisterContract.UserEntry._ID + ", "
-                    + TwisterContract.UserEntry.COLUMN_LAST_NAME + ", "
-                    + TwisterContract.UserEntry.COLUMN_FIRST_NAME + ", "
-                    + TwisterContract.UserEntry.COLUMN_USERNAME + " FROM "
-                    + TwisterContract.UserEntry.TABLE_NAME + " WHERE "
-                    + TwisterContract.UserEntry.COLUMN_USERNAME + " = ?;";
-            // prepare query
-            st = (PreparedStatement) cnx.prepareStatement(query);
-            // fill it
-            st.setString(1, username);
-            // execute it
-            rs = st.executeQuery();
-            // get the result, the username is unique,
-            //so there might be just one result to read
-            if (rs.next()) {
-                // get the data
-                Map<String, Object> data = readResultSet(TwisterContract.UserEntry._ID,
-                        TwisterContract.UserEntry.COLUMN_LAST_NAME,
-                        TwisterContract.UserEntry.COLUMN_FIRST_NAME,
-                        TwisterContract.UserEntry.COLUMN_USERNAME);
-                // fill the user
-                User.fill(user, data);
-            }
-        } catch (Exception e) {
-            e.printStackTrace();
-            throw new DBException(e.getMessage());
-        } finally {
-            close();
-        }
-        return user;
     }
 
     /**
@@ -221,19 +254,22 @@ public class UserDAO extends AbstractDAO {
             String query = "SELECT " + TwisterContract.UserEntry._ID + ", "
                     + TwisterContract.UserEntry.COLUMN_LAST_NAME + ", "
                     + TwisterContract.UserEntry.COLUMN_FIRST_NAME + ", "
+                    + UserEntry.COLUMN_PROFILE_PIC + ", "
                     + TwisterContract.UserEntry.COLUMN_USERNAME + " FROM "
                     + TwisterContract.UserEntry.TABLE_NAME + " WHERE "
                     + TwisterContract.UserEntry.COLUMN_USERNAME + " LIKE '%'" + "?" + "'%' LIMIT 10";
             // prepare query
             st = (PreparedStatement) cnx.prepareStatement(query);
             // execute it
-            st.setString(1,username);
+            st.setString(1, username);
             rs = st.executeQuery();
             // get the result, the username is unique,
             //so there might be just one result to read
             while (rs.next()) {
                 // get the data
-                Map<String, Object> data = readResultSet(TwisterContract.UserEntry.COLUMN_LAST_NAME,
+                Map<String, Object> data = readResultSet(
+                        TwisterContract.UserEntry.COLUMN_LAST_NAME,
+                        UserEntry.COLUMN_PROFILE_PIC,
                         TwisterContract.UserEntry.COLUMN_FIRST_NAME,
                         TwisterContract.UserEntry.COLUMN_USERNAME);
 
@@ -249,37 +285,6 @@ public class UserDAO extends AbstractDAO {
             close();
         }
         return userlist;
-    }
-
-    /**
-     * This method check if a user exists in the UserEntry table
-     *
-     * @param userId
-     * @return true if the user exists
-     */
-    public boolean isExist(long userId) throws Exception {
-        boolean test = false;
-        try {
-            cnx = Database.getMySQLConnection();
-            // query select id from user where id = ?
-            String query = "SELECT " + TwisterContract.UserEntry._ID + " FROM "
-                    + TwisterContract.UserEntry.TABLE_NAME + " WHERE " +
-                    TwisterContract.UserEntry._ID + " = ?;";
-
-            st = (PreparedStatement) cnx.prepareStatement(query);
-            st.setLong(1, userId);
-            // execute the query
-            rs = st.executeQuery();
-            // if the user exists then rs.next() will return true
-            test = rs.next();
-
-        } catch (Exception e) {
-            e.printStackTrace();
-            throw new DBException(e.getMessage());
-        } finally {
-            close();
-        }
-        return test;
     }
 
     /**
@@ -314,39 +319,41 @@ public class UserDAO extends AbstractDAO {
     }
 
     /**
-     * This method check if a user login credentials are valid.
-     * i.e his username and password
+     * This method check if a user exists in the UserEntry table
      *
-     * @param username
-     * @param password
+     * @param userId
      * @return true if the user exists
      */
-    public boolean checkPassword(String username, String password) throws Exception {
+    public boolean isExist(long userId) throws Exception {
         boolean test = false;
         try {
             cnx = Database.getMySQLConnection();
-            // query select id from User where username = ? and password = ?
+            // query select id from user where id = ?
             String query = "SELECT " + TwisterContract.UserEntry._ID + " FROM "
-                    + TwisterContract.UserEntry.TABLE_NAME + " WHERE "
-                    + TwisterContract.UserEntry.COLUMN_USERNAME + " = ? AND "
-                    + TwisterContract.UserEntry.COLUMN_PASSWORD + " = ?;";
+                    + TwisterContract.UserEntry.TABLE_NAME + " WHERE " +
+                    TwisterContract.UserEntry._ID + " = ?;";
 
             st = (PreparedStatement) cnx.prepareStatement(query);
-            st.setString(1, username);
-            st.setString(2, password);
-
+            st.setLong(1, userId);
+            // execute the query
             rs = st.executeQuery();
+            // if the user exists then rs.next() will return true
             test = rs.next();
 
         } catch (Exception e) {
             e.printStackTrace();
-
             throw new DBException(e.getMessage());
         } finally {
             close();
         }
-
         return test;
+    }
 
+    @Override
+    public void update(Object o) {
+        if (!checkParameter(o, User.class))
+            return;
+        User user = (User) o;
+        throw new UnsupportedOperationException();
     }
 }

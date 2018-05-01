@@ -218,7 +218,7 @@ public class SweetsDB implements DAO {
             comment.put("username",user.getUsername());
             comment.put("pic",user.getPic());
         }
-
+        sweet.put("code",200);
         return sweet;
     }
 

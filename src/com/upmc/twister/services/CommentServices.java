@@ -2,6 +2,7 @@ package com.upmc.twister.services;
 
 import com.upmc.twister.dao.SweetsDB;
 import com.upmc.twister.model.Comment;
+import com.upmc.twister.model.Like;
 import com.upmc.twister.model.User;
 import org.json.JSONObject;
 
@@ -38,7 +39,21 @@ public class CommentServices {
     }
 
     public static JSONObject getComments(String key, String sweetId) {
-        return null;
+        if (key == null || sweetId == null )
+            return Response.BAD_REQUEST.parse();
+
+
+        try {
+            if (!ServiceTools.isConnected(key)) {
+                return Response.UNKNOWN_CONNECTION.parse();
+            }
+            SweetsDB sweetsDB = new SweetsDB();
+            return sweetsDB.getComments(sweetId);
+
+        } catch (Exception e) {
+            // TODO Auto-generated catch block
+            return Response.INTERNAL_SERVER_ERROR.parse();
+        }
     }
 
     public static JSONObject removeComment(String key, String sweetUserId, String sweetId, String commentId) {
@@ -72,10 +87,44 @@ public class CommentServices {
     }
 
     public static JSONObject unlikeComment(String key, String sweetId, String commentId) {
-        return null;
+        if (key == null || sweetId == null ||commentId ==null)
+            return Response.BAD_REQUEST.parse();
+
+
+        try {
+            if (!ServiceTools.isConnected(key)) {
+                return Response.UNKNOWN_CONNECTION.parse();
+            }
+
+            SweetsDB sweetsDB = new SweetsDB();
+
+            sweetsDB.unlikeComment(ServiceTools.getUser(key).getId(),sweetId,commentId);
+            return Response.OK.parse();
+
+        } catch (Exception e) {
+            // TODO Auto-generated catch block
+            return Response.INTERNAL_SERVER_ERROR.parse();
+        }
     }
 
     public static JSONObject likeComment(String key, String sweetId, String commentId) {
-        return null;
+        if (key == null || sweetId == null ||commentId ==null)
+              return Response.BAD_REQUEST.parse();
+
+
+        try {
+            if (!ServiceTools.isConnected(key)) {
+                return Response.UNKNOWN_CONNECTION.parse();
+            }
+
+            SweetsDB sweetsDB = new SweetsDB();
+            Like like = new Like(ServiceTools.getUser(key).getId());
+            sweetsDB.likeComment(sweetId,commentId,like);
+            return Response.OK.parse();
+
+        } catch (Exception e) {
+            // TODO Auto-generated catch block
+            return Response.INTERNAL_SERVER_ERROR.parse();
+        }
     }
 }
