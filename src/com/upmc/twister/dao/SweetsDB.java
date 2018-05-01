@@ -81,7 +81,7 @@ public class SweetsDB implements DAO {
      */
     public JSONObject find(Map<Long, User> data) throws Exception {
         BasicDBObject params = new BasicDBObject();
-        params.put("$in", data.entrySet()); // ids are the set
+        params.put("$in", data.keySet()); // ids are the set
         DBObject query = new BasicDBObject("userId", params); //Ajout d'un OU mongo
         DBObject sort = new BasicDBObject("date", -1);
         DBCursor cursor = sweets.find(query).limit(150).sort(sort);

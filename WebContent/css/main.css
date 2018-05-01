@@ -175,7 +175,7 @@ input[name="search"]{
     top: 80px;
     z-index: -1;
 }
-.followed-list{
+.following-list{
     width: 20%;
     background: #FFF;
     float: left;
@@ -188,15 +188,15 @@ input[name="search"]{
     margin-left: 3%;
 }
 
-.followed-list .followed-user{
+.following-list .following-user{
     padding: 15px;
     border-bottom: 1px #DDD solid;
 }
-.followed-list .followed-user .name{
+.following-list .following-user .name{
     font-weight: bold;
     font-size: 1.2em;
 }
-.followed-list .followed-user .username{
+.following-list .following-user .username{
     color: #AAA;
 }
 
