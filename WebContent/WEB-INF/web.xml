@@ -28,7 +28,7 @@
 
     <servlet>
         <servlet-name>GetListUser</servlet-name>
-        <servlet-class>com.upmc.twister.servlets.GetUserListByUsernameServlet</servlet-class>
+        <servlet-class>com.upmc.twister.servlets.SearchServlet</servlet-class>
     </servlet>
     <servlet>
         <servlet-name>GetListFollowed</servlet-name>

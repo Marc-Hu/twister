@@ -37,15 +37,4 @@ public class GetSweetServlet extends HttpServlet {
         out.println(json);
     }
 
-//	@Override
-//	protected void doPost(HttpServletRequest req, HttpServletResponse resp)
-//			throws ServletException, IOException {
-//		// TODO Auto-generated method stub
-//		resp.setContentType("text/plain");
-//		List<String> list = new ArrayList<String>(Arrays.asList(req.getParameterValues("ids"))); 
-//		JSONObject json = UserServices.getSweet(req.getParameter("key"), list);
-//		PrintWriter out = resp.getWriter();
-//		out.println(json);
-//
-//	}
 }

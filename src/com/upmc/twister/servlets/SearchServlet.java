@@ -15,7 +15,7 @@ import java.io.PrintWriter;
  *
  * @author march
  */
-public class GetUserListByUsernameServlet extends HttpServlet {
+public class SearchServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp)
             throws ServletException, IOException {

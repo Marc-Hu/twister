@@ -28,7 +28,7 @@ public class UserServices {
                 return Response.UNKWOWN_USER.parse();
 
             if (!ServiceTools.checkPassword(username, password))
-                return Response.WRONG_PASSWORD.parse();
+                return Response.UNKWOWN_USER.parse();
 
             long id = ServiceTools.getUserId(username);
             String key = ServiceTools.insertConnection(id, false);
@@ -304,7 +304,7 @@ public class UserServices {
     /**
      * Methode qui va recuperer la liste des personnes qu'on follow
      *
-     * @param id
+     * @param key
      * @return
      */
     public static JSONObject getFollowedList(String key) {

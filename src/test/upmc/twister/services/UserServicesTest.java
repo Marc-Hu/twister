@@ -28,7 +28,7 @@ public class UserServicesTest {
         assertEquals(Response.UNKWOWN_USER.parse(), UserServices.login("cc", "lala"));
         assertEquals(Response.OK.parse(), UserServices.create("Marc", "u1", "u1", "password"));
 
-        assertEquals(Response.WRONG_PASSWORD.parse(), UserServices.login("u1", "lala"));
+        assertEquals(Response.UNKWOWN_USER.parse(), UserServices.login("u1", "lala"));
         JSONObject json = UserServices.login("u1", "password");
         assertTrue(json.has("key"));
         assertEquals(32, json.get("key").toString().length());
