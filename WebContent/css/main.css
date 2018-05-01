@@ -151,7 +151,11 @@ nav div{
     display: inline-block;
 }
 .profile{
-    float: right;
+    float: left;
+    min-height: 200px;
+    width: 20%;
+    background: #FFF;
+    margin-left: 3%;
 }
 .search-bar{
     display: inline-block;
@@ -172,15 +176,27 @@ input[name="search"]{
     z-index: -1;
 }
 .followed-list{
-    width: 25%;
+    width: 20%;
     background: #FFF;
-    min-height: 200px;
     float: left;
 }
 .sweets{
-    width: 50%;
-    margin-right: 13%;
-    float: right;
+    width: 48%;
+    float: left;
     min-height: 200px;
     background: #FFF;
+    margin-left: 3%;
 }
+
+.followed-list .followed-user{
+    padding: 15px;
+    border-bottom: 1px #DDD solid;
+}
+.followed-list .followed-user .name{
+    font-weight: bold;
+    font-size: 1.2em;
+}
+.followed-list .followed-user .username{
+    color: #AAA;
+}
+
