@@ -27,8 +27,10 @@ $("#login_form").submit(function (event) {
                 "<div class='home-container'><div class='following-list'></div>" +
                 "<div class='sweets'></div><div class='profile'>" +
                 "<ul>" +
-                "<li><a href='' id='disconnect' data-key='" + data.key + "'>Logout</a></li></ul></div></div>";
+                "<li><a href='#' id='disconnect' data-key='" + data.key + "'>Logout</a></li></ul></div></div>";
+
             $("body").html(newBody);
+            initDiconnect();
 
             var f_users = get_following_users(data.key);
             f_users.success(function (following_users) {
@@ -83,15 +85,21 @@ animate_forms = function () {
 
 $('.message a').click(animate_forms);
 
-$("#disconnect").click(function () {
-    var key = $(this).data("key");
-    var result = logout(key);
-    result.success(function (response) {
-        if (response.code == 200) {
-            location.reload();
-        }
+function initDiconnect(){
+    $(document).ready(function () {
+        $("#disconnect").on('click',function (e) {
+            e.preventDefault();
+            var key = $(this).data("key");
+            var result = logout(key);
+            result.success(function (response) {
+                if (response.code == 200) {
+                    location.reload();
+                }
+            });
+        });
     });
-});
+
+}
 
 
 function initEventFollowingList(){
