@@ -1,4 +1,4 @@
-package com.upmc.twister.servlets;
+package com.upmc.twister.servlets.sweet.comment;
 
 import com.upmc.twister.services.UserServices;
 import org.json.JSONObject;

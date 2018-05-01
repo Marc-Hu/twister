@@ -1,4 +1,4 @@
-package com.upmc.twister.servlets;
+package com.upmc.twister.servlets.sweet;
 
 import com.upmc.twister.services.UserServices;
 import org.json.JSONObject;
@@ -18,7 +18,7 @@ import java.util.List;
  *
  * @author marc hu
  */
-public class GetSweetServlet extends HttpServlet {
+public class GetNewsFeedServlet extends HttpServlet {
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp)

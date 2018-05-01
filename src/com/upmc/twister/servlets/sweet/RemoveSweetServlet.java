@@ -1,4 +1,4 @@
-package com.upmc.twister.servlets;
+package com.upmc.twister.servlets.sweet;
 
 import com.upmc.twister.services.UserServices;
 import org.json.JSONObject;
@@ -11,20 +11,23 @@ import java.io.IOException;
 import java.io.PrintWriter;
 
 /**
- * Servlet qui permet de recureper la liste de toutes les personne qu'un id follow
+ * Servlet qui permet de creer un sweet par rapport e sa cle de connection
  *
  * @author march
  */
-public class ListFollowedServlet extends HttpServlet {
+public class RemoveSweetServlet extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp)
             throws ServletException, IOException {
         // TODO Auto-generated method stub
         resp.setContentType("application/json");
 
-        JSONObject json = UserServices.getFollowedList(req.getParameter("key"));
+
+        JSONObject json = UserServices.sweet(req.getParameter("key"),
+                req.getParameter("sweet"));
         PrintWriter out = resp.getWriter();
         out.println(json);
 
     }
+
 }

@@ -1,4 +1,4 @@
-package com.upmc.twister.servlets;
+package com.upmc.twister.servlets.user;
 
 import com.upmc.twister.services.Response;
 import com.upmc.twister.services.UserServices;
@@ -16,7 +16,7 @@ import java.io.PrintWriter;
  *
  * @author march
  */
-public class FollowServlet extends HttpServlet {
+public class FollowUserServlet extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp)
             throws ServletException, IOException {
