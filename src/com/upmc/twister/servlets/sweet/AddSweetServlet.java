@@ -1,4 +1,4 @@
-package com.upmc.twister.servlets;
+package com.upmc.twister.servlets.sweet;
 
 import com.upmc.twister.services.UserServices;
 import org.json.JSONObject;
@@ -15,7 +15,7 @@ import java.io.PrintWriter;
  *
  * @author march
  */
-public class SweetServlet extends HttpServlet {
+public class AddSweetServlet extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp)
             throws ServletException, IOException {

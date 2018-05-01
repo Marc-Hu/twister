@@ -34,6 +34,7 @@ public class UserServices {
             String key = ServiceTools.insertConnection(id, false);
             JSONObject response = new JSONObject();
             response.put("key", key);
+            response.put("code", 200);
             return response;
         } catch (Exception e) {
             e.printStackTrace();
@@ -85,10 +86,11 @@ public class UserServices {
             }
             User user = ServiceTools.getUserProfile(username);
             JSONObject response = new JSONObject();
-            response.put("firstname", user.getFirstName());
-            response.put("lastname", user.getLastName());
+            response.put("f_name", user.getFirstName());
+            response.put("l_name", user.getLastName());
             response.put("username", user.getUsername());
             response.put("id", user.getId());
+            response.put("code",200);
             return response;
         } catch (Exception e) {
             e.printStackTrace();
@@ -286,13 +288,14 @@ public class UserServices {
             JSONArray ja = new JSONArray();
             for (User u : userlist) {
                 JSONObject user = new JSONObject();
-                user.put("firstname", u.getFirstName());
-                user.put("lastname", u.getLastName());
+                user.put("f_name", u.getFirstName());
+                user.put("l_name", u.getLastName());
                 user.put("username", u.getUsername());
 
                 ja.put(user);
             }
-            response.put("list", ja);
+            response.put("users", ja);
+            response.put("code", 1);
             return response;
 
         } catch (Exception e) {
@@ -320,15 +323,16 @@ public class UserServices {
             JSONArray ja = new JSONArray();
             for (Friends u : userlist) {
                 JSONObject user = new JSONObject();
-                user.put("followed_id", u.getFollower().getId());
-                user.put("followed_lastname", u.getFollower().getLastName());
-                user.put("followed_firstname", u.getFollower().getFirstName());
-                user.put("followed_username", u.getFollower().getUsername());
+                user.put("f_id", u.getFollower().getId());
+                user.put("f_l_name", u.getFollower().getLastName());
+                user.put("f_f_name", u.getFollower().getFirstName());
+                user.put("f_username", u.getFollower().getUsername());
                 user.put("time", u.getTime());
 
                 ja.put(user);
             }
-            response.put("list", ja);
+            response.put("users", ja);
+            response.put("code",200)
             return response;
 
         } catch (Exception e) {

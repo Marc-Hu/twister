@@ -1,4 +1,4 @@
-package com.upmc.twister.servlets;
+package com.upmc.twister.servlets.user;
 
 import com.upmc.twister.services.UserServices;
 import org.json.JSONObject;
@@ -15,7 +15,7 @@ import java.io.PrintWriter;
  *
  * @author march
  */
-public class CreateServlet extends HttpServlet {
+public class CreateUserServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp)
             throws ServletException, IOException {

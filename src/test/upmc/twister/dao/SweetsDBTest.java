@@ -1,16 +1,5 @@
 package test.upmc.twister.dao;
 
-import static org.junit.Assert.assertNotNull;
-import static org.junit.Assert.assertTrue;
-
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
-
-import org.junit.After;
-import org.junit.Before;
-import org.junit.Test;
-
 import com.mongodb.DBCursor;
 import com.mongodb.DBObject;
 import com.upmc.twister.dao.MongoConnection;
@@ -19,52 +8,66 @@ import com.upmc.twister.dao.TwisterContract;
 import com.upmc.twister.model.Comment;
 import com.upmc.twister.model.Like;
 import com.upmc.twister.model.Sweet;
+import org.bson.types.ObjectId;
+import org.junit.After;
+import org.junit.Before;
+import org.junit.Test;
+
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 
 public class SweetsDBTest {
-	SweetsDB sweetsdb;
+    SweetsDB sweetsdb;
 
-	@Before
-	public void setUp() throws Exception {
-		MongoConnection.getInstance();
-		MongoConnection.getDatabase(TwisterContract.db_name).dropDatabase();
-		sweetsdb = new SweetsDB();
+    private Sweet createSweet() {
+        Sweet sweet = new Sweet("Hello,World!", 1);
+        List<Comment> comments = new ArrayList<>();
+        comments.add(new Comment(2, "Hi, Welcome"));
+        comments.add(new Comment(1, "thanks"));
+        comments.add(new Comment(3, "Noobs!"));
+        comments.add(new Comment(2, "Go Away!!"));
+        comments.get(0).setLikes(Arrays.asList(new Like(1)));
+        comments.get(1).setLikes(Arrays.asList(new Like(2), new Like(3)));
+        sweet.setComments(comments);
+        return sweet;
+    }
 
-	}
+    @Before
+    public void setUp() throws Exception {
+        MongoConnection.getInstance();
+        sweetsdb = new SweetsDB();
 
-	@After
-	public void tearDown() throws Exception {
-		MongoConnection.close();
-	}
+    }
 
-	@Test
-	public void testCreate() throws Exception {
+    @After
+    public void tearDown() throws Exception {
+        MongoConnection.close();
+    }
 
-		sweetsdb.create(createSweet());
+    @Test
+    public void testCreate() throws Exception {
 
-		DBCursor cursor =  sweetsdb.getSweetsCollection().find();
-		
-		for(DBObject o:cursor) {
-			System.out.println(o);
-		}
-	}
-	/*
-	 * @Test public void testUpdate() { }
-	 * 
-	 * @Test public void testDelete() { }
-	 * 
-	 * @Test public void testFind() { }
-	 */
+        sweetsdb.create(createSweet());
+        DBCursor cursor = sweetsdb.getSweetsCollection().find();
 
-	private Sweet createSweet(){
-		Sweet sweet = new Sweet("Hello,World!", 1);
-		List<Comment> comments = new ArrayList<>();
-		comments.add(new Comment(2, "Hi, Welcome"));
-		comments.add(new Comment(1, "thanks"));
-		comments.add(new Comment(3, "Noobs!"));
-		comments.add(new Comment(2, "Go Away!!"));
-		comments.get(0).setLikes(Arrays.asList(new Like(1)));
-		comments.get(1).setLikes(Arrays.asList(new Like(2), new Like(3)));
-		sweet.setComments(comments);
-		return sweet;
-	}
+        for (DBObject o : cursor) {
+            System.out.println(o);
+        }
+    }
+
+    @Test
+    public void testDelete()throws Exception {
+        Sweet sweet = new Sweet();
+        sweet.setId(new ObjectId("5ae849459a83ce1b9ecd5d67"));
+        sweetsdb.delete(sweet);
+    }
+
+    @Test
+    public void testFind() {
+    }
+
+    @Test
+    public void testUpdate() {
+    }
 }

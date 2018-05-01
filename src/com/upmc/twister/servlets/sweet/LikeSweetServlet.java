@@ -1,4 +1,4 @@
-package com.upmc.twister.servlets;
+package com.upmc.twister.servlets.sweet;
 
 import com.upmc.twister.services.UserServices;
 import org.json.JSONObject;
@@ -11,20 +11,23 @@ import java.io.IOException;
 import java.io.PrintWriter;
 
 /**
- * Servlet qui permet de recuperer une liste d'utilisateur par rapport e un nom ou un bout de nom
+ * Servlet qui permet de creer un sweet par rapport e sa cle de connection
  *
  * @author march
  */
-public class SearchServlet extends HttpServlet {
+public class LikeSweetServlet extends HttpServlet {
     @Override
-    protected void doGet(HttpServletRequest req, HttpServletResponse resp)
+    protected void doPost(HttpServletRequest req, HttpServletResponse resp)
             throws ServletException, IOException {
         // TODO Auto-generated method stub
-        resp.setContentType("text/plain");
+        resp.setContentType("application/json");
 
-        JSONObject json = UserServices.getUserListByUsername(req.getParameter("key"), req.getParameter("username"));
+
+        JSONObject json = UserServices.sweet(req.getParameter("key"),
+                req.getParameter("sweet"));
         PrintWriter out = resp.getWriter();
         out.println(json);
 
     }
+
 }

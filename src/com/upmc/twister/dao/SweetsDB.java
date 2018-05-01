@@ -34,21 +34,19 @@ public class SweetsDB implements DAO {
 
     @Override
     public void update(Object o) throws Exception {
-        // TODO Auto-generated method stub
-        // TODO Auto-generated method stub
         if (!checkParameter(o, Sweet.class))
             return;
 
         Sweet sweet = (Sweet) o;
+        throw new UnsupportedOperationException();
     }
 
     @Override
     public void delete(Object o) throws Exception {
-        // TODO Auto-generated method stub
-        // TODO Auto-generated method stub
         if (!checkParameter(o, Sweet.class))
             return;
         Sweet sweet = (Sweet) o;
+        sweets.remove(new BasicDBObject("_id",sweet.getId()));
     }
 
     @Override
