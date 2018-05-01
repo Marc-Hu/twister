@@ -356,4 +356,34 @@ public class UserDAO extends AbstractDAO {
         User user = (User) o;
         throw new UnsupportedOperationException();
     }
+
+    public void setProfilePic(String pic,long id) throws Exception{
+        try {
+            // get the connection
+            cnx = Database.getMySQLConnection();
+
+            String query = "UPDATE "
+                    + TwisterContract.UserEntry.TABLE_NAME + " SET "
+                    + UserEntry.COLUMN_PROFILE_PIC +" = ? WHERE "
+                    + TwisterContract.UserEntry._ID + " = ? ";
+
+
+            // prepare the query
+            st = (PreparedStatement) cnx.prepareStatement(query);
+            // fill the query with data
+            st.setString(1, pic);
+            st.setLong(2, id);
+            // execute
+            st.executeUpdate();
+
+
+        } catch (Exception e) {
+            e.printStackTrace();
+
+            throw new DBException(e.getMessage());
+        } finally {
+            close();
+        }
+    }
+
 }

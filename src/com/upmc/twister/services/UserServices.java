@@ -1,11 +1,14 @@
 package com.upmc.twister.services;
 
 import com.upmc.twister.dao.DAOFactory;
+import com.upmc.twister.dao.UserDAO;
 import com.upmc.twister.model.Friends;
 import com.upmc.twister.model.User;
+import org.apache.commons.fileupload.FileItem;
 import org.json.JSONArray;
 import org.json.JSONObject;
 
+import java.io.File;
 import java.util.List;
 
 public class UserServices {
@@ -87,7 +90,7 @@ public class UserServices {
             response.put("l_name", user.getLastName());
             response.put("username", user.getUsername());
             response.put("id", user.getId());
-            response.put("code",200);
+            response.put("code", 200);
             return response;
         } catch (Exception e) {
             e.printStackTrace();
@@ -247,7 +250,7 @@ public class UserServices {
                 ja.put(user);
             }
             response.put("users", ja);
-            response.put("code",200);
+            response.put("code", 200);
             return response;
 
         } catch (Exception e) {
@@ -257,6 +260,22 @@ public class UserServices {
     }
 
 
+    public static JSONObject uploadPic(FileItem fileItem, File file, String key) {
+        if (key == null || fileItem == null || file == null)
+            return Response.BAD_REQUEST.parse();
+        try {
+            if (!ServiceTools.isConnected(key))
+                return Response.UNKNOWN_CONNECTION.parse();
+
+            long id = ServiceTools.getUser(key).getId();
+            ((UserDAO)DAOFactory.USER_DAO.get()).setProfilePic(file.getName(),id);
+            fileItem.write(file);
+            return Response.OK.parse();
+        } catch (Exception e) {
+            e.printStackTrace();
+            return Response.INTERNAL_SERVER_ERROR.parse();
+        }
 
 
+    }
 }
