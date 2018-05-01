@@ -35,7 +35,8 @@ $("#login_form").submit(function (event) {
                 if (followed_users.code == 200) {
                     for (var i in followed_users.users) {
                         var user = followed_users.users[i];
-                        var userInfo = "<div class='followed-user'>" +
+                        var userInfo = "<div class='followed-user' data-user_id='" + user.f_id + "' data-key='" +
+                            data.key + "'>" +
                             "<div class='username'>@" + user.f_username + "</div>" +
                             "<div class='name'>" + user.f_l_name + " " + user.f_f_name + "</div>" +
                             "</div>";
@@ -67,7 +68,22 @@ $("#disconnect").click(function () {
     var result = logout(key);
     result.success(function () {
         location.reload();
-    })
-})
+    });
+});
+
+$(".followed-user").click(function () {
+    var f_id = $(this).data("user_id");
+    var key = $(this).data("key");
+    var result = get_sweets(key, f_id);
+    result.success(function (data) {
+        if (data.code == 200) {
+            for (var i in data.list) {
+                var sweet = data.list[i].sweet;
+
+                $(".sweets").prepend("<div class='sweet'>" + sweet +"</div>");
+            }
+        }
+    });
+});
 
 
