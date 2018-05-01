@@ -17,6 +17,25 @@ function register(register_from) {
 
 }
 
+
+function upload_pic(upload_pic_form) {
+    var post_url = upload_pic_form.attr("action"); //get form action url
+    var request_method =upload_pic_form.attr("method"); //get form GET/POST method
+    var form_data = new FormData(upload_pic_form); //Creates new FormData object
+    console.log(form_data);
+    $.ajax({
+        url : post_url,
+        type: request_method,
+        data : form_data,
+        contentType: false,
+        cache: false,
+        processData:false
+    }).done(function(response){ //
+        $("#server-results").html(response);
+    });
+
+}
+
 function logout(key) {
     var post_url = "http://localhost:8080/Twister/user/logout";
     var form_data = "key=" + key; //Encode form elements for submission

@@ -27,7 +27,15 @@ $("#login_form").submit(function (event) {
                 "<div class='home-container'><div class='following-list'></div>" +
                 "<div class='sweets'></div><div class='profile'>" +
                 "<ul>" +
-                "<li><a href='#' id='disconnect' data-key='" + data.key + "'>Logout</a></li></ul></div></div>";
+                "<li><a href='#' id='disconnect' data-key='" + data.key + "'>Logout</a></li></ul>" +
+                " <h3>File Upload:</h3>" +
+                "Select a file to upload: <br />" +
+                "<form   data-key='" + data.key + "' id='upload_form' action = 'http://localhost:8080/Twister/user/pic' method = 'post' enctype = 'multipart/form-data'>" +
+                "<input type = 'file' name = 'file' s size = '50' accept='images/*'/>" +
+                "         <br />" +
+                "         <input type = 'submit' value = 'Upload File' />" +
+                "      </form>" +
+                "</div></div>";
 
             $("body").html(newBody);
             initDiconnect();
@@ -37,8 +45,8 @@ $("#login_form").submit(function (event) {
                 if (following_users.code == 200) {
                     for (var i in following_users.users) {
                         var user = following_users.users[i];
-                        var userInfo = "<div class='following-user' data-user_id='" + user.f_id + "' data-key='"+
-                             data.key + "'>" +
+                        var userInfo = "<div class='following-user' data-user_id='" + user.f_id + "' data-key='" +
+                            data.key + "'>" +
                             "<div class='username'>@" + user.f_username + "</div>" +
                             "<div class='name'>" + user.f_l_name + " " + user.f_f_name + "</div> " +
                             "</div>";
@@ -76,6 +84,11 @@ $("#login_form").submit(function (event) {
 $("#register_form").submit(function (event) {
     event.preventDefault(); //prevent default action
     var result = register($(this));
+    result.success(function (response) {
+        if (response.code == 200) {
+            location.reload();
+        }
+    })
 });
 
 animate_forms = function () {
@@ -85,9 +98,9 @@ animate_forms = function () {
 
 $('.message a').click(animate_forms);
 
-function initDiconnect(){
+function initDiconnect() {
     $(document).ready(function () {
-        $("#disconnect").on('click',function (e) {
+        $("#disconnect").on('click', function (e) {
             e.preventDefault();
             var key = $(this).data("key");
             var result = logout(key);
@@ -98,11 +111,28 @@ function initDiconnect(){
             });
         });
     });
-
+    $("#upload_form").submit(function(event){
+        event.preventDefault(); //prevent default action
+        var post_url = $(this).attr("action"); //get form action url
+        var request_method = $(this).attr("method"); //get form GET/POST method
+        var form_data = new FormData(this); //Creates new FormData object
+        form_data.append("key",$(this).data("key"))
+        console.log(form_data);
+        $.ajax({
+            url : post_url,
+            type: request_method,
+            data : form_data,
+            contentType: false,
+            cache: false,
+            processData:false
+        }).done(function(response){ //
+            $("#server-results").html(response);
+        });
+    });
 }
 
 
-function initEventFollowingList(){
+function initEventFollowingList() {
     $(document).ready(function () {
         $(".following-user").on("click", function (e) {
             var f_id = $(this).data("user_id");
@@ -112,7 +142,7 @@ function initEventFollowingList(){
             result.success(function (data) {
                 if (data.code == 200) {
                     var $sweets = $(".sweets");
-                    $sweets.html("<h3>" + name +"</h3>");
+                    $sweets.html("<h3>" + name + "</h3>");
                     for (var i in data.sweets) {
                         var sweet = data.sweets[i];
                         console.log(sweet);

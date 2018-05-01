@@ -33,6 +33,9 @@
     <servlet>
         <servlet-name>FollowingUsers</servlet-name>
         <servlet-class>com.upmc.twister.servlets.user.GetFollowingUsersServlet</servlet-class>
+    </servlet>    <servlet>
+        <servlet-name>UploadPic</servlet-name>
+        <servlet-class>com.upmc.twister.servlets.user.UploadPictureServlet</servlet-class>
     </servlet>
     <!-- Sweet servlet  -->
 
@@ -104,6 +107,9 @@
     <servlet-mapping>
         <servlet-name>FollowingUsers</servlet-name>
         <url-pattern>/user/following</url-pattern>
+    </servlet-mapping>    <servlet-mapping>
+        <servlet-name>UploadPic</servlet-name>
+        <url-pattern>/user/pic</url-pattern>
     </servlet-mapping>
 
     <!-- Sweet servlet  mapping-->
@@ -148,5 +154,12 @@
         <url-pattern>/sweet/comment/like</url-pattern>
     </servlet-mapping>
 
+    <context-param>
+        <param-name>file-upload</param-name>
+        <param-value>
+            c:\data\photos\
+        </param-value>
+        <description>Location to store uploaded file</description>
+    </context-param>
 
 </web-app>
