@@ -323,16 +323,16 @@ public class UserServices {
             JSONArray ja = new JSONArray();
             for (Friends u : userlist) {
                 JSONObject user = new JSONObject();
-                user.put("f_id", u.getFollower().getId());
-                user.put("f_l_name", u.getFollower().getLastName());
-                user.put("f_f_name", u.getFollower().getFirstName());
-                user.put("f_username", u.getFollower().getUsername());
+                user.put("f_id", u.getFollowed().getId());
+                user.put("f_l_name", u.getFollowed().getLastName());
+                user.put("f_f_name", u.getFollowed().getFirstName());
+                user.put("f_username", u.getFollowed().getUsername());
                 user.put("time", u.getTime());
 
                 ja.put(user);
             }
             response.put("users", ja);
-            response.put("code",200)
+            response.put("code",200);
             return response;
 
         } catch (Exception e) {

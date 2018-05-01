@@ -28,7 +28,7 @@ $("#login_form").submit(function(event){
                 "<div class='sweets'></div><div class='profile'></div></div>";
             $("body").html(newBody);
 
-            get_followed_users(data.key).success(function (followed_users) {
+            get_following_users(data.key).success(function (followed_users) {
                 console.log(followed_users);
             });
 

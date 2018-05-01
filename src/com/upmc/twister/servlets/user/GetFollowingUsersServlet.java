@@ -17,7 +17,7 @@ import java.io.PrintWriter;
  */
 public class GetFollowingUsersServlet extends HttpServlet {
     @Override
-    protected void doPost(HttpServletRequest req, HttpServletResponse resp)
+    protected void doGet(HttpServletRequest req, HttpServletResponse resp)
             throws ServletException, IOException {
         // TODO Auto-generated method stub
         resp.setContentType("application/json");
