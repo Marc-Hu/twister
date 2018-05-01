@@ -20,7 +20,7 @@ public class SearchProfileServlet extends HttpServlet {
     protected void doGet(HttpServletRequest req, HttpServletResponse resp)
             throws ServletException, IOException {
         // TODO Auto-generated method stub
-        resp.setContentType("text/plain");
+        resp.setContentType("application/json");
 
         JSONObject json = UserServices.searchProfile(req.getParameter("key"), req.getParameter("username"));
         PrintWriter out = resp.getWriter();

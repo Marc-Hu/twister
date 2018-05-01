@@ -20,7 +20,8 @@ public class GetProfileSerlvet extends HttpServlet {
     protected void doGet(HttpServletRequest req, HttpServletResponse resp)
             throws ServletException, IOException {
         // TODO Auto-generated method stub
-        resp.setContentType("text/plain");
+        resp.setContentType("application/json");
+
 
         JSONObject json = UserServices.getProfile(req.getParameter("key"), req.getParameter("id"));
         PrintWriter out = resp.getWriter();

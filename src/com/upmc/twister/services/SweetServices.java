@@ -89,7 +89,7 @@ public class SweetServices {
             if (!ServiceTools.isConnected(key)) {
                 return Response.UNKNOWN_CONNECTION.parse();
             }
-            User me = ServiceTools.getUser(key);
+            User me = ServiceTools.getUserProfile(ServiceTools.getUser(key).getId()+"");
             List<Friends> friends = ServiceTools.getFollowings(me.getId());
             Map<Long, User> data = new HashMap<>();
             data.put(me.getId(),me);
