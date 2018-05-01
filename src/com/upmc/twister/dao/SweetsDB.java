@@ -96,7 +96,7 @@ public class SweetsDB implements DAO {
             User u = data.get(sweet.getLong("userId"));
             sweet.put("f_name", u.getFirstName());
             sweet.put("l_name", u.getLastName());
-            sweet.put("username", u.getLastName());
+            sweet.put("username", u.getUsername());
             sweet.put("pic",u.getPic());
             ja.put(sweet);
         }
