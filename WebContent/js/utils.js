@@ -35,33 +35,33 @@ $("#login_form").submit(function (event) {
                 if (following_users.code == 200) {
                     for (var i in following_users.users) {
                         var user = following_users.users[i];
-                        var userInfo = "<div class='following-user' data-user_id='" + user.f_id + "' data-key='" +
-                            data.key + "'>" +
+                        var userInfo = "<div class='following-user' data-user_id='" + user.f_id + "' data-key='"+
+                             data.key + "'>" +
                             "<div class='username'>@" + user.f_username + "</div>" +
-                            "<div class='name'>" + user.f_l_name + " " + user.f_f_name + "</div>" +
+                            "<div class='name'>" + user.f_l_name + " " + user.f_f_name + "</div> " +
                             "</div>";
                         $(".following-list").append(userInfo);
                     }
-
+                    initEventFollowingList();
                 }
             });
 
             var news_feed = get_news_feed(data.key);
             news_feed.success(function (resp) {
-                console.log(resp.code);
                 if (resp.code == 200) {
-                    console.log("hi");
-                    for(var i in resp.sweets){
+                    var $sweets = $(".sweets");
+                    $sweets.html("<h3>NewsFeed</h3>")
+                    for (var i in resp.sweets) {
                         var sweet = resp.sweets[i];
-                        console.log(sweet);
                         var sweetHtml = "<div class='sweet'>" +
-                            "<div class='user-info'><span class='name'>" + sweet.l_name + " " + sweet.f_name +
+                            "<div class='user-info'><img src='#'><span class='name'>" + sweet.l_name + " " +
+                            sweet.f_name +
                             "</span> <span class='username'>@" + sweet.username + "</span> </div>" +
-                            "<div class='body'>" + sweet.sweet + "</div>"+
-                            "<div class='recations'><span class='likes'>" + sweet.likes.length +"♥</span></div>" +
+                            "<div class='body'>" + sweet.sweet + "</div>" +
+                            "<div class='reactions'><span class='likes'>" + sweet.likes.length + "♥</span></div>" +
                             "</div>";
 
-                        $(".sweets").append(sweetHtml);
+                        $sweets.append(sweetHtml);
                     }
                 }
             })
@@ -86,24 +86,41 @@ $('.message a').click(animate_forms);
 $("#disconnect").click(function () {
     var key = $(this).data("key");
     var result = logout(key);
-    result.success(function () {
-        location.reload();
-    });
-});
-
-$(".followed-user").click(function () {
-    var f_id = $(this).data("user_id");
-    var key = $(this).data("key");
-    var result = get_sweets(key, f_id);
-    result.success(function (data) {
-        if (data.code == 200) {
-            for (var i in data.list) {
-                var sweet = data.list[i].sweet;
-
-                $(".sweets").prepend("<div class='sweet'>" + sweet +"</div>");
-            }
+    result.success(function (response) {
+        if (response.code == 200) {
+            location.reload();
         }
     });
 });
 
 
+function initEventFollowingList(){
+    $(document).ready(function () {
+        $(".following-user").on("click", function (e) {
+            var f_id = $(this).data("user_id");
+            var key = $(this).data("key");
+            var name = $(this).find(".name").text();
+            var result = get_sweets(key, f_id);
+            result.success(function (data) {
+                if (data.code == 200) {
+                    var $sweets = $(".sweets");
+                    $sweets.html("<h3>" + name +"</h3>");
+                    for (var i in data.sweets) {
+                        var sweet = data.sweets[i];
+                        console.log(sweet);
+                        var sweetHtml = "<div class='sweet'>" +
+                            "<div class='user-info'><img src='#'><span class='name'>" + sweet.l_name + " " +
+                            sweet.f_name +
+                            "</span> <span class='username'>@" + sweet.username + "</span> </div>" +
+                            "<div class='body'>" + sweet.sweet + "</div>" +
+                            "<div class='reactions'><span class='likes'>" + sweet.likes.length + "♥</span></div>" +
+                            "</div>";
+                        console.log(sweetHtml);
+                        $sweets.append(sweetHtml);
+                    }
+                }
+            });
+        });
+    });
+
+}

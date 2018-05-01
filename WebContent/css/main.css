@@ -200,3 +200,38 @@ input[name="search"]{
     color: #AAA;
 }
 
+.sweets .sweet{
+    padding: 10px;
+    text-align: left;
+    border-bottom: 1px solid #DDD;
+}
+
+.sweets .sweet .user-info image{
+    width: 30px;
+    height: 30px;
+    vertical-align: middle;
+}
+
+.sweets .sweet .user-info .name{
+    font-weight: bold;
+    font-size: 1.1em;
+    margin: 5px;
+}
+
+.sweets .sweet .user-info .username{
+    font-size: 0.8em;
+    color: #BBB;
+}
+
+.sweets .sweet .body {
+    padding: 15px;
+}
+
+.sweets .sweet .reactions{
+    text-align: right;
+}
+
+.sweets .sweet .likes{
+    color: red;
+    margin-right: 43px;
+}
