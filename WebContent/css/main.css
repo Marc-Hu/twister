@@ -235,3 +235,23 @@ input[name="search"]{
     color: red;
     margin-right: 43px;
 }
+.sweets .comments .comment{
+    padding: 10px 40px;
+    border-bottom: 1px #BBB solid;
+}
+.sweets .sweet .add-comment{
+    padding: 20px 40px;
+}
+
+.sweets .sweet .add-comment input{
+    width: 75%;
+    height: 25px;
+}
+.sweets .add-sweet{
+    text-align: left;
+    padding: 10px;
+}
+.sweets .add-sweet input {
+    width: 75%;
+    height: 25px;
+}
