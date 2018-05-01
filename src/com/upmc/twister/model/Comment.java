@@ -18,7 +18,9 @@ public class Comment {
     private String comment;
     private Date date;
     private List<Like> likes = new ArrayList<Like>();
-
+    public Comment(String commentId){
+        this.id =  new ObjectId(commentId);
+    }
 
     public Comment(long userId, String comment) {
         this.userId = userId;

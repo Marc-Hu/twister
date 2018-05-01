@@ -1,13 +1,12 @@
 package com.upmc.twister.dao;
 
-import com.mongodb.BasicDBObject;
-import com.mongodb.DBCollection;
-import com.mongodb.DBCursor;
-import com.mongodb.DBObject;
+import com.mongodb.*;
 import com.upmc.twister.model.Comment;
 import com.upmc.twister.model.Like;
 import com.upmc.twister.model.Sweet;
 import com.upmc.twister.model.User;
+import com.upmc.twister.services.ServiceTools;
+import com.upmc.twister.services.UserServices;
 import org.bson.types.ObjectId;
 import org.json.JSONArray;
 import org.json.JSONObject;
@@ -26,9 +25,8 @@ public class SweetsDB implements DAO {
 
     public void addComment(String id, Comment comment) {
         BasicDBObject newComment = new BasicDBObject()
-                .append("$push",
-                        new BasicDBObject()
-                                .append("comments", comment.toDBObject()));
+                .append("$push", new BasicDBObject()
+                        .append("comments", comment.toDBObject()));
         sweets.update(new BasicDBObject("_id", new ObjectId(id)), newComment);
     }
 
@@ -46,11 +44,10 @@ public class SweetsDB implements DAO {
         if (!checkParameter(o, Sweet.class))
             return;
         Sweet sweet = (Sweet) o;
-        sweets.remove(new BasicDBObject("_id", sweet.getId()));
-    }
-
-    public void editComment(String id, Comment comment) {
-
+        WriteResult result = sweets.remove(new BasicDBObject("_id", sweet.getId()).append("userId", sweet.getUserId()));
+        if (result.getN() != 0) {
+            sweet.setId(null);
+        }
     }
 
     @Override
@@ -60,14 +57,19 @@ public class SweetsDB implements DAO {
         DBCursor cursor = sweets.find(gtQuery);
         JSONObject jsonobj = new JSONObject();
         JSONArray ja = new JSONArray();
+        User user = ServiceTools.getUserProfile(id+"");
+
         while (cursor.hasNext()) {
-//			System.out.println(cursor.next());
             BasicDBObject obj = (BasicDBObject) cursor.next();
             jsonobj = new JSONObject(obj.toString()); //Le contructeur JSONObject peut prendre un string de format JSON en parametre
+            jsonobj.put("f_name",user.getFirstName());
+            jsonobj.put("l_name",user.getLastName());
+            jsonobj.put("username",user.getUsername());
+            jsonobj.put("pic",user.getPic());
             ja.put(jsonobj);
         }
         jsonobj = new JSONObject();
-        jsonobj.put("list", ja);
+        jsonobj.put("sweets", ja);
         jsonobj.put("code", 200);
         return jsonobj;
     }
@@ -95,6 +97,7 @@ public class SweetsDB implements DAO {
             sweet.put("f_name", u.getFirstName());
             sweet.put("l_name", u.getLastName());
             sweet.put("username", u.getLastName());
+            sweet.put("pic",u.getPic());
             ja.put(sweet);
         }
         JSONObject result = new JSONObject();
@@ -144,24 +147,79 @@ public class SweetsDB implements DAO {
         return sweets;
     }
 
-    public void likeComment(String id, Like like) {
+    public void likeComment(String sweetId, String commentId, Like like) {
+        BasicDBObject newLike = new BasicDBObject()
+                .append("$push", new BasicDBObject("comments.$.likes", like.toDBObject()));
 
+        DBObject params = new BasicDBObject("_id", new ObjectId(sweetId))
+                .append("comments._id", new ObjectId(commentId));
+        sweets.update(params, newLike);
     }
 
     public void likeSweet(String id, Like like) {
+        BasicDBObject newLike = new BasicDBObject()
+                .append("$push",
+                        new BasicDBObject()
+                                .append("likes", like.toDBObject()));
+        sweets.update(new BasicDBObject("_id", new ObjectId(id)), newLike);
+    }
+
+    public void removeComment(long myId, long userIdOfthisSweet, String sweetId, Comment comment) {
+        BasicDBObject query = new BasicDBObject();
+        BasicDBObject condition = new BasicDBObject();
+        if (myId == userIdOfthisSweet) {
+
+            query.append("$pull", new BasicDBObject("comments", new BasicDBObject("_id", comment.getId())));
+            condition.append("_id", new ObjectId(sweetId)).append("userId", myId);
+
+
+        } else {
+            query.append("$pull",
+                    new BasicDBObject("comments",
+                            new BasicDBObject("_id", comment.getId()).append("userId", myId)));
+            condition.append("_id", new ObjectId(sweetId));
+        }
+
+        WriteResult result = sweets.update(condition, query);
+        if (result.getN() != 0) {
+            comment.setId(null);
+        }
+    }
+
+    public void unlikeComment(long userId, String sweetId, String commentId) {
+        BasicDBObject query = new BasicDBObject();
+        BasicDBObject condition = new BasicDBObject();
+        query.append("$pull", new BasicDBObject("comments.$.likes", new BasicDBObject("userId", userId)));
+        condition.append("_id", new ObjectId(sweetId)).append("comments._id", new ObjectId(commentId));
+         sweets.update(condition, query);
 
     }
 
-    public void removeComment(String id, Comment comment) {
+    public void unlikeSweet(long userId,String sweetId) {
+        BasicDBObject query = new BasicDBObject();
+        BasicDBObject condition = new BasicDBObject();
+        query.append("$pull", new BasicDBObject("likes", new BasicDBObject("userId", userId)));
+        condition.append("_id", new ObjectId(sweetId));
+        sweets.update(condition, query);
 
     }
+    public JSONObject getComments(String sweetId) throws Exception{
+        BasicDBObject query = new BasicDBObject();
+        query.put("_id",new ObjectId(sweetId)); // ids are the set
 
-    public void unlikeComment(String id, Like like) {
+        DBObject sweetObj = sweets.findOne(query);
+        JSONObject sweet = new JSONObject(sweetObj.toString());
+        JSONArray comments = sweet.getJSONArray("comments");
+        for(int i = 0;i<comments.length();i++){
+            JSONObject comment = comments.getJSONObject(i);
+            User user = ServiceTools.getUserProfile(""+comment.getLong("userId"));
+            comment.put("f_name",user.getFirstName());
+            comment.put("l_name",user.getLastName());
+            comment.put("username",user.getUsername());
+            comment.put("pic",user.getPic());
+        }
 
-    }
-
-    public void unlikeSweet(String id, Like like) {
-
+        return sweet;
     }
 
     @Override

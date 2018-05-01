@@ -22,68 +22,14 @@ public class Sweet {
     private List<Like> likes = new ArrayList<Like>();
 
 
-    public Sweet() {
+    public Sweet(String id) {
+        setId(new ObjectId(id));
     }
 
     public Sweet(String sweet, long user) {
         super();
         this.sweet = sweet;
         this.userId = user;
-    }
-
-    public ObjectId getId() {
-        return id;
-    }
-
-    public void setId(ObjectId id) {
-        this.id = id;
-    }
-
-    public String getSweet() {
-        return sweet;
-    }
-
-    public void setSweet(String sweet) {
-        this.sweet = sweet;
-    }
-
-
-    public long getUserId() {
-        return userId;
-    }
-
-    public void setUserId(long userId) {
-        this.userId = userId;
-    }
-
-    public List<Comment> getComments() {
-        return comments;
-    }
-
-    public void setComments(List<Comment> comments) {
-        this.comments = comments;
-    }
-
-
-    public List<Like> getLikes() {
-        return likes;
-    }
-
-    public void setLikes(List<Like> likes) {
-        this.likes = likes;
-    }
-
-    @Override
-    public int hashCode() {
-        final int prime = 31;
-        int result = 1;
-        result = prime * result + ((comments == null) ? 0 : comments.hashCode());
-        result = prime * result + ((date == null) ? 0 : date.hashCode());
-        result = prime * result + ((id == null) ? 0 : id.hashCode());
-        result = prime * result + ((likes == null) ? 0 : likes.hashCode());
-        result = prime * result + ((sweet == null) ? 0 : sweet.hashCode());
-        result = prime * result + (int) (userId ^ (userId >>> 32));
-        return result;
     }
 
     @Override
@@ -125,6 +71,68 @@ public class Sweet {
         return true;
     }
 
+    public List<Comment> getComments() {
+        return comments;
+    }
+
+    public void setComments(List<Comment> comments) {
+        this.comments = comments;
+    }
+
+    public ObjectId getId() {
+        return id;
+    }
+
+    public void setId(ObjectId id) {
+        this.id = id;
+    }
+
+    public List<Like> getLikes() {
+        return likes;
+    }
+
+    public void setLikes(List<Like> likes) {
+        this.likes = likes;
+    }
+
+    public String getSweet() {
+        return sweet;
+    }
+
+    public void setSweet(String sweet) {
+        this.sweet = sweet;
+    }
+
+    public long getUserId() {
+        return userId;
+    }
+
+    public void setUserId(long userId) {
+        this.userId = userId;
+    }
+
+    @Override
+    public int hashCode() {
+        final int prime = 31;
+        int result = 1;
+        result = prime * result + ((comments == null) ? 0 : comments.hashCode());
+        result = prime * result + ((date == null) ? 0 : date.hashCode());
+        result = prime * result + ((id == null) ? 0 : id.hashCode());
+        result = prime * result + ((likes == null) ? 0 : likes.hashCode());
+        result = prime * result + ((sweet == null) ? 0 : sweet.hashCode());
+        result = prime * result + (int) (userId ^ (userId >>> 32));
+        return result;
+    }
+
+    public DBObject toDBObject() {
+        return new BasicDBObject()
+                .append("sweet", sweet)
+                .append("userId", userId)
+                .append("comments", Comment.asDBObjects(comments))
+                .append("likes", Like.asDBObjects(likes))
+                .append("date", date);
+    }
+
     public String toString() {
         ObjectMapper mapper = new ObjectMapper();
 
@@ -137,14 +145,5 @@ public class Sweet {
             e.printStackTrace();
         }
         return "Error";
-    }
-
-    public DBObject toDBObject() {
-        return new BasicDBObject()
-                .append("addSweet", sweet)
-                .append("userId", userId)
-                .append("comments", Comment.asDBObjects(comments))
-                .append("likes", Like.asDBObjects(likes))
-                .append("date", date);
     }
 }

@@ -38,6 +38,7 @@ public final class TwisterContract {
         public static final String COLUMN_FIRST_NAME = "first_name";
         public static final String COLUMN_USERNAME = "username";
         public static final String COLUMN_PASSWORD = "password";
+        public static final String COLUMN_PROFILE_PIC = "profile_pic";
     }
 
     /**

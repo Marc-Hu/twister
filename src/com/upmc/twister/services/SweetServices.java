@@ -1,10 +1,7 @@
 package com.upmc.twister.services;
 
 import com.upmc.twister.dao.SweetsDB;
-import com.upmc.twister.model.Friends;
-import com.upmc.twister.model.Sweet;
-import com.upmc.twister.model.User;
-import org.json.JSONArray;
+import com.upmc.twister.model.*;
 import org.json.JSONObject;
 
 import java.util.HashMap;
@@ -89,17 +86,17 @@ public class SweetServices {
             if (!ServiceTools.isConnected(key)) {
                 return Response.UNKNOWN_CONNECTION.parse();
             }
-            User me = ServiceTools.getUserProfile(ServiceTools.getUser(key).getId()+"");
+            User me = ServiceTools.getUserProfile(ServiceTools.getUser(key).getId() + "");
             List<Friends> friends = ServiceTools.getFollowings(me.getId());
             Map<Long, User> data = new HashMap<>();
-            data.put(me.getId(),me);
+            data.put(me.getId(), me);
             for (Friends following : friends) {
-                data.put(following.getFollowed().getId(),following.getFollowed());
+                data.put(following.getFollowed().getId(), following.getFollowed());
             }
 
             SweetsDB sweetsDB = new SweetsDB();
             JSONObject result = sweetsDB.find(data);
-            result.put("code",200);
+            result.put("code", 200);
             return result;
         } catch (Exception e) {
             e.printStackTrace();
@@ -109,11 +106,51 @@ public class SweetServices {
     }
 
     public static JSONObject removeSweet(String key, String sweetId) {
-        return null;
+        if (key == null || sweetId == null)
+            return Response.BAD_REQUEST.parse();
+
+
+        try {
+            if (!ServiceTools.isConnected(key)) {
+                return Response.UNKNOWN_CONNECTION.parse();
+            }
+
+            User user = ServiceTools.getUser(key);
+            Sweet sweet = new Sweet(sweetId);
+            sweet.setUserId(user.getId());
+
+            SweetsDB sweetsDB = new SweetsDB();
+            sweetsDB.delete(sweet);
+            if (sweet.getId() == null)
+                return Response.OK.parse();
+            else
+                return Response.UNAUTHORIZED.parse();
+
+        } catch (Exception e) {
+            // TODO Auto-generated catch block
+            return Response.INTERNAL_SERVER_ERROR.parse();
+        }
     }
 
     public static JSONObject likeSweet(String key, String sweetId) {
-        return null;
+        if (key == null || sweetId == null)
+            return Response.BAD_REQUEST.parse();
+
+
+        try {
+            if (!ServiceTools.isConnected(key)) {
+                return Response.UNKNOWN_CONNECTION.parse();
+            }
+
+            User user = ServiceTools.getUser(key);
+            SweetsDB sweetsDB = new SweetsDB();
+            sweetsDB.likeSweet(sweetId, new Like(user.getId()));
+            return Response.OK.parse();
+
+        } catch (Exception e) {
+            // TODO Auto-generated catch block
+            return Response.INTERNAL_SERVER_ERROR.parse();
+        }
     }
 
     public static JSONObject unlikeSweet(String key, String sweetId) {

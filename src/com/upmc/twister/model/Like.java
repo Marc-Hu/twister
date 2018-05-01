@@ -19,8 +19,7 @@ public class Like {
     public Like(long userId) {
         this.id = new ObjectId();
         this.userId = userId;
-        date = new Date();
-        id = new ObjectId();
+        this.date = new Date();
     }
 
     public static List<DBObject> asDBObjects(List<Like> likes) {

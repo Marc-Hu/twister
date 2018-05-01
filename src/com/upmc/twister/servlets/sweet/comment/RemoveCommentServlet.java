@@ -24,7 +24,7 @@ public class RemoveCommentServlet extends HttpServlet {
         resp.setContentType("application/json");
 
 
-        JSONObject json = CommentServices.removeComment(req.getParameter("key"),
+        JSONObject json = CommentServices.removeComment(req.getParameter("key"),req.getParameter("sweetUserId"),
                 req.getParameter("sweetId"),req.getParameter("commentId"));
         PrintWriter out = resp.getWriter();
         out.println(json);

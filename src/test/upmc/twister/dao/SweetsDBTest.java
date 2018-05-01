@@ -4,11 +4,9 @@ import com.mongodb.DBCursor;
 import com.mongodb.DBObject;
 import com.upmc.twister.dao.MongoConnection;
 import com.upmc.twister.dao.SweetsDB;
-import com.upmc.twister.dao.TwisterContract;
 import com.upmc.twister.model.Comment;
 import com.upmc.twister.model.Like;
 import com.upmc.twister.model.Sweet;
-import org.bson.types.ObjectId;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
@@ -31,6 +29,19 @@ public class SweetsDBTest {
         comments.get(1).setLikes(Arrays.asList(new Like(2), new Like(3)));
         sweet.setComments(comments);
         return sweet;
+    }
+
+    @Test
+    public void likeComment() {
+        Like like = new Like(10);
+        sweetsdb.likeComment("5ae849499a831b6058e8c9a1", "5ae849499a831b6058e8c998", like);
+    }
+
+    @Test
+
+    public void removeComment() {
+        Comment comment = new Comment("5ae849209a832a2926627453");
+        sweetsdb.removeComment(1, 1, "5ae849209a832a292662745c", comment);
     }
 
     @Before
@@ -57,14 +68,10 @@ public class SweetsDBTest {
     }
 
     @Test
-    public void testDelete()throws Exception {
-        Sweet sweet = new Sweet();
-        sweet.setId(new ObjectId("5ae849459a83ce1b9ecd5d67"));
+    public void testDelete() throws Exception {
+        Sweet sweet = new Sweet("5ae849419a8341908f3dc628");
+        sweet.setUserId(0);
         sweetsdb.delete(sweet);
-    }
-
-    @Test
-    public void testFind() {
     }
 
     @Test

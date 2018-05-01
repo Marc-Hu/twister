@@ -41,8 +41,34 @@ public class CommentServices {
         return null;
     }
 
-    public static JSONObject removeComment(String key, String sweetId, String commentId) {
-        return null;
+    public static JSONObject removeComment(String key, String sweetUserId, String sweetId, String commentId) {
+        if (key == null || sweetId == null || sweetUserId == null || commentId == null)
+            return Response.BAD_REQUEST.parse();
+        long sweetUserIdL;
+        try {
+            sweetUserIdL = Long.valueOf(sweetUserId);
+        } catch (NumberFormatException e) {
+            return Response.BAD_REQUEST.parse();
+        }
+
+        try {
+            if (!ServiceTools.isConnected(key)) {
+                return Response.UNKNOWN_CONNECTION.parse();
+            }
+
+            User me = ServiceTools.getUser(key);
+            SweetsDB sweetsDB = new SweetsDB();
+            Comment comment = new Comment(commentId);
+            sweetsDB.removeComment(me.getId(), sweetUserIdL, sweetId, comment);
+            if (comment.getId() == null)
+                return Response.OK.parse();
+            else
+                return Response.UNAUTHORIZED.parse();
+
+        } catch (Exception e) {
+            // TODO Auto-generated catch block
+            return Response.INTERNAL_SERVER_ERROR.parse();
+        }
     }
 
     public static JSONObject unlikeComment(String key, String sweetId, String commentId) {

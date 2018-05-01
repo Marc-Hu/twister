@@ -101,13 +101,13 @@ function add_comment(key, sweetId, comment) {
     return $.post(post_url, form_data);
 }
 
-function remove_comment(key, sweetId, commentId) {
+function remove_comment(key,sweetUserId, sweetId, commentId) {
     var post_url = "http://localhost:8080/Twister/sweet/comment/remove";
-    var form_data = "key=" + key + "&sweetId=" + sweetId + "&commentId=" + commentId; //Encode form elements for submission
+    var form_data = "key=" + key + +"&sweetUserId="+sweetUserId+"&sweetId=" + sweetId + "&commentId=" + commentId; //Encode form elements for submission
     return $.post(post_url, form_data);
 }
 
-function like_comment(key, sweetId,commentId) {
+function like_comment(key,sweetId,commentId) {
     var post_url = "http://localhost:8080/Twister/sweet/comment/like";
     var form_data = "like=true&key=" + key + "&sweetId=" + sweetId + "&commentId=" + commentId; //Encode form elements for submission
     return $.post(post_url, form_data);
