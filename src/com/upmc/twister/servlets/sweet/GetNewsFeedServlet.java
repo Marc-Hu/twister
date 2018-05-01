@@ -1,5 +1,6 @@
 package com.upmc.twister.servlets.sweet;
 
+import com.upmc.twister.services.SweetServices;
 import com.upmc.twister.services.UserServices;
 import org.json.JSONObject;
 
@@ -25,14 +26,7 @@ public class GetNewsFeedServlet extends HttpServlet {
             throws ServletException, IOException {
         // TODO Auto-generated method stub
         resp.setContentType("text/plain");
-        Enumeration<String> e = req.getParameterNames();
-        List<String> list = new ArrayList<>();
-        while (e.hasMoreElements()) {
-            String element = e.nextElement();
-           if (!element.equals("key"))
-                list.add(req.getParameter(element));
-        }
-        JSONObject json = UserServices.getSweet(req.getParameter("key"), list);
+        JSONObject json = SweetServices.getNewsFeed(req.getParameter("key"));
         PrintWriter out = resp.getWriter();
         out.println(json);
     }

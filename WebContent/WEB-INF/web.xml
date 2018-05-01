@@ -4,6 +4,12 @@
 
 <web-app>
     <display-name>Twister</display-name>
+    <!-- User servlets  -->
+
+    <servlet>
+        <servlet-name>Create</servlet-name>
+        <servlet-class>com.upmc.twister.servlets.user.CreateUserServlet</servlet-class>
+    </servlet>
     <servlet>
         <servlet-name>Login</servlet-name>
         <servlet-class>com.upmc.twister.servlets.user.LoginServlet</servlet-class>
@@ -13,14 +19,13 @@
         <servlet-class>com.upmc.twister.servlets.user.LogoutServlet</servlet-class>
     </servlet>
     <servlet>
-        <servlet-name>Create</servlet-name>
-        <servlet-class>com.upmc.twister.servlets.user.CreateUserServlet</servlet-class>
+        <servlet-name>GetProfile</servlet-name>
+        <servlet-class>com.upmc.twister.servlets.user.GetProfileSerlvet</servlet-class>
     </servlet>
     <servlet>
         <servlet-name>Follow</servlet-name>
         <servlet-class>com.upmc.twister.servlets.user.FollowUserServlet</servlet-class>
     </servlet>
-
     <servlet>
         <servlet-name>SearchUser</servlet-name>
         <servlet-class>com.upmc.twister.servlets.user.SearchProfileServlet</servlet-class>
@@ -29,28 +34,53 @@
         <servlet-name>FollowingUsers</servlet-name>
         <servlet-class>com.upmc.twister.servlets.user.GetFollowingUsersServlet</servlet-class>
     </servlet>
+    <!-- Sweet servlet  -->
+
     <servlet>
-        <servlet-name>GetProfile</servlet-name>
-        <servlet-class>com.upmc.twister.servlets.user.GetProfileSerlvet</servlet-class>
+        <servlet-name>GetNewsFeed</servlet-name>
+        <servlet-class>com.upmc.twister.servlets.sweet.GetNewsFeedServlet</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>GetUserSweets</servlet-name>
+        <servlet-class>com.upmc.twister.servlets.sweet.GetUserSweets</servlet-class>
     </servlet>
     <servlet>
         <servlet-name>AddSweet</servlet-name>
         <servlet-class>com.upmc.twister.servlets.sweet.AddSweetServlet</servlet-class>
     </servlet>
     <servlet>
-        <servlet-name>GetUserSweets</servlet-name>
-        <servlet-class>com.upmc.twister.servlets.sweet.GetUserSweets</servlet-class>
+        <servlet-name>RemoveSweet</servlet-name>
+        <servlet-class>com.upmc.twister.servlets.sweet.RemoveSweetServlet</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>LikeSweet</servlet-name>
+        <servlet-class>com.upmc.twister.servlets.sweet.LikeSweetServlet</servlet-class>
     </servlet>
 
+    <!-- Comment servlet  -->
+
     <servlet>
-        <servlet-name>GetSweet</servlet-name>
-        <servlet-class>com.upmc.twister.servlets.sweet.GetNewsFeedServlet</servlet-class>
+        <servlet-name>GetComments</servlet-name>
+        <servlet-class>com.upmc.twister.servlets.sweet.comment.GetCommentsServlet</servlet-class>
     </servlet>
     <servlet>
         <servlet-name>AddComment</servlet-name>
         <servlet-class>com.upmc.twister.servlets.sweet.comment.AddCommentServlet</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>RemoveComment</servlet-name>
+        <servlet-class>com.upmc.twister.servlets.sweet.comment.RemoveCommentServlet</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>LikeComment</servlet-name>
+        <servlet-class>com.upmc.twister.servlets.sweet.comment.LikeCommentServlet</servlet-class>
+    </servlet>
 
+    <!-- user servlet  mapping-->
+    <servlet-mapping>
+        <servlet-name>Create</servlet-name>
+        <url-pattern>/user/create</url-pattern>
+    </servlet-mapping>
     <servlet-mapping>
         <servlet-name>Login</servlet-name>
         <url-pattern>/user/login</url-pattern>
@@ -60,16 +90,12 @@
         <url-pattern>/user/logout</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
-        <servlet-name>Create</servlet-name>
-        <url-pattern>/user/create</url-pattern>
+        <servlet-name>GetProfile</servlet-name>
+        <url-pattern>/user/profile</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
         <servlet-name>Follow</servlet-name>
         <url-pattern>/user/follow</url-pattern>
-    </servlet-mapping>
-    <servlet-mapping>
-        <servlet-name>GetProfile</servlet-name>
-        <url-pattern>/user/profile</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
         <servlet-name>SearchUser</servlet-name>
@@ -79,21 +105,47 @@
         <servlet-name>FollowingUsers</servlet-name>
         <url-pattern>/user/following</url-pattern>
     </servlet-mapping>
+
+    <!-- Sweet servlet  mapping-->
+
     <servlet-mapping>
-        <servlet-name>AddSweet</servlet-name>
-        <url-pattern>/sweet/add</url-pattern>
+        <servlet-name>GetNewsFeed</servlet-name>
+        <url-pattern>/sweet/newsfeed</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
         <servlet-name>GetUserSweets</servlet-name>
         <url-pattern>/sweet/user</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
-        <servlet-name>GetSweet</servlet-name>
-        <url-pattern>/sweet/get</url-pattern>
+        <servlet-name>AddSweet</servlet-name>
+        <url-pattern>/sweet/add</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>RemoveSweet</servlet-name>
+        <url-pattern>/sweet/remove</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>LikeSweet</servlet-name>
+        <url-pattern>/sweet/like</url-pattern>
+    </servlet-mapping>
+
+    <!-- Comments servlet  mapping-->
+
+    <servlet-mapping>
+        <servlet-name>GetComments</servlet-name>
+        <url-pattern>/sweet/comment/get</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
         <servlet-name>AddComment</servlet-name>
         <url-pattern>/sweet/comment/add</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>RemoveComment</servlet-name>
+        <url-pattern>/sweet/comment/remove</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>LikeComment</servlet-name>
+        <url-pattern>/sweet/comment/like</url-pattern>
     </servlet-mapping>
 
 

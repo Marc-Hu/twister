@@ -141,7 +141,7 @@ public class Sweet {
 
     public DBObject toDBObject() {
         return new BasicDBObject()
-                .append("sweet", sweet)
+                .append("addSweet", sweet)
                 .append("userId", userId)
                 .append("comments", Comment.asDBObjects(comments))
                 .append("likes", Like.asDBObjects(likes))

@@ -22,7 +22,7 @@ public class GetFollowingUsersServlet extends HttpServlet {
         // TODO Auto-generated method stub
         resp.setContentType("application/json");
 
-        JSONObject json = UserServices.getFollowedList(req.getParameter("key"));
+        JSONObject json = UserServices.getFollowingUsers(req.getParameter("key"));
         PrintWriter out = resp.getWriter();
         out.println(json);
 

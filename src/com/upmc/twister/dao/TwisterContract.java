@@ -69,7 +69,7 @@ public final class TwisterContract {
     public static class Sweet {
         public static final String COLLECTION_NAME = "Sweets";
         public static final String _ID = "_id";
-        public static final String COLUMN_SWEET = "sweet";
+        public static final String COLUMN_SWEET = "addSweet";
         public static final String COLUMN_USERID = "userId";
         public static final String COLUMN_COMMENTS = "comments";
         public static final String COLUMN_LIKES = "likes";

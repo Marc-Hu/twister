@@ -1,10 +1,7 @@
 package com.upmc.twister.services;
 
 import com.upmc.twister.dao.DAOFactory;
-import com.upmc.twister.dao.SweetsDB;
-import com.upmc.twister.model.Comment;
 import com.upmc.twister.model.Friends;
-import com.upmc.twister.model.Sweet;
 import com.upmc.twister.model.User;
 import org.json.JSONArray;
 import org.json.JSONObject;
@@ -189,94 +186,12 @@ public class UserServices {
     }
 
     /**
-     * Methode qui va ajouter un sweet dans la BDD
-     *
-     * @param key          Key de la personne connecte et qui veut ajouter un sweet
-     * @param sweetMessage
-     * @return
-     */
-    public static JSONObject sweet(String key, String sweetMessage) {
-        if (key == null || sweetMessage == null)
-            return Response.BAD_REQUEST.parse();
-
-
-        try {
-            if (!ServiceTools.isConnected(key)) {
-                return Response.UNKNOWN_CONNECTION.parse();
-            }
-
-            User user = ServiceTools.getUser(key);
-            Sweet sweet = new Sweet(sweetMessage, user.getId());
-            SweetsDB sweetsDB = new SweetsDB();
-            sweetsDB.create(sweet);
-            return Response.OK.parse();
-
-        } catch (Exception e) {
-            // TODO Auto-generated catch block
-            return Response.INTERNAL_SERVER_ERROR.parse();
-        }
-    }
-
-    /**
-     * Methode qui va recuperer et renvoyer les sweet selon l'ID d'une personne
-     *
-     * @param id
-     * @return
-     */
-    public static JSONObject getSweetById(String key, String id) {
-        if (id == null)
-            return Response.BAD_REQUEST.parse();
-        try {
-            if (!ServiceTools.isConnected(key)) {
-                return Response.UNKNOWN_CONNECTION.parse();
-            }
-            Long user_id = new Long(id);
-            SweetsDB sweetsDB = new SweetsDB();
-            return sweetsDB.find(user_id);
-
-        } catch (Exception e) {
-            // TODO Auto-generated catch block
-            return Response.INTERNAL_SERVER_ERROR.parse();
-        }
-    }
-
-    /**
-     * Methode qui ajoute un commentaire par rapport e l'Id du sweet
-     *
-     * @param key            Cle du sweet
-     * @param sweetId        Id du sweet
-     * @param commentMessage
-     * @return
-     */
-    public static JSONObject addComment(String key, String sweetId, String commentMessage) {
-
-        if (key == null || sweetId == null || commentMessage == null)
-            return Response.BAD_REQUEST.parse();
-
-
-        try {
-            if (!ServiceTools.isConnected(key)) {
-                return Response.UNKNOWN_CONNECTION.parse();
-            }
-
-            User user = ServiceTools.getUser(key);
-            SweetsDB sweetsDB = new SweetsDB();
-            sweetsDB.addComment(sweetId, new Comment(user.getId(), commentMessage));
-            return Response.OK.parse();
-
-        } catch (Exception e) {
-            // TODO Auto-generated catch block
-            return Response.INTERNAL_SERVER_ERROR.parse();
-        }
-    }
-
-    /**
      * Methode qui recupere et renvoie une liste de personne qui match avec le parametre d'entre
      *
      * @param username
      * @return
      */
-    public static JSONObject getUserListByUsername(String key, String username) {
+    public static JSONObject searchProfile(String key, String username) {
         if (username == null)
             return Response.BAD_REQUEST.parse();
         try {
@@ -310,7 +225,7 @@ public class UserServices {
      * @param key
      * @return
      */
-    public static JSONObject getFollowedList(String key) {
+    public static JSONObject getFollowingUsers(String key) {
         if (key == null)
             return Response.BAD_REQUEST.parse();
         try {
@@ -318,7 +233,7 @@ public class UserServices {
                 return Response.UNKNOWN_CONNECTION.parse();
             }
             long id = ServiceTools.getUser(key).getId();
-            List<Friends> userlist = ServiceTools.getFollowedList(id);
+            List<Friends> userlist = ServiceTools.getFollowings(id);
             JSONObject response = new JSONObject();
             JSONArray ja = new JSONArray();
             for (Friends u : userlist) {
@@ -342,42 +257,6 @@ public class UserServices {
     }
 
 
-    /**
-     * Methode qui va renvoyer la liste des sweets pour des ids donnes
-     *
-     * @param ids Tous les ids ou on veut leur sweets
-     * @return
-     */
-    public static JSONObject getSweet(String key, List<String> ids) {
-        if (ids.size() == 0)
-            return Response.BAD_REQUEST.parse();
-        try {
-            if (!ServiceTools.isConnected(key)) {
-                return Response.UNKNOWN_CONNECTION.parse();
-            }
-            SweetsDB sweetsDB = new SweetsDB();
-            return sweetsDB.find(ids);
-        } catch (Exception e) {
-            e.printStackTrace();
-            return Response.INTERNAL_SERVER_ERROR.parse();
-        }
-    }
 
-    public static JSONObject getMessageByQuery(String key, String query) {
-        if (query == null && key == null) {
-            return Response.BAD_REQUEST.parse();
-        }
-        try {
-            if (!ServiceTools.isConnected(key)) {
-                return Response.UNKNOWN_CONNECTION.parse();
-            }
-            SweetsDB sweetsDB = new SweetsDB();
-            sweetsDB.getMessagesByQuery(query);
-            return null;
-        } catch (Exception e) {
-            e.printStackTrace();
-            return Response.INTERNAL_SERVER_ERROR.parse();
-        }
-    }
 
 }

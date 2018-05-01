@@ -58,7 +58,7 @@ public class FriendsDAO extends AbstractDAO {
 
     }
 
-    public List<Friends> getFollowedList(long id) throws Exception {
+    public List<Friends> getFollowingList(long id) throws Exception {
         List<Friends> friendlist = new ArrayList<>();
         try {
             cnx = Database.getMySQLConnection();

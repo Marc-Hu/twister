@@ -1,6 +1,6 @@
 package com.upmc.twister.servlets.sweet;
 
-import com.upmc.twister.services.UserServices;
+import com.upmc.twister.services.SweetServices;
 import org.json.JSONObject;
 
 import javax.servlet.ServletException;
@@ -11,7 +11,7 @@ import java.io.IOException;
 import java.io.PrintWriter;
 
 /**
- * Servlet qui permet de creer un sweet par rapport e sa cle de connection
+ * Servlet qui permet de creer un addSweet par rapport e sa cle de connection
  *
  * @author march
  */
@@ -23,7 +23,7 @@ public class AddSweetServlet extends HttpServlet {
         resp.setContentType("application/json");
 
 
-        JSONObject json = UserServices.sweet(req.getParameter("key"),
+        JSONObject json = SweetServices.addSweet(req.getParameter("key"),
                 req.getParameter("sweet"));
         PrintWriter out = resp.getWriter();
         out.println(json);
