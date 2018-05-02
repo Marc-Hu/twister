@@ -15,6 +15,7 @@ $('#password, #c_password').on('keyup', password_validation);
 /**register login event */
 $("#login_form").submit(function (event) {
     event.preventDefault(); //prevent default action
+    var username = $(this).find("input[name=username]").val();
     var result = login($(this));
     result.success(function (data) {
         console.log(data);
@@ -22,15 +23,17 @@ $("#login_form").submit(function (event) {
             $(".login_message").show();
         } else {
             setCookie("key", data.key, 1);
+            setCookie("username", username, 1);
             var newBody = "<nav>" +
-                "<div class='search-bar'><input type='text' name='search'></div>" +
+                "<div class='search-bar'><input type='text' name='search'><div class='search-result'></div>" +
+                "</div> " +
                 "</nav>" +
                 "<div class='home-container'><div class='following-list'></div>" +
                 "<div class='sweets'>" +
                 "</div><div class='profile'>" +
+                "<div class='informations'></div> "+
                 "<ul>" +
                 "<li><a href='#' id='disconnect' data-key='" + data.key + "'>Logout</a></li></ul>" +
-                " <h3>File Upload:</h3>" +
                 "Select a file to upload: <br />" +
                 "<form   data-key='" + data.key + "' id='upload_form' action = 'http://localhost:8080/Twister/user/pic' method = 'post' enctype = 'multipart/form-data'>" +
                 "<input type = 'file' name = 'file' s size = '50' accept='images/*'/>" +
@@ -41,8 +44,18 @@ $("#login_form").submit(function (event) {
 
             $("body").html(newBody);
             initDiconnect();
+            initSearch();
 
-            var f_users = get_following_users(data.key);
+            var user_infos = get_profile(getCookie("key"), getCookie("username"));
+            user_infos.success(function (response) {
+                var $infos = $(".informations");
+                $infos.append("<div class='image'><img src='#'></div>");//TODO photo profile
+                $infos.append("<div class='name'> " + response.l_name + " " + response.f_name + "</div>");
+                $infos.append("<div class='username'>@" + response.username + "</div>");
+            });
+
+
+            var f_users = get_following_users(getCookie("key"));
             f_users.success(function (following_users) {
                 if (following_users.code == 200) {
                     for (var i in following_users.users) {
@@ -83,6 +96,7 @@ $("#login_form").submit(function (event) {
                     initShowComments();
                     initAddComment();
                     initAddSweet();
+                    initLike();
 
                 }
             })
@@ -174,6 +188,7 @@ function initEventFollowingList() {
                     initShowComments();
                     initAddComment();
                     initAddSweet();
+                    initLike();
                 }
             });
         });
@@ -245,4 +260,42 @@ function getCookie(cname) {
         }
     }
     return "";
+}
+
+
+function initSearch() {
+    $(document).ready(function () {
+        $(".search-bar input").on("keyup", function () {
+            var value = $(this).val();
+            if (value == ''){
+                $(".search-result").html("");
+            } else {
+//TODO hna tu fai appel la fonction search ki tjib data dir boucle w afficher b hadi la ligne li ltaht wela dir append
+
+                $(".search-result").html("<div class='user'>Nadir belarouci <button>Follow</button></div>");
+
+
+                initFollow();//laisse hadi aprés la boucle
+            }
+        })
+    })
+}
+
+function initFollow() {
+    $(document).ready(function () {
+        $(".search-result .user button").on('click', function () {
+            console.log("follow")
+            //TODO hna dir khdemtak ta3 follow dir data-id wela f button bech trécupérh hna w dirlah abonné
+        });
+    });
+
+}
+
+function initLike() {
+    $(document).ready(function () {
+        $(".likes").on('click', function () {
+            console.log("like");
+            //TODO like
+        });
+    });
 }

@@ -255,3 +255,28 @@ input[name="search"]{
     width: 75%;
     height: 25px;
 }
+
+.profile{
+    padding: 20px;
+}
+.profile ul{
+    list-style: none;
+}
+
+.profile .informations .image img {
+    width: 100px;
+    height: 100px;
+}
+
+.profile .informations .name{
+    font-size: 1.4em;
+    font-weight: bold;
+}
+
+.search-result{
+    background: #FFF;
+    width: 261px;
+    position: absolute;
+    top: 49px;
+    right: 544px;
+}
