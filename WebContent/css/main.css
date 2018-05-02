@@ -176,6 +176,7 @@ input[name="search"]{
     z-index: -1;
 }
 .following-list{
+    min-height: 200px;
     width: 20%;
     background: #FFF;
     float: left;

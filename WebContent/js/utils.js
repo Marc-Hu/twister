@@ -141,7 +141,9 @@ function initDiconnect() {
         var post_url = $(this).attr("action"); //get form action url
         var request_method = $(this).attr("method"); //get form GET/POST method
         var form_data = new FormData(this); //Creates new FormData object
+
         form_data.append("key",$(this).data("key"));
+
         console.log(form_data);
         $.ajax({
             url : post_url,
@@ -151,7 +153,7 @@ function initDiconnect() {
             cache: false,
             processData:false
         }).done(function(response){ //
-            $("#server-results").html(response);
+           // $("#server-results").html(response);
         });
     });
 }
