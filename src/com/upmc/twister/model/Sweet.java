@@ -30,6 +30,8 @@ public class Sweet {
         super();
         this.sweet = sweet;
         this.userId = user;
+        id = new ObjectId();
+
     }
 
     @Override
@@ -126,6 +128,7 @@ public class Sweet {
 
     public DBObject toDBObject() {
         return new BasicDBObject()
+                .append("_id",id)
                 .append("sweet", sweet)
                 .append("userId", userId)
                 .append("comments", Comment.asDBObjects(comments))

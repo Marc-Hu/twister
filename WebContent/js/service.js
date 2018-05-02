@@ -70,7 +70,7 @@ function get_following_users(key) {
 function search_user(key, username) {
     var post_url = "http://localhost:8080/Twister/user/search";
     var form_data = "key=" + key + "&username=" + username;
-    return $.post(post_url, form_data);
+    return $.get(post_url, form_data);
 }
 function get_news_feed(key) {
     var post_url = "http://localhost:8080/Twister/sweet/newsfeed";

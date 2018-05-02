@@ -257,17 +257,18 @@ public class UserDAO extends AbstractDAO {
                     + UserEntry.COLUMN_PROFILE_PIC + ", "
                     + TwisterContract.UserEntry.COLUMN_USERNAME + " FROM "
                     + TwisterContract.UserEntry.TABLE_NAME + " WHERE "
-                    + TwisterContract.UserEntry.COLUMN_USERNAME + " LIKE '%'" + "?" + "'%' LIMIT 10";
+                    + TwisterContract.UserEntry.COLUMN_USERNAME + " LIKE ?";
             // prepare query
             st = (PreparedStatement) cnx.prepareStatement(query);
             // execute it
-            st.setString(1, username);
+            st.setString(1, "%"+username+"%");
             rs = st.executeQuery();
             // get the result, the username is unique,
             //so there might be just one result to read
             while (rs.next()) {
                 // get the data
                 Map<String, Object> data = readResultSet(
+                        TwisterContract.UserEntry._ID,
                         TwisterContract.UserEntry.COLUMN_LAST_NAME,
                         UserEntry.COLUMN_PROFILE_PIC,
                         TwisterContract.UserEntry.COLUMN_FIRST_NAME,

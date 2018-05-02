@@ -207,9 +207,9 @@ input[name="search"]{
     border-bottom: 1px solid #DDD;
 }
 
-.sweets .sweet .user-info image{
-    width: 30px;
-    height: 30px;
+.sweets .sweet .user-info img{
+    max-width: 30px;
+    max-height: 30px;
     vertical-align: middle;
 }
 
@@ -240,6 +240,12 @@ input[name="search"]{
     padding: 10px 40px;
     border-bottom: 1px #BBB solid;
 }
+.sweets .comments .comment .user-info img{
+    max-width: 30px;
+    max-height: 30px;
+    vertical-align: middle;
+
+}
 .sweets .sweet .add-comment{
     padding: 20px 40px;
 }
@@ -265,6 +271,7 @@ input[name="search"]{
 }
 
 .profile .informations .image img {
+
     width: 100px;
     height: 100px;
 }

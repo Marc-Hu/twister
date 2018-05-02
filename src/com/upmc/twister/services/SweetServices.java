@@ -25,10 +25,17 @@ public class SweetServices {
             }
 
             User user = ServiceTools.getUser(key);
+            user = ServiceTools.getUserProfile(user.getId()+"");
             Sweet sweet = new Sweet(sweetMessage, user.getId());
             SweetsDB sweetsDB = new SweetsDB();
             sweetsDB.create(sweet);
-            return Response.OK.parse();
+            JSONObject sweetJson = new JSONObject(sweet.toDBObject().toString());
+            sweetJson.put("f_name",user.getFirstName());
+            sweetJson.put("l_name",user.getLastName());
+            sweetJson.put("username",user.getUsername());
+            sweetJson.put("pic",user.getPic());
+            sweetJson.put("code",200);
+            return sweetJson;
 
         } catch (Exception e) {
             // TODO Auto-generated catch block

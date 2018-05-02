@@ -29,5 +29,18 @@ public class AddSweetServlet extends HttpServlet {
         out.println(json);
 
     }
+    @Override
+    protected void doGet(HttpServletRequest req, HttpServletResponse resp)
+            throws ServletException, IOException {
+        // TODO Auto-generated method stub
+        resp.setContentType("application/json");
+
+
+        JSONObject json = SweetServices.addSweet(req.getParameter("key"),
+                req.getParameter("sweet"));
+        PrintWriter out = resp.getWriter();
+        out.println(json);
+
+    }
 
 }

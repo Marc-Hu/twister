@@ -58,3 +58,5 @@ CREATE TABLE `Friends` (
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 
+ALTER TABLE `twister`.`user`
+  ADD COLUMN `profile_pic` VARCHAR(45) NULL AFTER `password`;

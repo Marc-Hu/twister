@@ -89,6 +89,7 @@ public class UserServices {
             response.put("f_name", user.getFirstName());
             response.put("l_name", user.getLastName());
             response.put("username", user.getUsername());
+            response.put("pic", user.getPic());
             response.put("id", user.getId());
             response.put("code", 200);
             return response;
@@ -207,13 +208,15 @@ public class UserServices {
             for (User u : userlist) {
                 JSONObject user = new JSONObject();
                 user.put("f_name", u.getFirstName());
+                user.put("id", u.getId());
                 user.put("l_name", u.getLastName());
                 user.put("username", u.getUsername());
+                user.put("pic", u.getPic());
 
                 ja.put(user);
             }
             response.put("users", ja);
-            response.put("code", 1);
+            response.put("code", 200);
             return response;
 
         } catch (Exception e) {
@@ -241,10 +244,10 @@ public class UserServices {
             JSONArray ja = new JSONArray();
             for (Friends u : userlist) {
                 JSONObject user = new JSONObject();
-                user.put("f_id", u.getFollowed().getId());
-                user.put("f_l_name", u.getFollowed().getLastName());
-                user.put("f_f_name", u.getFollowed().getFirstName());
-                user.put("f_username", u.getFollowed().getUsername());
+                user.put("id", u.getFollowed().getId());
+                user.put("l_name", u.getFollowed().getLastName());
+                user.put("f_name", u.getFollowed().getFirstName());
+                user.put("username", u.getFollowed().getUsername());
                 user.put("time", u.getTime());
 
                 ja.put(user);

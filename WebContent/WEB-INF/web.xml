@@ -157,7 +157,7 @@
     <context-param>
         <param-name>file-upload</param-name>
         <param-value>
-            C:\Program Files\Apache Software Foundation\Tomcat 8.5\webapps\Twister\photos\
+            C:\Program Files\Apache Software Foundation\Tomcat 8.5\webapps\data\photos\
         </param-value>
         <description>Location to store uploaded file</description>
     </context-param>
